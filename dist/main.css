@@ -1,1 +1,25 @@
-*,:after,:before{border:none;box-sizing:border-box;margin:0;outline:none;padding:0}html{font-size:62.5%}body{font-family:DM Sans,sans-serif;font-size:1.5rem;font-weight:400;width:100%}h1{font-size:5rem}
+/*!*************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/sass/main.scss ***!
+  \*************************************************************************************************************/
+*, ::before, ::after {
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  width: 100%;
+}
+
+h1 {
+  font-size: 5rem;
+}
