@@ -1,0 +1,13 @@
+@mixin mobile{
+    @media screen and (max-width: map-get($breakpoints, mobile)){
+        @content;
+    }
+}
+
+@mixin font-color ($shade: 0%, $color: $tertiary-color) {
+    color: lighten($color, $shade);
+}
+
+@mixin background-color ($shade: 0%, $color: $tertiary-color) {
+    background-color: lighten($color, $shade);
+}
