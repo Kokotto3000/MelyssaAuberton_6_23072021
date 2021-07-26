@@ -14,12 +14,55 @@ html {
 }
 
 body {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
   font-family: "DM Sans", sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 400;
   width: 100%;
+  width: 90%;
+  margin: 3rem auto;
 }
 
 h1 {
-  font-size: 5rem;
+  font-size: 3.6rem;
+  font-weight: 400;
+  color: #901C1C;
+}
+
+.tag {
+  border: 0.05rem solid #c4c4c4;
+  border-radius: 1.1rem;
+  text-decoration: none;
+  color: #901C1C;
+  padding: 0 0.5rem 0 0.5rem;
+  text-align: center;
+  margin: 0.2rem;
+}
+
+header {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.header-logo {
+  width: 30rem;
+}
+
+.header-nav ul {
+  display: flex;
+  flex-flow: row wrap;
+  list-style: none;
+  padding: 1rem;
+}
+
+.header-nav {
+  max-width: 100rem;
+}
+
+main {
+  display: flex;
+  flex-flow: column wrap;
 }

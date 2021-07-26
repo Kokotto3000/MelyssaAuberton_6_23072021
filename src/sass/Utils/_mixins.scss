@@ -11,3 +11,13 @@
 @mixin background-color ($shade: 0%, $color: $tertiary-color) {
     background-color: lighten($color, $shade);
 }
+
+@mixin main-border-radius{
+    border-radius: .5rem;
+}
+
+@mixin tag-border ($shade: 0%, $color: $tertiary-color){
+    border: .05rem solid lighten($color, $shade);
+    border-radius: 1.1rem;
+}
+$main-border: .5rem solid 
