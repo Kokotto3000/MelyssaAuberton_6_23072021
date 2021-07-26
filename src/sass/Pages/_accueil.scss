@@ -5,4 +5,29 @@
 main{
     display: flex;
     flex-flow: column wrap;
+    h1{
+        position: fixed;
+        top: 0;
+        right: 0;
+        @include mobile{
+            position: static;
+        }
+    }
+}
+
+.photographers{
+    display: flex;
+    flex-flow: row wrap;
+    article{
+        flex-basis: 30%;
+        img{
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            // clip-path: circle(50px at 100px);
+            border-radius: 50%;
+            // filter: drop-shadow(0 0 0.75rem crimson);
+            // background: url("./../assets/images/Ellie Rose/Architecture_Connected_Curves.jpg");
+        }
+    }
 }
