@@ -7,3 +7,10 @@
     margin: .2rem;
     text-transform: capitalize;
 }
+
+.button{
+    background-color: $primary-color;
+    @include main-border-radius;
+    color: white;
+    padding: 2rem .5rem;
+}

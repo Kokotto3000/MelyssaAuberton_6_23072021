@@ -1,0 +1,46 @@
+#photographer-presentation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include background-color(98%);
+    img{
+        background-color: #c4c4c4;
+        width: 20rem;
+        height: 20rem;
+        object-fit: cover;
+        clip-path: circle(90px at 100px);
+        border-radius: 50%;
+    }
+    ul{
+        display: flex;
+    }
+}
+
+#photographer-medias{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+    div{
+        flex-basis: 30%;
+    }
+    img{
+        background-color: #c4c4c4;
+        width: 35rem;
+        height: 30rem;
+        object-fit: cover;
+        @include main-border-radius;
+    }
+    video{
+        background-color: #c4c4c4;
+        width: 35rem;
+        height: 30rem;
+        object-fit: cover;
+        @include main-border-radius;
+    }
+}
+
+.photographer-medias__filter{
+    display: flex;
+}

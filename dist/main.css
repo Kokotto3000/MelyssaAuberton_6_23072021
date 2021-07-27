@@ -59,6 +59,13 @@ a {
   text-transform: capitalize;
 }
 
+.button {
+  background-color: #901C1C;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 2rem 0.5rem;
+}
+
 header {
   display: flex;
   flex-flow: row wrap;
@@ -120,5 +127,52 @@ main h1 {
   border-radius: 50%;
 }
 .photographers-card footer ul {
+  display: flex;
+}
+
+#photographer-presentation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+}
+#photographer-presentation img {
+  background-color: #c4c4c4;
+  width: 20rem;
+  height: 20rem;
+  object-fit: cover;
+  clip-path: circle(90px at 100px);
+  border-radius: 50%;
+}
+#photographer-presentation ul {
+  display: flex;
+}
+
+#photographer-medias {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+}
+#photographer-medias div {
+  flex-basis: 30%;
+}
+#photographer-medias img {
+  background-color: #c4c4c4;
+  width: 35rem;
+  height: 30rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+#photographer-medias video {
+  background-color: #c4c4c4;
+  width: 35rem;
+  height: 30rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.photographer-medias__filter {
   display: flex;
 }
