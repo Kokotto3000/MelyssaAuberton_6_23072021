@@ -85,9 +85,6 @@ function displayPhotographerPresentation(){
     }
 }
 
-<<<<<<< HEAD
-init();
-=======
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 
 function displayPhotographerMedias(id){
@@ -101,4 +98,3 @@ function displayPhotographerMedias(id){
 }
 
 //petit commentaire pour recommencer mon merge
->>>>>>> main
