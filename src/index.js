@@ -96,3 +96,5 @@ function displayPhotographerMedias(id){
             mediaCard.displayPhotographerMedias(id);
         });
 }
+
+//petit commentaire pour recommencer mon merge
