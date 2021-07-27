@@ -1,7 +1,7 @@
 body{
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     font-family: $main-font;
     font-size: 1.2rem;
     font-weight: 400;
@@ -10,12 +10,26 @@ body{
     margin: 3rem auto;
 }
 
+main{
+    width: 100%;
+}
+
 h1{
     font-size: 3.6rem;
     font-weight: 400;
     color: $primary-color;
 }
 
+h2{
+    color: $secondary-color;
+    font-weight: 400;
+}
+
 ul{
     list-style: none;
+}
+
+a{
+    text-decoration: none;
+
 }

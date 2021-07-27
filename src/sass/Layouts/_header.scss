@@ -4,8 +4,9 @@ header{
     // justify-content: space-between;
     align-items: center;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 1rem;
+    left: 1rem;
+    // flex-basis: 75%;
     @include mobile{
         position: static;
     }

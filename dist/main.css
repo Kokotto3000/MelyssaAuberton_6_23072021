@@ -16,7 +16,7 @@ html {
 body {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   font-family: "DM Sans", sans-serif;
   font-size: 1.2rem;
   font-weight: 400;
@@ -25,14 +25,27 @@ body {
   margin: 3rem auto;
 }
 
+main {
+  width: 100%;
+}
+
 h1 {
   font-size: 3.6rem;
   font-weight: 400;
   color: #901C1C;
 }
 
+h2 {
+  color: #D3573C;
+  font-weight: 400;
+}
+
 ul {
   list-style: none;
+}
+
+a {
+  text-decoration: none;
 }
 
 .tag {
@@ -51,8 +64,8 @@ header {
   flex-flow: row wrap;
   align-items: center;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 1rem;
+  left: 1rem;
 }
 @media screen and (max-width: 1024px) {
   header {
@@ -70,35 +83,42 @@ header {
   padding: 1rem;
 }
 
-.header-nav {
-  max-width: 100rem;
-}
-
 main {
   display: flex;
   flex-flow: column wrap;
+  margin: 3rem auto;
 }
 main h1 {
   position: fixed;
-  top: 0;
-  right: 0;
-}
-@media screen and (max-width: 1024px) {
-  main h1 {
-    position: static;
-  }
+  top: 1rem;
+  right: 1rem;
 }
 
 .photographers {
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
 }
 .photographers article {
   flex-basis: 30%;
+  text-align: center;
 }
-.photographers article img {
+
+.photographers-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.photographers-card img {
+  background-color: #c4c4c4;
   width: 200px;
   height: 200px;
   object-fit: cover;
+  clip-path: circle(90px at 100px);
   border-radius: 50%;
+}
+.photographers-card footer ul {
+  display: flex;
 }
