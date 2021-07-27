@@ -85,4 +85,20 @@ function displayPhotographerPresentation(){
     }
 }
 
+<<<<<<< HEAD
 init();
+=======
+if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
+
+function displayPhotographerMedias(id){
+    console.log(id);
+    const filteredMedias= mediasData.filter(media => media.photographerId == id);
+        console.log(filteredMedias);        
+        filteredMedias.forEach(media =>{            
+            const mediaCard = new Medias(media);
+            mediaCard.displayPhotographerMedias(id);
+        });
+}
+
+//petit commentaire pour recommencer mon merge
+>>>>>>> main
