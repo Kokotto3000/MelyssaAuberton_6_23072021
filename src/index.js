@@ -22,7 +22,6 @@ if(NAV){
     });
 }
 
-
 import { Photographer } from './js/Photographer';
 import { Medias } from './js/Medias';
 
@@ -79,7 +78,7 @@ function displayPhotographerPresentation(){
                     e.preventDefault();
                     console.log('ouverture de la modale contact');
                 });
-                if(PHOTOGRAPHER_MEDIAS) displayPhotographerMedias(photographer.id);
+                if(PHOTOGRAPHER_MEDIAS) updatePhotographerMedias(photographer.id);
             }
         });
     }
@@ -87,12 +86,24 @@ function displayPhotographerPresentation(){
 
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 
-function displayPhotographerMedias(id){
-    console.log(id);
+function updatePhotographerMedias(id, filter){
+    // console.log(id + " " + filter);
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
-        console.log(filteredMedias);        
-        filteredMedias.forEach(media =>{            
-            const mediaCard = new Medias(media);
-            mediaCard.displayPhotographerMedias(id);
+    // console.log(filteredMedias);  
+    filteredMedias.forEach(media =>{            
+        const mediaCard = new Medias(media);
+        mediaCard.displayPhotographerMedias(id, "tagFilter", filter);
+    });
+
+    // création de l'évènement sur les boutons tag pour les medias
+    const TAG_FILTERS= document.querySelectorAll('.tag');
+    // console.log(TAG_FILTERS);
+    TAG_FILTERS.forEach(tagFilter => {    
+        tagFilter.addEventListener("click", (e)=> {
+            e.preventDefault();
+            // console.log(tagFilter.target);
+            PHOTOGRAPHER_MEDIAS.innerHTML="";
+            updatePhotographerMedias(id, tagFilter.target);
         });
+    });
 }
