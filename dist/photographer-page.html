@@ -32,9 +32,42 @@
         <section id="photographer-presentation"></section>
         <div class="photographer-medias__filter">
             <p>Trier</p>
-            <button class="button">Popularité <i class="fas fa-chevron-down"></i></button>
+
+            <div class="filter-buttons">
+                <button class="button filter-button__original">Popularité <i class="fas fa-chevron-down"></i></button>
+            </div>
+            
         </div>
         <section id="photographer-medias"></section>
+
+        <div class="bground">
+            <div class="content">
+              <span class="close"></span>
+              <div class="modal-body">
+                <form name="reserve" action="index.html" method="GET" novalidate onsubmit="return validate(event);">
+                  <div class="formData">
+                    <label for="first">Prénom</label><br>
+                    <input class="text-control" type="text" id="first" name="first" /><br>
+                    <span id="error-first"></span>               
+                  </div>
+    
+                  <div class="formData">
+                    <label for="last">Nom</label><br>
+                    <input class="text-control" type="text" id="last" name="last" /><br>
+                    <span id="error-last"></span>
+                  </div>
+    
+                  <div class="formData">
+                    <label for="email">E-mail</label><br>
+                    <input class="text-control" type="email" id="email" name="email" /><br>
+                    <span id="error-email"></span>
+                  </div>
+
+                  <input class="btn-submit" type="submit" value="C'est parti" />
+                </form>
+              </div>
+            </div>
+          </div>
     </main>
 
     <footer>

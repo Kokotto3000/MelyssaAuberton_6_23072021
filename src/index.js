@@ -22,7 +22,6 @@ if(NAV){
     });
 }
 
-
 import { Photographer } from './js/Photographer';
 import { Medias } from './js/Medias';
 
@@ -59,12 +58,15 @@ function init(filter){
 
 if(PHOTOGRAPHERS_SECTION) init();
 
+const urlParams= window.location.search;
+const params= new URLSearchParams(urlParams);
+
 // fonction pour l'affichage de la présentation sur la page photographe
 function displayPhotographerPresentation(){
     // console.log(window.location);
     // console.log(window.location.search);
-    const urlParams= window.location.search;
-    const params= new URLSearchParams(urlParams);
+    // const urlParams= window.location.search;
+    // const params= new URLSearchParams(urlParams);
 
     for (let p of params) {
         // console.log(p[1]);
@@ -79,7 +81,7 @@ function displayPhotographerPresentation(){
                     e.preventDefault();
                     console.log('ouverture de la modale contact');
                 });
-                if(PHOTOGRAPHER_MEDIAS) displayPhotographerMedias(photographer.id);
+                if(PHOTOGRAPHER_MEDIAS) updatePhotographerMedias(photographer.id);
             }
         });
     }
@@ -87,14 +89,133 @@ function displayPhotographerPresentation(){
 
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 
-function displayPhotographerMedias(id){
-    console.log(id);
+function updatePhotographerMedias(id, filter){
+    // console.log(id + " " + filter);
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
-        console.log(filteredMedias);        
-        filteredMedias.forEach(media =>{            
-            const mediaCard = new Medias(media);
-            mediaCard.displayPhotographerMedias(id);
+    // console.log(filteredMedias);  
+    filteredMedias.forEach(media =>{            
+        const mediaCard = new Medias(media);
+        mediaCard.displayPhotographerMedias(id, filter);
+    });
+
+    // création de l'évènement sur les boutons tag pour les medias
+    const TAG_FILTERS= document.querySelectorAll('.tag');
+    // console.log(TAG_FILTERS);
+    TAG_FILTERS.forEach(tagFilter => {    
+        tagFilter.addEventListener("click", (e)=> {
+            e.preventDefault();
+            // console.log(tagFilter.target);
+            PHOTOGRAPHER_MEDIAS.innerHTML="";
+            updatePhotographerMedias(id, tagFilter.target);
         });
+    });
 }
 
-//petit commentaire pour recommencer mon merge
+
+// DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
+const modalbg = document.querySelector(".bground");
+const modalBtn = document.querySelectorAll(".contact-button");
+const modalCloseBtn = document.querySelector(".close");
+const inputs= document.querySelector('form').elements;
+
+// Regex
+//attention cette regex n'accepte pas les accents et caractères "spéciaux" ( -, ', ...)
+const checkString = /^[a-zA-Z]{2}/;
+const checkMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+//EVENTS
+// launch modal event
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+// close modal event
+modalCloseBtn.addEventListener("click", closeModal);
+
+// launch modal form
+function launchModal() {
+    modalbg.style.display = "block";
+  }
+  
+// close modal form
+function closeModal() {
+modalbg.style.display = "none";
+}
+
+//DROPDOWN
+const DROPDOWN= document.querySelector('.filter-buttons');
+const BUTTON= document.querySelector('.filter-button__original');
+
+const dropdownElements= ["popularité", "date", "titre"];
+
+BUTTON.addEventListener('click', openDropdown);
+
+function openDropdown(){
+    console.log("openDropdown");
+    DROPDOWN.innerHTML= dropdownElements.map(element => `<button class="button filter-buttons__button">${element}</button>`).join('');
+    const DROPDOWN_BUTTONS= document.querySelectorAll('.filter-buttons__button');
+    DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));
+}
+
+function filterDropdown(e){
+    // console.log(e.target.textContent);
+    // console.log(params);
+    switch(e.target.textContent) {
+        case "popularité" :
+            // trie des données et affichage
+            function compareLikes(a,b){
+                if(a.likes < b.likes){
+                    return -1;
+                }
+                else if(a.likes > b.likes){
+                    return 1;
+                }
+                return 0;
+            }            
+            mediasData.sort(compareLikes);
+            for (let p of params){
+                PHOTOGRAPHER_MEDIAS.innerHTML="";
+                updatePhotographerMedias(p[1]);
+            }
+            break;
+        case "date" :
+            function compareDate(a,b){
+                if(a.date < b.date){
+                    return -1;
+                }
+                else if(a.date > b.date){
+                    return 1;
+                }
+                return 0;
+            }            
+            mediasData.sort(compareDate);            
+            for (let p of params){
+                PHOTOGRAPHER_MEDIAS.innerHTML="";
+                updatePhotographerMedias(p[1]);
+            }
+            break;
+        case "titre" :
+            function compareTitle(a,b){
+                if(a.title < b.title){
+                    return -1;
+                }
+                else if(a.title > b.title){
+                    return 1;
+                }
+                return 0;
+            }
+            
+            mediasData.sort(compareTitle);
+            for (let p of params){
+                PHOTOGRAPHER_MEDIAS.innerHTML="";
+                updatePhotographerMedias(p[1]);
+            }
+            break;
+        default :
+            console.log("error");
+    }
+
+    
+    
+    DROPDOWN.innerHTML= `<button class="button filter-button__original">${e.target.textContent}</button>`;
+    const BUTTON= document.querySelector('.filter-button__original');
+    BUTTON.addEventListener('click', openDropdown);
+}
