@@ -58,12 +58,15 @@ function init(filter){
 
 if(PHOTOGRAPHERS_SECTION) init();
 
+const urlParams= window.location.search;
+const params= new URLSearchParams(urlParams);
+
 // fonction pour l'affichage de la présentation sur la page photographe
 function displayPhotographerPresentation(){
     // console.log(window.location);
     // console.log(window.location.search);
-    const urlParams= window.location.search;
-    const params= new URLSearchParams(urlParams);
+    // const urlParams= window.location.search;
+    // const params= new URLSearchParams(urlParams);
 
     for (let p of params) {
         // console.log(p[1]);
@@ -92,7 +95,7 @@ function updatePhotographerMedias(id, filter){
     // console.log(filteredMedias);  
     filteredMedias.forEach(media =>{            
         const mediaCard = new Medias(media);
-        mediaCard.displayPhotographerMedias(id, "tagFilter", filter);
+        mediaCard.displayPhotographerMedias(id, filter);
     });
 
     // création de l'évènement sur les boutons tag pour les medias
@@ -109,7 +112,7 @@ function updatePhotographerMedias(id, filter){
 }
 
 
-// DOM Elements
+// DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".contact-button");
 const modalCloseBtn = document.querySelector(".close");
@@ -141,7 +144,7 @@ modalbg.style.display = "none";
 const DROPDOWN= document.querySelector('.filter-buttons');
 const BUTTON= document.querySelector('.filter-button__original');
 
-const dropdownElements= ["Popularité", "Date", "Titre"];
+const dropdownElements= ["popularité", "date", "titre"];
 
 BUTTON.addEventListener('click', openDropdown);
 
@@ -153,7 +156,65 @@ function openDropdown(){
 }
 
 function filterDropdown(e){
-    console.log(e.target.textContent);
+    // console.log(e.target.textContent);
+    // console.log(params);
+    switch(e.target.textContent) {
+        case "popularité" :
+            // trie des données et affichage
+            function compareLikes(a,b){
+                if(a.likes < b.likes){
+                    return -1;
+                }
+                else if(a.likes > b.likes){
+                    return 1;
+                }
+                return 0;
+            }            
+            mediasData.sort(compareLikes);
+            for (let p of params){
+                PHOTOGRAPHER_MEDIAS.innerHTML="";
+                updatePhotographerMedias(p[1]);
+            }
+            break;
+        case "date" :
+            function compareDate(a,b){
+                if(a.date < b.date){
+                    return -1;
+                }
+                else if(a.date > b.date){
+                    return 1;
+                }
+                return 0;
+            }            
+            mediasData.sort(compareDate);            
+            for (let p of params){
+                PHOTOGRAPHER_MEDIAS.innerHTML="";
+                updatePhotographerMedias(p[1]);
+            }
+            break;
+        case "titre" :
+            function compareTitle(a,b){
+                if(a.title < b.title){
+                    return -1;
+                }
+                else if(a.title > b.title){
+                    return 1;
+                }
+                return 0;
+            }
+            
+            mediasData.sort(compareTitle);
+            for (let p of params){
+                PHOTOGRAPHER_MEDIAS.innerHTML="";
+                updatePhotographerMedias(p[1]);
+            }
+            break;
+        default :
+            console.log("error");
+    }
+
+    
+    
     DROPDOWN.innerHTML= `<button class="button filter-button__original">${e.target.textContent}</button>`;
     const BUTTON= document.querySelector('.filter-button__original');
     BUTTON.addEventListener('click', openDropdown);
