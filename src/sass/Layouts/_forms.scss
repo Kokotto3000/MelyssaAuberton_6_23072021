@@ -1,0 +1,131 @@
+/* SECTION MODAL */
+/* Modal general */
+
+.bground, .thanks{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(26, 39, 156, 0.4);
+  }
+  
+  @media screen and (max-width: 540px) {
+    .bground, .thanks {
+      bottom: 0;
+      padding: 20vh 0 0 0;
+      /* background-color: transparent; */
+    }
+  }
+  
+  .content {
+    margin: 5% auto;
+    width: 100%;
+    max-width: 500px;
+    animation-name: modalopen;
+    animation-duration: var(--modal-duration);
+    background: #232323;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    padding-top: 10px;
+  }
+  
+  @media screen and (max-width: 540px) {
+    .content {
+      margin: 0 auto;
+    }
+  }
+  
+  .modal-body {
+    padding: 15px 8%;
+    margin: 15px auto;
+  }
+  
+  /* Modal form */
+  
+  /* general inputs et labels */
+  label {
+    font-family: var(--font-default);
+    font-size: 17px;
+    font-weight: normal;
+    display: inline-block;
+    margin-bottom: 11px;
+  }
+  
+  input {
+    padding: 8px;
+    border: 0.8px solid #ccc;
+  }
+  
+  .text-control {
+    margin: 0;
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 20px;
+    height: 48px;
+  }
+  
+  /* checkboxes part */
+  
+  .text-label {
+    font-weight: normal;
+    font-size: 16px;
+  }
+  
+  /* cross closing button */
+  .close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 32px;
+    height: 32px;
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(0.7);
+  }
+  
+  .close:before,
+  .close:after {
+    position: absolute;
+    left: 15px;
+    content: " ";
+    height: 33px;
+    width: 3px;
+    background-color: #fff;
+  }
+  
+  .close:before {
+    transform: rotate(45deg);
+  }
+  
+  .close:after {
+    transform: rotate(-45deg);
+  }
+  
+  /* validation part */
+  .span-error {
+    font-size: 0.4em;
+    color: #e54858;
+    display: block;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    text-align: left;
+    line-height: 0.3;
+    transition: 0.3s;
+  }
+  
+  .invalid {
+    border: 2px solid #e54858;
+    color: red;
+  }
+  
+  .valid {
+    border: 2px solid green;
+    color: green;
+  }

@@ -107,3 +107,54 @@ function updatePhotographerMedias(id, filter){
         });
     });
 }
+
+
+// DOM Elements
+const modalbg = document.querySelector(".bground");
+const modalBtn = document.querySelectorAll(".contact-button");
+const modalCloseBtn = document.querySelector(".close");
+const inputs= document.querySelector('form').elements;
+
+// Regex
+//attention cette regex n'accepte pas les accents et caractères "spéciaux" ( -, ', ...)
+const checkString = /^[a-zA-Z]{2}/;
+const checkMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+//EVENTS
+// launch modal event
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+// close modal event
+modalCloseBtn.addEventListener("click", closeModal);
+
+// launch modal form
+function launchModal() {
+    modalbg.style.display = "block";
+  }
+  
+// close modal form
+function closeModal() {
+modalbg.style.display = "none";
+}
+
+//DROPDOWN
+const DROPDOWN= document.querySelector('.filter-buttons');
+const BUTTON= document.querySelector('.filter-button__original');
+
+const dropdownElements= ["Popularité", "Date", "Titre"];
+
+BUTTON.addEventListener('click', openDropdown);
+
+function openDropdown(){
+    console.log("openDropdown");
+    DROPDOWN.innerHTML= dropdownElements.map(element => `<button class="button filter-buttons__button">${element}</button>`).join('');
+    const DROPDOWN_BUTTONS= document.querySelectorAll('.filter-buttons__button');
+    DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));
+}
+
+function filterDropdown(e){
+    console.log(e.target.textContent);
+    DROPDOWN.innerHTML= `<button class="button filter-button__original">${e.target.textContent}</button>`;
+    const BUTTON= document.querySelector('.filter-button__original');
+    BUTTON.addEventListener('click', openDropdown);
+}
