@@ -6,7 +6,7 @@ import FishEyeData from './data/FishEyeData.json';
 const photographersData= FishEyeData.photographers;
 const mediasData= FishEyeData.media;
 // const PHOTOGRAPHERS_SECTION= document.getElementById('photographers');
-import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS } from './js/globals';
+import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES} from './js/globals';
 
 //création d'un tableau pour la création de la barre de nav
 const tags= ["portrait", "art", "fashion", "architecture", "travel", "sport", "animals", "events"];
@@ -160,50 +160,21 @@ function filterDropdown(e){
     // console.log(params);
     switch(e.target.textContent) {
         case "popularité" :
-            // trie des données et affichage
-            function compareLikes(a,b){
-                if(a.likes < b.likes){
-                    return -1;
-                }
-                else if(a.likes > b.likes){
-                    return 1;
-                }
-                return 0;
-            }            
-            mediasData.sort(compareLikes);
+            mediasData.sort((a, b) => a.likes - b.likes);
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
                 updatePhotographerMedias(p[1]);
             }
             break;
         case "date" :
-            function compareDate(a,b){
-                if(a.date < b.date){
-                    return -1;
-                }
-                else if(a.date > b.date){
-                    return 1;
-                }
-                return 0;
-            }            
-            mediasData.sort(compareDate);            
+            mediasData.sort((a,b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0));   
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
                 updatePhotographerMedias(p[1]);
             }
             break;
         case "titre" :
-            function compareTitle(a,b){
-                if(a.title < b.title){
-                    return -1;
-                }
-                else if(a.title > b.title){
-                    return 1;
-                }
-                return 0;
-            }
-            
-            mediasData.sort(compareTitle);
+            mediasData.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
                 updatePhotographerMedias(p[1]);
@@ -213,9 +184,15 @@ function filterDropdown(e){
             console.log("error");
     }
 
-    
-    
     DROPDOWN.innerHTML= `<button class="button filter-button__original">${e.target.textContent}</button>`;
     const BUTTON= document.querySelector('.filter-button__original');
     BUTTON.addEventListener('click', openDropdown);
 }
+
+// LIKES
+const LIKE_BUTTONS= document.querySelectorAll('.like-button');
+LIKE_BUTTONS.forEach(button=> button.addEventListener('click', ()=> {
+    const LIKES= button.querySelector('span');
+    LIKES.innerText++;
+    PHOTOGRAPHER_LIKES.innerText++;
+}));
