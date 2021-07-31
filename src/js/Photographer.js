@@ -1,4 +1,5 @@
-import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION } from './globals';
+import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_PRICE } from './globals';
+// import { Medias } from './Medias';
 
 export class Photographer{
     constructor(data){
@@ -9,7 +10,7 @@ export class Photographer{
         this.tagline= data.tagline;
         this.price= data.price;
         this.tags= data.tags;
-        this.portrait= data.portrait;
+        this.portrait= data.portrait;        
     }
     
     // méthode pour la création des cartes sur la page d'accueil
@@ -55,5 +56,8 @@ export class Photographer{
         photographerImg.setAttribute("src", `../assets/images/Photographers-ID-Photos/${this.portrait}`);
         photographerImg.setAttribute("alt", `photo de ${this.name}`);
         PHOTOGRAPHER_PRESENTATION.appendChild(photographerImg);
+
+        // FOOTER
+        PHOTOGRAPHER_PRICE.innerText= this.price;
     }
 }
