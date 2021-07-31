@@ -191,8 +191,14 @@ function filterDropdown(e){
 
 // LIKES
 const LIKE_BUTTONS= document.querySelectorAll('.like-button');
-LIKE_BUTTONS.forEach(button=> button.addEventListener('click', ()=> {
-    const LIKES= button.querySelector('span');
-    LIKES.innerText++;
-    PHOTOGRAPHER_LIKES.innerText++;
-}));
+LIKE_BUTTONS.forEach(button=> {
+    let isCliquable= true;
+    button.addEventListener('click', ()=> {
+        if(isCliquable){
+            const LIKES= button.querySelector('span');
+            LIKES.innerText++;
+            PHOTOGRAPHER_LIKES.innerText++;
+            isCliquable= false;
+        }
+    });
+});
