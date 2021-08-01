@@ -1,6 +1,4 @@
-import { PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES } from "./globals";
-
-let likes= 0;
+import { PHOTOGRAPHER_MEDIAS } from "./globals";
 
 export class Medias{
     constructor(media){
@@ -34,10 +32,11 @@ export class Medias{
             }
         }
 
-        // FOOTER
-        likes += this.likes;
-        console.log(likes);
-        PHOTOGRAPHER_LIKES.innerText= likes;
+        // // FOOTER
+        // likes += this.likes;
+        // console.log(likes);
+        // PHOTOGRAPHER_LIKES.innerText= likes;
+        
     }
 
     displayPhoto(id){
