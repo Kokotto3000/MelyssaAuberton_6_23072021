@@ -322,19 +322,19 @@ function displayPhotographerPresentation(){
                 if(PHOTOGRAPHER_MEDIAS){
                     updatePhotographerMedias(photographer.id);
 
-                    //LIGHTBOX
-                    const MEDIAS= document.querySelectorAll('.photographer-media');
-                    const LIGHTBOX= document.getElementById('lightbox');
-                    MEDIAS.forEach(media => media.addEventListener('click', ()=> {
-                        LIGHTBOX.style.display= 'block';
-                    }));
-                    console.log(mediasArray);                                       
+                    // //LIGHTBOX
+                    // const MEDIAS= document.querySelectorAll('.photographer-media');
+                    // const LIGHTBOX= document.getElementById('lightbox');
+                    // MEDIAS.forEach(media => media.addEventListener('click', ()=> {
+                    //     LIGHTBOX.style.display= 'block';
+                    // }));
+                    // console.log(mediasArray);                                       
 
-                    LIGHTBOX.innerHTML= `<div class='lightbox-content'><span class="lightbox-content__close-button"></span></div>`;
-                    const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button');    
-                    LIGHTBOX_CLOSE.addEventListener('click', ()=> {
-                        LIGHTBOX.style.display= "none";
-                    });
+                    // LIGHTBOX.innerHTML= `<div class='lightbox-content'><span class="lightbox-content__close-button"></span></div>`;
+                    // const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button');    
+                    // LIGHTBOX_CLOSE.addEventListener('click', ()=> {
+                    //     LIGHTBOX.style.display= "none";
+                    // });
                 } 
 
                 if(FORM){
@@ -388,6 +388,7 @@ if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 
 
 function updatePhotographerMedias(id, filter){
+    mediasArray= [];
     let likes= 0;    
     // console.log(id + " " + filter);
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
@@ -433,6 +434,20 @@ function updatePhotographerMedias(id, filter){
     });
 
     disabledLikes= true;
+
+    //LIGHTBOX
+    const MEDIAS= document.querySelectorAll('.photographer-media');
+    const LIGHTBOX= document.getElementById('lightbox');
+    MEDIAS.forEach(media => media.addEventListener('click', ()=> {
+        LIGHTBOX.style.display= 'block';
+    }));
+    console.log(mediasArray);                                       
+
+    LIGHTBOX.innerHTML= `<div class='lightbox-content'><span class="lightbox-content__close-button"></span></div>`;
+    const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button');    
+    LIGHTBOX_CLOSE.addEventListener('click', ()=> {
+        LIGHTBOX.style.display= "none";
+    });
 }
 
 //DROPDOWN
@@ -485,6 +500,7 @@ function filterDropdown(e){
     DROPDOWN.innerHTML= `<button class="button filter-button__original">${e.target.textContent}</button>`;
     const BUTTON= document.querySelector('.filter-button__original');
     BUTTON.addEventListener('click', openDropdown);
+
 }
 
 
