@@ -3,15 +3,30 @@ import './sass/main.scss';
 
 //import des données du fichier .json
 import FishEyeData from './data/FishEyeData.json';
+// importe les globals
+import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES, FORM } from './js/globals';
+// importe les classes
+import { Photographer } from './js/Photographer';
+import { Medias } from './js/Medias';
+import { Contact } from './js/Contact';
+
+//CONSTANTES ET VARIABLES
 const photographersData= FishEyeData.photographers;
 const mediasData= FishEyeData.media;
-// const PHOTOGRAPHERS_SECTION= document.getElementById('photographers');
-import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES} from './js/globals';
 
 //création d'un tableau pour la création de la barre de nav
 const tags= ["portrait", "art", "fashion", "architecture", "travel", "sport", "animals", "events"];
 const NAV= document.querySelector('.header-nav');
 const navList= document.createElement('ul');
+
+// récupérère les infos de l'url
+const urlParams= window.location.search;
+const params= new URLSearchParams(urlParams);
+
+let disabledLikes= false;
+let isValidFirst= false;
+let isValidLast= false;
+let isValidMail= false;
 
 if(NAV){
     NAV.appendChild(navList);
@@ -21,9 +36,6 @@ if(NAV){
         navList.appendChild(newTag);
     });
 }
-
-import { Photographer } from './js/Photographer';
-import { Medias } from './js/Medias';
 
 // fonction de filtre des boutons tags
 // génère les cartes des photographes
@@ -58,9 +70,6 @@ function init(filter){
 
 if(PHOTOGRAPHERS_SECTION) init();
 
-const urlParams= window.location.search;
-const params= new URLSearchParams(urlParams);
-
 // fonction pour l'affichage de la présentation sur la page photographe
 function displayPhotographerPresentation(){
     // console.log(window.location);
@@ -75,13 +84,45 @@ function displayPhotographerPresentation(){
             if(photographer.id == p[1]){
                 const photographerPresentation = new Photographer(photographer);
                 photographerPresentation.updatePhotographerPresentation();
-                // création de l'évènement sur les boutons contact
-                const CONTACT_BUTTON= document.querySelector('.contact-button');
-                CONTACT_BUTTON.addEventListener("click", (e)=> {
-                    e.preventDefault();
-                    console.log('ouverture de la modale contact');
-                });
+                
+
                 if(PHOTOGRAPHER_MEDIAS) updatePhotographerMedias(photographer.id);
+
+                if(FORM){
+                    const contact= new Contact();
+                    // DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
+                    const modalbg = document.querySelector(".bground");
+                    const modalBtn = document.querySelector(".contact-button");
+                    const modalCloseBtn = document.querySelector(".close");                    
+                    const SUCCESS= document.getElementById("success-message");
+                    
+                    // modal events
+                    modalBtn.addEventListener("click", launchModal);
+                    modalCloseBtn.addEventListener("click", closeModal);
+                    FORM.addEventListener("submit", e => {
+                        e.preventDefault();
+                        contact.stringValidation("first") ? isValidFirst= true : false;
+                        contact.stringValidation("last") ? isValidLast= true : false;
+                        contact.emailValidation() ? isValidMail= true : false;
+                        if(isValidFirst && isValidLast && isValidMail) {
+                            console.log("Message pour : " + photographer.name + "\nPrénom : " + contact.getInputs('first').value + "\nNom : " + contact.getInputs('last').value + "\nEmail : " + contact.getInputs('email').value + "\nMessage : " + contact.getInputs('message').value);                            
+                            contact.resetForm();
+                            isValidFirst= isValidLast= isValidMail= false; 
+                            SUCCESS.innerText= "Message bien envoyé !";                           
+                        }
+                        else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
+                    });
+
+                    function launchModal() {
+                        modalbg.style.display = "block";
+                    }
+                    
+                    function closeModal() {
+                        modalbg.style.display = "none";
+                        contact.resetForm();
+                        isValidFirst= isValidLast= isValidMail= false;
+                    }
+                }
             }
         });
     }
@@ -90,12 +131,20 @@ function displayPhotographerPresentation(){
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 
 function updatePhotographerMedias(id, filter){
+    let likes= 0;    
     // console.log(id + " " + filter);
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
     // console.log(filteredMedias);  
     filteredMedias.forEach(media =>{            
         const mediaCard = new Medias(media);
         mediaCard.displayPhotographerMedias(id, filter);
+
+        // FOOTER
+        if(!disabledLikes){
+            likes += mediaCard.likes;
+            PHOTOGRAPHER_LIKES.innerText= likes;
+        }
+        
     });
 
     // création de l'évènement sur les boutons tag pour les medias
@@ -109,35 +158,22 @@ function updatePhotographerMedias(id, filter){
             updatePhotographerMedias(id, tagFilter.target);
         });
     });
-}
 
+    // LIKES event
+    const LIKE_BUTTONS= document.querySelectorAll('.like-button');
+    LIKE_BUTTONS.forEach(button=> {
+        let isCliquable= true;
+        button.addEventListener('click', ()=> {
+            if(isCliquable){
+                const LIKES= button.querySelector('span');
+                LIKES.innerText++;
+                PHOTOGRAPHER_LIKES.innerText++;
+                isCliquable= false;
+            }
+        });
+    });
 
-// DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".contact-button");
-const modalCloseBtn = document.querySelector(".close");
-const inputs= document.querySelector('form').elements;
-
-// Regex
-//attention cette regex n'accepte pas les accents et caractères "spéciaux" ( -, ', ...)
-const checkString = /^[a-zA-Z]{2}/;
-const checkMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-//EVENTS
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// close modal event
-modalCloseBtn.addEventListener("click", closeModal);
-
-// launch modal form
-function launchModal() {
-    modalbg.style.display = "block";
-  }
-  
-// close modal form
-function closeModal() {
-modalbg.style.display = "none";
+    disabledLikes= true;
 }
 
 //DROPDOWN
@@ -146,10 +182,9 @@ const BUTTON= document.querySelector('.filter-button__original');
 
 const dropdownElements= ["popularité", "date", "titre"];
 
-BUTTON.addEventListener('click', openDropdown);
+if(BUTTON) BUTTON.addEventListener('click', openDropdown);
 
 function openDropdown(){
-    console.log("openDropdown");
     DROPDOWN.innerHTML= dropdownElements.map(element => `<button class="button filter-buttons__button">${element}</button>`).join('');
     const DROPDOWN_BUTTONS= document.querySelectorAll('.filter-buttons__button');
     DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));
@@ -158,11 +193,13 @@ function openDropdown(){
 function filterDropdown(e){
     // console.log(e.target.textContent);
     // console.log(params);
+    
     switch(e.target.textContent) {
         case "popularité" :
             mediasData.sort((a, b) => a.likes - b.likes);
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
+                likes= 0;
                 updatePhotographerMedias(p[1]);
             }
             break;
@@ -170,6 +207,7 @@ function filterDropdown(e){
             mediasData.sort((a,b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0));   
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
+                likes= 0;
                 updatePhotographerMedias(p[1]);
             }
             break;
@@ -177,6 +215,7 @@ function filterDropdown(e){
             mediasData.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
+                likes= 0;
                 updatePhotographerMedias(p[1]);
             }
             break;
