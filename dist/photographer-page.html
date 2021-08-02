@@ -44,35 +44,33 @@
             <div class="content">
                 <span class="close"></span>
                 <div class="modal-body">
-                    <form name="reserve" action="index.html" method="GET" novalidate onsubmit="return validate(event);">
+                    <form name="reserve" action="photographer-page.html" method="GET" novalidate >
                         <div class="formData">
                             <label for="first">Prénom</label><br>
                             <input class="text-control" type="text" id="first" name="first" /><br>
-                            <span id="error-first"></span>               
+                            <span id="error-first" class="message"></span>               
                         </div>
           
                         <div class="formData">
                             <label for="last">Nom</label><br>
                             <input class="text-control" type="text" id="last" name="last" /><br>
-                            <span id="error-last"></span>
+                            <span id="error-last" class="message"></span>
                         </div>
           
                         <div class="formData">
                             <label for="email">E-mail</label><br>
                             <input class="text-control" type="email" id="email" name="email" /><br>
-                            <span id="error-email"></span>
+                            <span id="error-email" class="message"></span>
                         </div>
 
                         <div class="formData">
-                            <label for="message">Votre message ici :</label>
-
-                            <textarea id="message" name="message"
-                                      rows="5" cols="33" class="text-control">Le blabla ici...
-                            </textarea>
-                            <span id="error-message"></span>
+                            <label for="message">Votre message</label>
+                            <textarea id="message" name="message" rows="5" cols="33" class="text-control" placeholder="Le blabla ici"></textarea>
+                            <span id="error-message" class="message"></span>
                         </div>
 
-                        <input class="btn-submit" type="submit" value="C'est parti" />
+                            <input class="btn-submit" type="submit" value="C'est parti" />
+                            <span id="success-message" class="message"></span>
                     </form>
                 </div>  
             </div>

@@ -4,10 +4,11 @@ import './sass/main.scss';
 //import des données du fichier .json
 import FishEyeData from './data/FishEyeData.json';
 // importe les globals
-import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES } from './js/globals';
+import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES, FORM } from './js/globals';
 // importe les classes
 import { Photographer } from './js/Photographer';
 import { Medias } from './js/Medias';
+import { Contact } from './js/Contact';
 
 //CONSTANTES ET VARIABLES
 const photographersData= FishEyeData.photographers;
@@ -23,6 +24,9 @@ const urlParams= window.location.search;
 const params= new URLSearchParams(urlParams);
 
 let disabledLikes= false;
+let isValidFirst= false;
+let isValidLast= false;
+let isValidMail= false;
 
 if(NAV){
     NAV.appendChild(navList);
@@ -81,24 +85,44 @@ function displayPhotographerPresentation(){
                 const photographerPresentation = new Photographer(photographer);
                 photographerPresentation.updatePhotographerPresentation();
                 
-                // DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
-                const modalbg = document.querySelector(".bground");
-                const modalBtn = document.querySelectorAll(".contact-button");
-                const modalCloseBtn = document.querySelector(".close");
-                const inputs= document.querySelector('form').elements;
 
-                // modal events
-                modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-                modalCloseBtn.addEventListener("click", closeModal);
-
-                function launchModal() {
-                    modalbg.style.display = "block";
-                }
-                
-                function closeModal() {
-                    modalbg.style.display = "none";
-                }
                 if(PHOTOGRAPHER_MEDIAS) updatePhotographerMedias(photographer.id);
+
+                if(FORM){
+                    const contact= new Contact();
+                    // DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
+                    const modalbg = document.querySelector(".bground");
+                    const modalBtn = document.querySelector(".contact-button");
+                    const modalCloseBtn = document.querySelector(".close");                    
+                    const SUCCESS= document.getElementById("success-message");
+                    
+                    // modal events
+                    modalBtn.addEventListener("click", launchModal);
+                    modalCloseBtn.addEventListener("click", closeModal);
+                    FORM.addEventListener("submit", e => {
+                        e.preventDefault();
+                        contact.stringValidation("first") ? isValidFirst= true : false;
+                        contact.stringValidation("last") ? isValidLast= true : false;
+                        contact.emailValidation() ? isValidMail= true : false;
+                        if(isValidFirst && isValidLast && isValidMail) {
+                            console.log("Message pour : " + photographer.name + "\nPrénom : " + contact.getInputs('first').value + "\nNom : " + contact.getInputs('last').value + "\nEmail : " + contact.getInputs('email').value + "\nMessage : " + contact.getInputs('message').value);                            
+                            contact.resetForm();
+                            isValidFirst= isValidLast= isValidMail= false; 
+                            SUCCESS.innerText= "Message bien envoyé !";                           
+                        }
+                        else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
+                    });
+
+                    function launchModal() {
+                        modalbg.style.display = "block";
+                    }
+                    
+                    function closeModal() {
+                        modalbg.style.display = "none";
+                        contact.resetForm();
+                        isValidFirst= isValidLast= isValidMail= false;
+                    }
+                }
             }
         });
     }
@@ -152,42 +176,6 @@ function updatePhotographerMedias(id, filter){
     disabledLikes= true;
 }
 
-// // DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
-// const modalbg = document.querySelector(".bground");
-// const modalBtn = document.querySelectorAll(".contact-button");
-// const modalCloseBtn = document.querySelector(".close");
-// const inputs= document.querySelector('form').elements;
-
-// Regex
-//attention cette regex n'accepte pas les accents et caractères "spéciaux" ( -, ', ...)
-const checkString = /^[a-zA-Z]{2}/;
-const checkMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-// //EVENTS
-// // launch modal event
-// modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// // close modal event
-// modalCloseBtn.addEventListener("click", closeModal);
-
-// // launch modal form
-// function launchModal() {
-//     modalbg.style.display = "block";
-//   }
-  
-// // close modal form
-// function closeModal() {
-// modalbg.style.display = "none";
-// }
-
-// //DROPDOWN
-// const DROPDOWN= document.querySelector('.filter-buttons');
-// const BUTTON= document.querySelector('.filter-button__original');
-
-// const dropdownElements= ["popularité", "date", "titre"];
-
-// BUTTON.addEventListener('click', openDropdown);
-
 //DROPDOWN
 const DROPDOWN= document.querySelector('.filter-buttons');
 const BUTTON= document.querySelector('.filter-button__original');
@@ -239,3 +227,4 @@ function filterDropdown(e){
     const BUTTON= document.querySelector('.filter-button__original');
     BUTTON.addEventListener('click', openDropdown);
 }
+
