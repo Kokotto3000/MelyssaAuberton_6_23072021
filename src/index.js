@@ -28,6 +28,8 @@ let isValidFirst= false;
 let isValidLast= false;
 let isValidMail= false;
 
+let mediasArray= [];
+
 if(NAV){
     NAV.appendChild(navList);
     tags.forEach(tag=> {
@@ -86,7 +88,23 @@ function displayPhotographerPresentation(){
                 photographerPresentation.updatePhotographerPresentation();
                 
 
-                if(PHOTOGRAPHER_MEDIAS) updatePhotographerMedias(photographer.id);
+                if(PHOTOGRAPHER_MEDIAS){
+                    updatePhotographerMedias(photographer.id);
+
+                    //LIGHTBOX
+                    const MEDIAS= document.querySelectorAll('.photographer-media');
+                    const LIGHTBOX= document.getElementById('lightbox');
+                    MEDIAS.forEach(media => media.addEventListener('click', ()=> {
+                        LIGHTBOX.style.display= 'block';
+                    }));
+                    console.log(mediasArray);                                       
+
+                    LIGHTBOX.innerHTML= `<div class='lightbox-content'><span class="lightbox-content__close-button"></span></div>`;
+                    const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button');    
+                    LIGHTBOX_CLOSE.addEventListener('click', ()=> {
+                        LIGHTBOX.style.display= "none";
+                    });
+                } 
 
                 if(FORM){
                     const contact= new Contact();
@@ -97,8 +115,14 @@ function displayPhotographerPresentation(){
                     const SUCCESS= document.getElementById("success-message");
                     
                     // modal events
-                    modalBtn.addEventListener("click", launchModal);
-                    modalCloseBtn.addEventListener("click", closeModal);
+                    modalBtn.addEventListener("click", ()=> {
+                        modalbg.style.display = "block";
+                    });
+                    modalCloseBtn.addEventListener("click", ()=> {
+                        modalbg.style.display = "none";
+                        contact.resetForm();
+                        isValidFirst= isValidLast= isValidMail= false;
+                    });
                     FORM.addEventListener("submit", e => {
                         e.preventDefault();
                         contact.stringValidation("first") ? isValidFirst= true : false;
@@ -113,15 +137,15 @@ function displayPhotographerPresentation(){
                         else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
                     });
 
-                    function launchModal() {
-                        modalbg.style.display = "block";
-                    }
+                    // function launchModal() {
+                    //     modalbg.style.display = "block";
+                    // }
                     
-                    function closeModal() {
-                        modalbg.style.display = "none";
-                        contact.resetForm();
-                        isValidFirst= isValidLast= isValidMail= false;
-                    }
+                    // function closeModal() {
+                    //     modalbg.style.display = "none";
+                    //     contact.resetForm();
+                    //     isValidFirst= isValidLast= isValidMail= false;
+                    // }
                 }
             }
         });
@@ -129,6 +153,8 @@ function displayPhotographerPresentation(){
 }
 
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
+
+
 
 function updatePhotographerMedias(id, filter){
     let likes= 0;    
@@ -138,6 +164,8 @@ function updatePhotographerMedias(id, filter){
     filteredMedias.forEach(media =>{            
         const mediaCard = new Medias(media);
         mediaCard.displayPhotographerMedias(id, filter);
+        // création du tableau pour la lightbox
+        mediasArray.push({"media" : mediaCard.image || mediaCard.video, "title" : mediaCard.title});
 
         // FOOTER
         if(!disabledLikes){
