@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 866:
+/***/ 847:
 /***/ (() => {
 
 
@@ -14,6 +14,8 @@ const PHOTOGRAPHER_PRESENTATION= document.getElementById('photographer-presentat
 const PHOTOGRAPHER_MEDIAS= document.getElementById('photographer-medias');
 const PHOTOGRAPHER_LIKES= document.getElementById('likes');
 const PHOTOGRAPHER_PRICE= document.getElementById('price');
+const FORM= document.querySelector("form");
+
 ;// CONCATENATED MODULE: ./src/js/Photographer.js
 
 // import { Medias } from './Medias';
@@ -80,22 +82,6 @@ class Photographer{
 }
 ;// CONCATENATED MODULE: ./src/js/Medias.js
 
-<<<<<<< HEAD
-=======
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sass_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sass/main.scss */ \"./src/sass/main.scss\");\n/* harmony import */ var _data_FishEyeData_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./data/FishEyeData.json */ \"./src/data/FishEyeData.json\");\n/* harmony import */ var _js_globals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/globals */ \"./src/js/globals.js\");\n/* harmony import */ var _js_Photographer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/Photographer */ \"./src/js/Photographer.js\");\n/* harmony import */ var _js_Medias__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/Medias */ \"./src/js/Medias.js\");\n/* harmony import */ var _js_Contact__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/Contact */ \"./src/js/Contact.js\");\n//import du main.scss\r\n\r\n\r\n//import des données du fichier .json\r\n\r\n// importe les globals\r\n\r\n// importe les classes\r\n\r\n\r\n\r\n\r\n//CONSTANTES ET VARIABLES\r\nconst photographersData= _data_FishEyeData_json__WEBPACK_IMPORTED_MODULE_1__.photographers;\r\nconst mediasData= _data_FishEyeData_json__WEBPACK_IMPORTED_MODULE_1__.media;\r\n\r\n//création d'un tableau pour la création de la barre de nav\r\nconst tags= [\"portrait\", \"art\", \"fashion\", \"architecture\", \"travel\", \"sport\", \"animals\", \"events\"];\r\nconst NAV= document.querySelector('.header-nav');\r\nconst navList= document.createElement('ul');\r\n\r\n// récupérère les infos de l'url\r\nconst urlParams= window.location.search;\r\nconst params= new URLSearchParams(urlParams);\r\n\r\nlet disabledLikes= false;\r\nlet isValidFirst= false;\r\nlet isValidLast= false;\r\nlet isValidMail= false;\r\n\r\nif(NAV){\r\n    NAV.appendChild(navList);\r\n    tags.forEach(tag=> {\r\n        const newTag= document.createElement('li');\r\n        newTag.innerHTML=`<a class=\"tag\" target=\"${tag}\" href=\"#${tag}\">#${tag}</a>`;\r\n        navList.appendChild(newTag);\r\n    });\r\n}\r\n\r\n// fonction de filtre des boutons tags\r\n// génère les cartes des photographes\r\nfunction init(filter){\r\n    // console.log(filter);\r\n    if(!filter){\r\n        // console.log(photographersData);\r\n        photographersData.forEach(photographer =>{\r\n            const photographerCard = new _js_Photographer__WEBPACK_IMPORTED_MODULE_3__.Photographer(photographer);\r\n            photographerCard.updatePhotographerCards();\r\n        });\r\n    }else{        \r\n        const filteredPhotographers= photographersData.filter(photographer => photographer.tags.includes(filter));\r\n        // console.log(filteredPhotographers);        \r\n        filteredPhotographers.forEach(photographer =>{            \r\n            const photographerCard = new _js_Photographer__WEBPACK_IMPORTED_MODULE_3__.Photographer(photographer);\r\n            photographerCard.updatePhotographerCards();\r\n        });\r\n    } \r\n    // création de l'évènement sur les boutons tag\r\n    const TAG_FILTERS= document.querySelectorAll('.tag');\r\n    // console.log(TAG_FILTERS);\r\n    TAG_FILTERS.forEach(tagFilter => {    \r\n        tagFilter.addEventListener(\"click\", (e)=> {\r\n            e.preventDefault();\r\n            // console.log(tagFilter.target);\r\n            _js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHERS_SECTION.innerHTML=\"\";\r\n            init(tagFilter.target);\r\n        });\r\n    });\r\n}\r\n\r\nif(_js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHERS_SECTION) init();\r\n\r\n// fonction pour l'affichage de la présentation sur la page photographe\r\nfunction displayPhotographerPresentation(){\r\n    // console.log(window.location);\r\n    // console.log(window.location.search);\r\n    // const urlParams= window.location.search;\r\n    // const params= new URLSearchParams(urlParams);\r\n\r\n    for (let p of params) {\r\n        // console.log(p[1]);\r\n        photographersData.forEach(photographer => {\r\n            // console.log(photographer.id)\r\n            if(photographer.id == p[1]){\r\n                const photographerPresentation = new _js_Photographer__WEBPACK_IMPORTED_MODULE_3__.Photographer(photographer);\r\n                photographerPresentation.updatePhotographerPresentation();\r\n                \r\n\r\n                if(_js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHER_MEDIAS) updatePhotographerMedias(photographer.id);\r\n\r\n                if(_js_globals__WEBPACK_IMPORTED_MODULE_2__.FORM){\r\n                    const contact= new _js_Contact__WEBPACK_IMPORTED_MODULE_5__.Contact();\r\n                    // DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!\r\n                    const modalbg = document.querySelector(\".bground\");\r\n                    const modalBtn = document.querySelector(\".contact-button\");\r\n                    const modalCloseBtn = document.querySelector(\".close\");                    \r\n                    const SUCCESS= document.getElementById(\"success-message\");\r\n                    \r\n                    // modal events\r\n                    modalBtn.addEventListener(\"click\", launchModal);\r\n                    modalCloseBtn.addEventListener(\"click\", closeModal);\r\n                    _js_globals__WEBPACK_IMPORTED_MODULE_2__.FORM.addEventListener(\"submit\", e => {\r\n                        e.preventDefault();\r\n                        contact.stringValidation(\"first\") ? isValidFirst= true : false;\r\n                        contact.stringValidation(\"last\") ? isValidLast= true : false;\r\n                        contact.emailValidation() ? isValidMail= true : false;\r\n                        if(isValidFirst && isValidLast && isValidMail) {\r\n                            console.log(\"Message pour : \" + photographer.name + \"\\nPrénom : \" + contact.getInputs('first').value + \"\\nNom : \" + contact.getInputs('last').value + \"\\nEmail : \" + contact.getInputs('email').value + \"\\nMessage : \" + contact.getInputs('message').value);                            \r\n                            contact.resetForm();\r\n                            isValidFirst= isValidLast= isValidMail= false; \r\n                            SUCCESS.innerText= \"Message bien envoyé !\";                           \r\n                        }\r\n                        else SUCCESS.innerText= \"Vérifiez les champs du formulaire.\";\r\n                    });\r\n\r\n                    function launchModal() {\r\n                        modalbg.style.display = \"block\";\r\n                    }\r\n                    \r\n                    function closeModal() {\r\n                        modalbg.style.display = \"none\";\r\n                        contact.resetForm();\r\n                        isValidFirst= isValidLast= isValidMail= false;\r\n                    }\r\n                }\r\n            }\r\n        });\r\n    }\r\n}\r\n\r\nif(_js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();\r\n\r\nfunction updatePhotographerMedias(id, filter){\r\n    let likes= 0;    \r\n    // console.log(id + \" \" + filter);\r\n    const filteredMedias= mediasData.filter(media => media.photographerId == id);\r\n    // console.log(filteredMedias);  \r\n    filteredMedias.forEach(media =>{            \r\n        const mediaCard = new _js_Medias__WEBPACK_IMPORTED_MODULE_4__.Medias(media);\r\n        mediaCard.displayPhotographerMedias(id, filter);\r\n\r\n        // FOOTER\r\n        if(!disabledLikes){\r\n            likes += mediaCard.likes;\r\n            _js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHER_LIKES.innerText= likes;\r\n        }\r\n        \r\n    });\r\n\r\n    // création de l'évènement sur les boutons tag pour les medias\r\n    const TAG_FILTERS= document.querySelectorAll('.tag');\r\n    // console.log(TAG_FILTERS);\r\n    TAG_FILTERS.forEach(tagFilter => {    \r\n        tagFilter.addEventListener(\"click\", (e)=> {\r\n            e.preventDefault();\r\n            // console.log(tagFilter.target);\r\n            _js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHER_MEDIAS.innerHTML=\"\";\r\n            updatePhotographerMedias(id, tagFilter.target);\r\n        });\r\n    });\r\n\r\n    // LIKES event\r\n    const LIKE_BUTTONS= document.querySelectorAll('.like-button');\r\n    LIKE_BUTTONS.forEach(button=> {\r\n        let isCliquable= true;\r\n        button.addEventListener('click', ()=> {\r\n            if(isCliquable){\r\n                const LIKES= button.querySelector('span');\r\n                LIKES.innerText++;\r\n                _js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHER_LIKES.innerText++;\r\n                isCliquable= false;\r\n            }\r\n        });\r\n    });\r\n\r\n    disabledLikes= true;\r\n}\r\n\r\n//DROPDOWN\r\nconst DROPDOWN= document.querySelector('.filter-buttons');\r\nconst BUTTON= document.querySelector('.filter-button__original');\r\n\r\nconst dropdownElements= [\"popularité\", \"date\", \"titre\"];\r\n\r\nif(BUTTON) BUTTON.addEventListener('click', openDropdown);\r\n\r\nfunction openDropdown(){\r\n    DROPDOWN.innerHTML= dropdownElements.map(element => `<button class=\"button filter-buttons__button\">${element}</button>`).join('');\r\n    const DROPDOWN_BUTTONS= document.querySelectorAll('.filter-buttons__button');\r\n    DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));\r\n}\r\n\r\nfunction filterDropdown(e){\r\n    // console.log(e.target.textContent);\r\n    // console.log(params);\r\n    \r\n    switch(e.target.textContent) {\r\n        case \"popularité\" :\r\n            mediasData.sort((a, b) => a.likes - b.likes);\r\n            for (let p of params){\r\n                _js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHER_MEDIAS.innerHTML=\"\";\r\n                likes= 0;\r\n                updatePhotographerMedias(p[1]);\r\n            }\r\n            break;\r\n        case \"date\" :\r\n            mediasData.sort((a,b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0));   \r\n            for (let p of params){\r\n                _js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHER_MEDIAS.innerHTML=\"\";\r\n                likes= 0;\r\n                updatePhotographerMedias(p[1]);\r\n            }\r\n            break;\r\n        case \"titre\" :\r\n            mediasData.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));\r\n            for (let p of params){\r\n                _js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHER_MEDIAS.innerHTML=\"\";\r\n                likes= 0;\r\n                updatePhotographerMedias(p[1]);\r\n            }\r\n            break;\r\n        default :\r\n            console.log(\"error\");\r\n    }\r\n\r\n    DROPDOWN.innerHTML= `<button class=\"button filter-button__original\">${e.target.textContent}</button>`;\r\n    const BUTTON= document.querySelector('.filter-button__original');\r\n    BUTTON.addEventListener('click', openDropdown);\r\n}\r\n\r\n\n\n//# sourceURL=webpack://projet-6/./src/index.js?");
-
-/***/ }),
-
-/***/ "./src/js/Contact.js":
-/*!***************************!*\
-  !*** ./src/js/Contact.js ***!
-  \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Contact\": () => (/* binding */ Contact)\n/* harmony export */ });\n/* harmony import */ var _globals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globals */ \"./src/js/globals.js\");\n\r\n\r\nclass Contact {\r\n    constructor(){\r\n        this.checkString= /^[a-zA-Z]{2}/;\r\n        this.checkMail= /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/;\r\n        this.inputs= _globals__WEBPACK_IMPORTED_MODULE_0__.FORM.elements;\r\n        this.input= \"\";\r\n        this.error= \"\";\r\n        this.messages= document.querySelectorAll('.message');\r\n    }\r\n\r\n    getInputs(input){        \r\n        return this.inputs[input];\r\n    }\r\n\r\n    stringValidation(type){\r\n        switch (type) {\r\n            case \"first\" :\r\n                this.input= this.inputs['first'];\r\n                this.error= document.getElementById('error-first');\r\n                break;\r\n            case \"last\" :\r\n                this.input= this.inputs['last'];\r\n                this.error= document.getElementById('error-last');\r\n                break;\r\n            default :\r\n                console.log(\"validation type error\");\r\n        }\r\n        if(!this.checkString.test(this.input.value.trim())){\r\n            //style modification, error message\r\n            this.input.classList.remove('valid');\r\n            this.input.classList.add('invalid');\r\n            this.error.innerText= \"Veuillez entrer 2 caractères ou plus pour le champ du nom.\";\r\n            this.error.classList.add('span-error');\r\n            return false;\r\n        }else{\r\n            // console.log(this.input.value);\r\n            this.input.classList.remove('invalid');\r\n            this.input.classList.add('valid');\r\n            this.error.classList.remove('span-error');\r\n            this.error.innerText= \"\";\r\n            return true;\r\n        }\r\n    }\r\n\r\n    emailValidation(){\r\n        this.input= this.inputs['email'];\r\n        this.error= document.getElementById('error-email');\r\n        if(!this.checkMail.test(this.input.value.trim())){\r\n            this.error.innerText= \"Vous devez entrer une adresse email valide.\";\r\n            this.input.classList.remove('valid');\r\n            this.input.classList.add('invalid');\r\n            this.error.classList.add('span-error');\r\n            return false;\r\n        }\r\n        else{\r\n            this.input.classList.remove('invalid');\r\n            this.input.classList.add('valid');\r\n            this.error.classList.remove('span-error');\r\n            this.error.innerText= \"\";\r\n            return true;\r\n        }\r\n    }\r\n\r\n    resetForm(){\r\n        _globals__WEBPACK_IMPORTED_MODULE_0__.FORM.reset();\r\n        for(let input of this.inputs){\r\n            input.classList.remove('valid');\r\n            input.classList.remove('invalid');\r\n        }\r\n        this.messages.forEach(message => {\r\n            message.innerText= \"\";\r\n            message.classList.remove('span-error');\r\n        });\r\n    }\r\n\r\n}\r\n\n\n//# sourceURL=webpack://projet-6/./src/js/Contact.js?");
->>>>>>> main
-
-let likes= 0;
 
 class Medias{
     constructor(media){
@@ -111,7 +97,6 @@ class Medias{
         // console.log(media);
     }
 
-<<<<<<< HEAD
     // methode pour l'affichage des medias
     displayPhotographerMedias(id, filter){
         if(!filter){
@@ -129,14 +114,12 @@ class Medias{
                 this.displayVideo(id);
             }
         }
-=======
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Medias\": () => (/* binding */ Medias)\n/* harmony export */ });\n/* harmony import */ var _globals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globals */ \"./src/js/globals.js\");\n\r\n\r\nclass Medias{\r\n    constructor(media){\r\n        this.id= media.id,\r\n        this.photographerId= media.photographerId;\r\n        this.title= media.title;\r\n        this.image= media.image;\r\n        this.video= media.video;\r\n        this.tags= media.tags;\r\n        this.likes= media.likes;\r\n        this.date= media.date;\r\n        this.price= media.price;\r\n        // console.log(media);\r\n    }\r\n\r\n    // methode pour l'affichage des medias\r\n    displayPhotographerMedias(id, filter){\r\n        if(!filter){\r\n            if(this.image){\r\n                this.displayPhoto(id);\r\n            } \r\n            else if(this.video){\r\n                this.displayVideo(id);\r\n            }\r\n        }else{\r\n            if(this.image && this.tags[0] === filter){\r\n                this.displayPhoto(id);\r\n            }\r\n            else if(this.video && this.tags[0] === filter){\r\n                this.displayVideo(id);\r\n            }\r\n        }\r\n\r\n        // // FOOTER\r\n        // likes += this.likes;\r\n        // console.log(likes);\r\n        // PHOTOGRAPHER_LIKES.innerText= likes;\r\n        \r\n    }\r\n\r\n    displayPhoto(id){\r\n        const mediaCard= document.createElement('div');\r\n        // console.log(\"image :\" + this.image);\r\n        const photo= `<img src=\"../assets/images/${id}/${this.image}\" alt=\"\" />`;\r\n        const legend= `<div><p>${this.title}</p><p class=\"like-button\"><span>${this.likes}</span><svg aria-hidden=\"false\" focusable=\"true\" data-prefix=\"far\" data-icon=\"heart\" class=\"heart\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" width=\"30\">\r\n        <path d=\"M259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z\"></path></svg></p></div>`;\r\n        mediaCard.innerHTML= photo + legend;\r\n        _globals__WEBPACK_IMPORTED_MODULE_0__.PHOTOGRAPHER_MEDIAS.appendChild(mediaCard);\r\n        // const LIKE_BUTTON= document.querySelector('.like-button');\r\n        // LIKE_BUTTON.addEventListener('click', ()=> {\r\n        //     this.likes++;\r\n        //     console.log(this.likes);\r\n        //     // this.displayPhoto(this.photographerId);\r\n        // });\r\n    }\r\n\r\n    displayVideo(id){\r\n        const mediaCard= document.createElement('div');\r\n        // console.log(\"video :\" + this.video);\r\n        const video= `<video controls><source src=\"../assets/images/${id}/${this.video}\" alt=\"\" /></video>`;\r\n        const legend= `<div><p>${this.title}</p><p class=\"like-button\"><span>${this.likes}</span><svg aria-hidden=\"false\" focusable=\"true\" data-prefix=\"far\" data-icon=\"heart\" class=\"heart\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" width=\"30\">\r\n        <path d=\"M259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z\"></path></svg></p></div>`;\r\n        mediaCard.innerHTML= video + legend;\r\n        _globals__WEBPACK_IMPORTED_MODULE_0__.PHOTOGRAPHER_MEDIAS.appendChild(mediaCard);\r\n    }\r\n}\n\n//# sourceURL=webpack://projet-6/./src/js/Medias.js?");
->>>>>>> main
 
-        // FOOTER
-        likes += this.likes;
-        console.log(likes);
-        PHOTOGRAPHER_LIKES.innerText= likes;
+        // // FOOTER
+        // likes += this.likes;
+        // console.log(likes);
+        // PHOTOGRAPHER_LIKES.innerText= likes;
+        
     }
 
     displayPhoto(id){
@@ -159,27 +142,122 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
         const mediaCard= document.createElement('div');
         // console.log("video :" + this.video);
         const video= `<video controls><source src="../assets/images/${id}/${this.video}" alt="" /></video>`;
-        const legend= `<div><p>${this.title}</p><p><span>${this.likes}</span><svg aria-hidden="false" focusable="true" data-prefix="far" data-icon="heart" class="heart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
+        const legend= `<div><p>${this.title}</p><p class="like-button"><span>${this.likes}</span><svg aria-hidden="false" focusable="true" data-prefix="far" data-icon="heart" class="heart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
         <path d="M259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z"></path></svg></p></div>`;
         mediaCard.innerHTML= video + legend;
         PHOTOGRAPHER_MEDIAS.appendChild(mediaCard);
     }
 }
+;// CONCATENATED MODULE: ./src/js/Contact.js
+
+
+class Contact {
+    constructor(){
+        this.checkString= /^[a-zA-Z]{2}/;
+        this.checkMail= /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        this.inputs= FORM.elements;
+        this.input= "";
+        this.error= "";
+        this.messages= document.querySelectorAll('.message');
+    }
+
+    getInputs(input){        
+        return this.inputs[input];
+    }
+
+    stringValidation(type){
+        switch (type) {
+            case "first" :
+                this.input= this.inputs['first'];
+                this.error= document.getElementById('error-first');
+                break;
+            case "last" :
+                this.input= this.inputs['last'];
+                this.error= document.getElementById('error-last');
+                break;
+            default :
+                console.log("validation type error");
+        }
+        if(!this.checkString.test(this.input.value.trim())){
+            //style modification, error message
+            this.input.classList.remove('valid');
+            this.input.classList.add('invalid');
+            this.error.innerText= "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+            this.error.classList.add('span-error');
+            return false;
+        }else{
+            // console.log(this.input.value);
+            this.input.classList.remove('invalid');
+            this.input.classList.add('valid');
+            this.error.classList.remove('span-error');
+            this.error.innerText= "";
+            return true;
+        }
+    }
+
+    emailValidation(){
+        this.input= this.inputs['email'];
+        this.error= document.getElementById('error-email');
+        if(!this.checkMail.test(this.input.value.trim())){
+            this.error.innerText= "Vous devez entrer une adresse email valide.";
+            this.input.classList.remove('valid');
+            this.input.classList.add('invalid');
+            this.error.classList.add('span-error');
+            return false;
+        }
+        else{
+            this.input.classList.remove('invalid');
+            this.input.classList.add('valid');
+            this.error.classList.remove('span-error');
+            this.error.innerText= "";
+            return true;
+        }
+    }
+
+    resetForm(){
+        FORM.reset();
+        for(let input of this.inputs){
+            input.classList.remove('valid');
+            input.classList.remove('invalid');
+        }
+        this.messages.forEach(message => {
+            message.innerText= "";
+            message.classList.remove('span-error');
+        });
+    }
+
+}
+
 ;// CONCATENATED MODULE: ./src/index.js
 //import du main.scss
 
 
 //import des données du fichier .json
 
+// importe les globals
+
+// importe les classes
+
+
+
+
+//CONSTANTES ET VARIABLES
 const photographersData= FishEyeData_namespaceObject.G;
 const mediasData= FishEyeData_namespaceObject.B;
-// const PHOTOGRAPHERS_SECTION= document.getElementById('photographers');
-
 
 //création d'un tableau pour la création de la barre de nav
 const tags= ["portrait", "art", "fashion", "architecture", "travel", "sport", "animals", "events"];
 const NAV= document.querySelector('.header-nav');
 const navList= document.createElement('ul');
+
+// récupérère les infos de l'url
+const urlParams= window.location.search;
+const params= new URLSearchParams(urlParams);
+
+let disabledLikes= false;
+let isValidFirst= false;
+let isValidLast= false;
+let isValidMail= false;
 
 if(NAV){
     NAV.appendChild(navList);
@@ -189,9 +267,6 @@ if(NAV){
         navList.appendChild(newTag);
     });
 }
-
-
-
 
 // fonction de filtre des boutons tags
 // génère les cartes des photographes
@@ -226,9 +301,6 @@ function init(filter){
 
 if(PHOTOGRAPHERS_SECTION) init();
 
-const urlParams= window.location.search;
-const params= new URLSearchParams(urlParams);
-
 // fonction pour l'affichage de la présentation sur la page photographe
 function displayPhotographerPresentation(){
     // console.log(window.location);
@@ -243,13 +315,45 @@ function displayPhotographerPresentation(){
             if(photographer.id == p[1]){
                 const photographerPresentation = new Photographer(photographer);
                 photographerPresentation.updatePhotographerPresentation();
-                // création de l'évènement sur les boutons contact
-                const CONTACT_BUTTON= document.querySelector('.contact-button');
-                CONTACT_BUTTON.addEventListener("click", (e)=> {
-                    e.preventDefault();
-                    console.log('ouverture de la modale contact');
-                });
+                
+
                 if(PHOTOGRAPHER_MEDIAS) updatePhotographerMedias(photographer.id);
+
+                if(FORM){
+                    const contact= new Contact();
+                    // DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
+                    const modalbg = document.querySelector(".bground");
+                    const modalBtn = document.querySelector(".contact-button");
+                    const modalCloseBtn = document.querySelector(".close");                    
+                    const SUCCESS= document.getElementById("success-message");
+                    
+                    // modal events
+                    modalBtn.addEventListener("click", launchModal);
+                    modalCloseBtn.addEventListener("click", closeModal);
+                    FORM.addEventListener("submit", e => {
+                        e.preventDefault();
+                        contact.stringValidation("first") ? isValidFirst= true : false;
+                        contact.stringValidation("last") ? isValidLast= true : false;
+                        contact.emailValidation() ? isValidMail= true : false;
+                        if(isValidFirst && isValidLast && isValidMail) {
+                            console.log("Message pour : " + photographer.name + "\nPrénom : " + contact.getInputs('first').value + "\nNom : " + contact.getInputs('last').value + "\nEmail : " + contact.getInputs('email').value + "\nMessage : " + contact.getInputs('message').value);                            
+                            contact.resetForm();
+                            isValidFirst= isValidLast= isValidMail= false; 
+                            SUCCESS.innerText= "Message bien envoyé !";                           
+                        }
+                        else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
+                    });
+
+                    function launchModal() {
+                        modalbg.style.display = "block";
+                    }
+                    
+                    function closeModal() {
+                        modalbg.style.display = "none";
+                        contact.resetForm();
+                        isValidFirst= isValidLast= isValidMail= false;
+                    }
+                }
             }
         });
     }
@@ -258,12 +362,20 @@ function displayPhotographerPresentation(){
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 
 function updatePhotographerMedias(id, filter){
+    let likes= 0;    
     // console.log(id + " " + filter);
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
     // console.log(filteredMedias);  
     filteredMedias.forEach(media =>{            
         const mediaCard = new Medias(media);
         mediaCard.displayPhotographerMedias(id, filter);
+
+        // FOOTER
+        if(!disabledLikes){
+            likes += mediaCard.likes;
+            PHOTOGRAPHER_LIKES.innerText= likes;
+        }
+        
     });
 
     // création de l'évènement sur les boutons tag pour les medias
@@ -277,35 +389,22 @@ function updatePhotographerMedias(id, filter){
             updatePhotographerMedias(id, tagFilter.target);
         });
     });
-}
 
+    // LIKES event
+    const LIKE_BUTTONS= document.querySelectorAll('.like-button');
+    LIKE_BUTTONS.forEach(button=> {
+        let isCliquable= true;
+        button.addEventListener('click', ()=> {
+            if(isCliquable){
+                const LIKES= button.querySelector('span');
+                LIKES.innerText++;
+                PHOTOGRAPHER_LIKES.innerText++;
+                isCliquable= false;
+            }
+        });
+    });
 
-// DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".contact-button");
-const modalCloseBtn = document.querySelector(".close");
-const inputs= document.querySelector('form').elements;
-
-// Regex
-//attention cette regex n'accepte pas les accents et caractères "spéciaux" ( -, ', ...)
-const checkString = /^[a-zA-Z]{2}/;
-const checkMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-//EVENTS
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// close modal event
-modalCloseBtn.addEventListener("click", closeModal);
-
-// launch modal form
-function launchModal() {
-    modalbg.style.display = "block";
-  }
-  
-// close modal form
-function closeModal() {
-modalbg.style.display = "none";
+    disabledLikes= true;
 }
 
 //DROPDOWN
@@ -314,10 +413,9 @@ const BUTTON= document.querySelector('.filter-button__original');
 
 const dropdownElements= ["popularité", "date", "titre"];
 
-BUTTON.addEventListener('click', openDropdown);
+if(BUTTON) BUTTON.addEventListener('click', openDropdown);
 
 function openDropdown(){
-    console.log("openDropdown");
     DROPDOWN.innerHTML= dropdownElements.map(element => `<button class="button filter-buttons__button">${element}</button>`).join('');
     const DROPDOWN_BUTTONS= document.querySelectorAll('.filter-buttons__button');
     DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));
@@ -326,11 +424,13 @@ function openDropdown(){
 function filterDropdown(e){
     // console.log(e.target.textContent);
     // console.log(params);
+    
     switch(e.target.textContent) {
         case "popularité" :
             mediasData.sort((a, b) => a.likes - b.likes);
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
+                likes= 0;
                 updatePhotographerMedias(p[1]);
             }
             break;
@@ -338,6 +438,7 @@ function filterDropdown(e){
             mediasData.sort((a,b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0));   
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
+                likes= 0;
                 updatePhotographerMedias(p[1]);
             }
             break;
@@ -345,6 +446,7 @@ function filterDropdown(e){
             mediasData.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
+                likes= 0;
                 updatePhotographerMedias(p[1]);
             }
             break;
@@ -365,10 +467,6 @@ LIKE_BUTTONS.forEach(button=> button.addEventListener('click', ()=> {
     PHOTOGRAPHER_LIKES.innerText++;
 }));
 
-<<<<<<< HEAD
-=======
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"PHOTOGRAPHERS_SECTION\": () => (/* binding */ PHOTOGRAPHERS_SECTION),\n/* harmony export */   \"PHOTOGRAPHER_PRESENTATION\": () => (/* binding */ PHOTOGRAPHER_PRESENTATION),\n/* harmony export */   \"PHOTOGRAPHER_MEDIAS\": () => (/* binding */ PHOTOGRAPHER_MEDIAS),\n/* harmony export */   \"PHOTOGRAPHER_LIKES\": () => (/* binding */ PHOTOGRAPHER_LIKES),\n/* harmony export */   \"PHOTOGRAPHER_PRICE\": () => (/* binding */ PHOTOGRAPHER_PRICE),\n/* harmony export */   \"FORM\": () => (/* binding */ FORM)\n/* harmony export */ });\nconst PHOTOGRAPHERS_SECTION= document.getElementById('photographers');\r\nconst PHOTOGRAPHER_PRESENTATION= document.getElementById('photographer-presentation');\r\nconst PHOTOGRAPHER_MEDIAS= document.getElementById('photographer-medias');\r\nconst PHOTOGRAPHER_LIKES= document.getElementById('likes');\r\nconst PHOTOGRAPHER_PRICE= document.getElementById('price');\r\nconst FORM= document.querySelector(\"form\");\r\n\n\n//# sourceURL=webpack://projet-6/./src/js/globals.js?");
->>>>>>> main
 
 /***/ })
 
@@ -379,7 +477,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__[866]();
+/******/ 	__webpack_modules__[847]();
 /******/ 	
 /******/ })()
 ;
