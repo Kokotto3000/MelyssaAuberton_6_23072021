@@ -4,11 +4,12 @@ import './sass/main.scss';
 //import des données du fichier .json
 import FishEyeData from './data/FishEyeData.json';
 // importe les globals
-import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES, FORM } from './js/globals';
+import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES, FORM, LIGHTBOX } from './js/globals';
 // importe les classes
 import { Photographer } from './js/Photographer';
 import { Medias } from './js/Medias';
 import { Contact } from './js/Contact';
+import { Lightbox } from './js/Lightbox';
 
 //CONSTANTES ET VARIABLES
 const photographersData= FishEyeData.photographers;
@@ -28,7 +29,7 @@ let isValidFirst= false;
 let isValidLast= false;
 let isValidMail= false;
 
-let mediasArray= [];
+let sliderArray= [];
 
 if(NAV){
     NAV.appendChild(navList);
@@ -90,20 +91,6 @@ function displayPhotographerPresentation(){
 
                 if(PHOTOGRAPHER_MEDIAS){
                     updatePhotographerMedias(photographer.id);
-
-                    //LIGHTBOX
-                    const MEDIAS= document.querySelectorAll('.photographer-media');
-                    const LIGHTBOX= document.getElementById('lightbox');
-                    MEDIAS.forEach(media => media.addEventListener('click', ()=> {
-                        LIGHTBOX.style.display= 'block';
-                    }));
-                    console.log(mediasArray);                                       
-
-                    LIGHTBOX.innerHTML= `<div class='lightbox-content'><span class="lightbox-content__close-button"></span></div>`;
-                    const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button');    
-                    LIGHTBOX_CLOSE.addEventListener('click', ()=> {
-                        LIGHTBOX.style.display= "none";
-                    });
                 } 
 
                 if(FORM){
@@ -136,16 +123,6 @@ function displayPhotographerPresentation(){
                         }
                         else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
                     });
-
-                    // function launchModal() {
-                    //     modalbg.style.display = "block";
-                    // }
-                    
-                    // function closeModal() {
-                    //     modalbg.style.display = "none";
-                    //     contact.resetForm();
-                    //     isValidFirst= isValidLast= isValidMail= false;
-                    // }
                 }
             }
         });
@@ -154,9 +131,8 @@ function displayPhotographerPresentation(){
 
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 
-
-
 function updatePhotographerMedias(id, filter){
+    sliderArray= [];
     let likes= 0;    
     // console.log(id + " " + filter);
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
@@ -165,7 +141,7 @@ function updatePhotographerMedias(id, filter){
         const mediaCard = new Medias(media);
         mediaCard.displayPhotographerMedias(id, filter);
         // création du tableau pour la lightbox
-        mediasArray.push({"media" : mediaCard.image || mediaCard.video, "title" : mediaCard.title});
+        sliderArray.push(mediaCard);
 
         // FOOTER
         if(!disabledLikes){
@@ -202,6 +178,20 @@ function updatePhotographerMedias(id, filter){
     });
 
     disabledLikes= true;
+
+    //LIGHTBOX
+    
+    const MEDIAS= document.querySelectorAll('.photographer-media');
+    // const LIGHTBOX= document.getElementById('lightbox');
+    console.log(sliderArray);
+    MEDIAS.forEach(media => media.addEventListener('click', ()=> {
+        let sliderIndex= sliderArray.map(sliderId => sliderId.id).indexOf(Number(media.id));
+        // console.log(sliderIds);
+        LIGHTBOX.style.display= 'block';
+        // console.log(sliderIds.indexOf(Number(media.id)));
+        const lightbox= new Lightbox(sliderArray);
+        lightbox.displayLightbox(sliderIndex);
+    }));
 }
 
 //DROPDOWN
@@ -254,6 +244,7 @@ function filterDropdown(e){
     DROPDOWN.innerHTML= `<button class="button filter-button__original">${e.target.textContent}</button>`;
     const BUTTON= document.querySelector('.filter-button__original');
     BUTTON.addEventListener('click', openDropdown);
+
 }
 
 // LIKES

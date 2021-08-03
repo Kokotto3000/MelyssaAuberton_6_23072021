@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 847:
+/***/ 115:
 /***/ (() => {
 
 
@@ -15,6 +15,7 @@ const PHOTOGRAPHER_MEDIAS= document.getElementById('photographer-medias');
 const PHOTOGRAPHER_LIKES= document.getElementById('likes');
 const PHOTOGRAPHER_PRICE= document.getElementById('price');
 const FORM= document.querySelector("form");
+const LIGHTBOX= document.getElementById('lightbox');
 
 ;// CONCATENATED MODULE: ./src/js/Photographer.js
 
@@ -125,7 +126,7 @@ class Medias{
     displayPhoto(id){
         const mediaCard= document.createElement('div');
         // console.log("image :" + this.image);
-        const photo= `<img class="photographer-media" src="../assets/images/${id}/${this.image}" alt="" />`;
+        const photo= `<img class="photographer-media" id="${this.id}" src="../assets/images/${id}/${this.image}" alt="" />`;
         const legend= `<div><p>${this.title}</p><p class="like-button"><span>${this.likes}</span><svg aria-hidden="false" focusable="true" data-prefix="far" data-icon="heart" class="heart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
         <path d="M259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z"></path></svg></p></div>`;
         mediaCard.innerHTML= photo + legend;
@@ -228,6 +229,38 @@ class Contact {
 
 }
 
+;// CONCATENATED MODULE: ./src/js/Lightbox.js
+
+
+class Lightbox{
+    constructor(array){
+        this.lightbox= LIGHTBOX;
+        this.slider= array;
+    }
+    displayLightbox(index){
+        this.index= index;
+        if(this.slider[this.index].image){
+            this.lightbox.innerHTML= `<div class='lightbox-content'><div class="lightbox-content__close-button"></div><figure><img src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].image}" alt="" /><figcaption>${this.slider[this.index].title}</figcaption></figure><div class="lightbox-content__previous-button"></div><div class="lightbox-content__next-button"></div></div>`;
+        }else if(this.slider[this.index].video){
+            this.lightbox.innerHTML= `<div class='lightbox-content'><div class="lightbox-content__close-button"></div><video controls><source src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].video}" alt="" /><figcaption>${this.slider[this.index].title}</figcaption></video><div class="lightbox-content__previous-button"></div><div class="lightbox-content__next-button"></div></div>`;
+        }
+        
+        const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button').addEventListener('click', ()=> {
+            LIGHTBOX.style.display= "none";
+        });
+        const LIGHTBOX_PREVIOUS= document.querySelector('.lightbox-content__previous-button').addEventListener('click', ()=> {
+            console.log('previous');
+            this.index <= 0 ? this.index= this.slider.length - 1 : this.index--;
+            this.displayLightbox(this.index);
+        });
+        const LIGHTBOX_NEXT= document.querySelector('.lightbox-content__next-button').addEventListener('click', ()=> {
+            console.log('next');
+            // this.index++;
+            this.index >= this.slider.length - 1 ? this.index= 0 : this.index++;
+            this.displayLightbox(this.index);
+        });
+    }
+}
 ;// CONCATENATED MODULE: ./src/index.js
 //import du main.scss
 
@@ -237,6 +270,7 @@ class Contact {
 // importe les globals
 
 // importe les classes
+
 
 
 
@@ -259,7 +293,7 @@ let isValidFirst= false;
 let isValidLast= false;
 let isValidMail= false;
 
-let mediasArray= [];
+let sliderArray= [];
 
 if(NAV){
     NAV.appendChild(navList);
@@ -321,20 +355,6 @@ function displayPhotographerPresentation(){
 
                 if(PHOTOGRAPHER_MEDIAS){
                     updatePhotographerMedias(photographer.id);
-
-                    //LIGHTBOX
-                    const MEDIAS= document.querySelectorAll('.photographer-media');
-                    const LIGHTBOX= document.getElementById('lightbox');
-                    MEDIAS.forEach(media => media.addEventListener('click', ()=> {
-                        LIGHTBOX.style.display= 'block';
-                    }));
-                    console.log(mediasArray);                                       
-
-                    LIGHTBOX.innerHTML= `<div class='lightbox-content'><span class="lightbox-content__close-button"></span></div>`;
-                    const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button');    
-                    LIGHTBOX_CLOSE.addEventListener('click', ()=> {
-                        LIGHTBOX.style.display= "none";
-                    });
                 } 
 
                 if(FORM){
@@ -367,16 +387,6 @@ function displayPhotographerPresentation(){
                         }
                         else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
                     });
-
-                    // function launchModal() {
-                    //     modalbg.style.display = "block";
-                    // }
-                    
-                    // function closeModal() {
-                    //     modalbg.style.display = "none";
-                    //     contact.resetForm();
-                    //     isValidFirst= isValidLast= isValidMail= false;
-                    // }
                 }
             }
         });
@@ -385,9 +395,8 @@ function displayPhotographerPresentation(){
 
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 
-
-
 function updatePhotographerMedias(id, filter){
+    sliderArray= [];
     let likes= 0;    
     // console.log(id + " " + filter);
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
@@ -396,7 +405,7 @@ function updatePhotographerMedias(id, filter){
         const mediaCard = new Medias(media);
         mediaCard.displayPhotographerMedias(id, filter);
         // création du tableau pour la lightbox
-        mediasArray.push({"media" : mediaCard.image || mediaCard.video, "title" : mediaCard.title});
+        sliderArray.push(mediaCard);
 
         // FOOTER
         if(!disabledLikes){
@@ -433,6 +442,20 @@ function updatePhotographerMedias(id, filter){
     });
 
     disabledLikes= true;
+
+    //LIGHTBOX
+    
+    const MEDIAS= document.querySelectorAll('.photographer-media');
+    // const LIGHTBOX= document.getElementById('lightbox');
+    console.log(sliderArray);
+    MEDIAS.forEach(media => media.addEventListener('click', ()=> {
+        let sliderIndex= sliderArray.map(sliderId => sliderId.id).indexOf(Number(media.id));
+        // console.log(sliderIds);
+        LIGHTBOX.style.display= 'block';
+        // console.log(sliderIds.indexOf(Number(media.id)));
+        const lightbox= new Lightbox(sliderArray);
+        lightbox.displayLightbox(sliderIndex);
+    }));
 }
 
 //DROPDOWN
@@ -485,6 +508,7 @@ function filterDropdown(e){
     DROPDOWN.innerHTML= `<button class="button filter-button__original">${e.target.textContent}</button>`;
     const BUTTON= document.querySelector('.filter-button__original');
     BUTTON.addEventListener('click', openDropdown);
+
 }
 
 
@@ -498,7 +522,7 @@ function filterDropdown(e){
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__[847]();
+/******/ 	__webpack_modules__[115]();
 /******/ 	
 /******/ })()
 ;
