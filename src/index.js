@@ -247,10 +247,21 @@ function filterDropdown(e){
 
 }
 
-// LIKES
-const LIKE_BUTTONS= document.querySelectorAll('.like-button');
-LIKE_BUTTONS.forEach(button=> button.addEventListener('click', ()=> {
-    const LIKES= button.querySelector('span');
-    LIKES.innerText++;
-    PHOTOGRAPHER_LIKES.innerText++;
-}));
+let isScrolling= false;
+
+if(PHOTOGRAPHERS_SECTION){
+    window.addEventListener('scroll', ()=> {
+        // console.log('scroll');
+        if(!isScrolling){
+            const scrollButton= document.createElement('a');
+            scrollButton.classList.add('button');
+            scrollButton.setAttribute('href', '#');
+            scrollButton.style.position= "fixed";
+            scrollButton.style.top= "10px";
+            scrollButton.style.left= "50%";
+            scrollButton.innerText= "passer au contenu";
+            PHOTOGRAPHERS_SECTION.appendChild(scrollButton);
+            isScrolling= true;
+        }        
+    });
+}
