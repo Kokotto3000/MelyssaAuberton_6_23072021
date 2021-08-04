@@ -257,7 +257,7 @@ if(PHOTOGRAPHERS_SECTION){
             scrollButton.classList.add('button');
             scrollButton.setAttribute('href', '#');
             scrollButton.style.position= "fixed";
-            scrollButton.style.top= "10px";
+            scrollButton.style.top= "10%";
             scrollButton.style.left= "50%";
             scrollButton.innerText= "passer au contenu";
             PHOTOGRAPHERS_SECTION.appendChild(scrollButton);
