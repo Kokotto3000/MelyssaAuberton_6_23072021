@@ -1,0 +1,15 @@
+.photographer-footer{
+    background-color: $secondary-color;
+    position: fixed;
+    bottom: 0;
+    right: 25%;
+    @include main-border-radius;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .photographer-footer__likes{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
