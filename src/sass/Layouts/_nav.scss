@@ -1,5 +1,12 @@
-.header-nav ul{
+.accueil-header__nav ul{
     display: flex;
     flex-flow: row wrap;
-    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.accueil-header__nav{
+    @include mobile{
+        order: 3;
+    }
 }

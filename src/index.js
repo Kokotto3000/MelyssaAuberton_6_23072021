@@ -17,7 +17,7 @@ const mediasData= FishEyeData.media;
 
 //création d'un tableau pour la création de la barre de nav
 const tags= ["portrait", "art", "fashion", "architecture", "travel", "sport", "animals", "events"];
-const NAV= document.querySelector('.header-nav');
+const NAV= document.querySelector('.accueil-header__nav');
 const navList= document.createElement('ul');
 
 // récupérère les infos de l'url
@@ -96,10 +96,13 @@ function displayPhotographerPresentation(){
                 if(FORM){
                     const contact= new Contact();
                     // DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
-                    const modalbg = document.querySelector(".bground");
+                    const modalbg = document.querySelector(".photographer-modal");
                     const modalBtn = document.querySelector(".contact-button");
                     const modalCloseBtn = document.querySelector(".close");                    
                     const SUCCESS= document.getElementById("success-message");
+                    const modalTitle= document.querySelector(".photographer-modal__content-title span");
+
+                    modalTitle.innerText= photographer.name;
                     
                     // modal events
                     modalBtn.addEventListener("click", ()=> {
@@ -132,6 +135,7 @@ function displayPhotographerPresentation(){
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 
 function updatePhotographerMedias(id, filter){
+    console.log(sliderArray);
     sliderArray= [];
     let likes= 0;    
     // console.log(id + " " + filter);
@@ -140,8 +144,11 @@ function updatePhotographerMedias(id, filter){
     filteredMedias.forEach(media =>{            
         const mediaCard = new Medias(media);
         mediaCard.displayPhotographerMedias(id, filter);
+
         // création du tableau pour la lightbox
-        sliderArray.push(mediaCard);
+        if(filter){
+            if(media.tags[0] === filter) sliderArray.push(mediaCard);   
+        }else sliderArray.push(mediaCard);
 
         // FOOTER
         if(!disabledLikes){
@@ -185,8 +192,9 @@ function updatePhotographerMedias(id, filter){
     // const LIGHTBOX= document.getElementById('lightbox');
     console.log(sliderArray);
     MEDIAS.forEach(media => media.addEventListener('click', ()=> {
-        let sliderIndex= sliderArray.map(sliderId => sliderId.id).indexOf(Number(media.id));
-        // console.log(sliderIds);
+        console.log(media);
+        const sliderIndex= sliderArray.map(sliderId => sliderId.id).indexOf(Number(media.id));
+        console.log(sliderIndex);
         LIGHTBOX.style.display= 'block';
         // console.log(sliderIds.indexOf(Number(media.id)));
         const lightbox= new Lightbox(sliderArray);
@@ -254,12 +262,9 @@ if(PHOTOGRAPHERS_SECTION){
         // console.log('scroll');
         if(!isScrolling){
             const scrollButton= document.createElement('a');
-            scrollButton.classList.add('button');
+            scrollButton.classList.add('accueil__scroll-button');
             scrollButton.setAttribute('href', '#');
-            scrollButton.style.position= "fixed";
-            scrollButton.style.top= "10%";
-            scrollButton.style.left= "50%";
-            scrollButton.innerText= "passer au contenu";
+            scrollButton.innerText= "Passer au contenu";
             PHOTOGRAPHERS_SECTION.appendChild(scrollButton);
             isScrolling= true;
         }        

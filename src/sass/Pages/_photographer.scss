@@ -1,18 +1,79 @@
-#photographer-presentation{
+#photographer-page{
+    width: 90%;
+    margin: 0 auto;
+    // position: relative;
+}
+
+.photographer-page__presentation{
     display: flex;
     justify-content: space-between;
     align-items: center;
     @include background-color(98%);
+    @include main-border-radius;
+    margin-top: 2rem;
+    padding: 3rem;
+    position: relative;
+    @include mobile{
+        background-color: transparent;
+        padding: 0;
+    }
+    div{
+        position: relative;
+        flex-basis: 50%;
+    }
+    h2{
+        font-size: 6.4rem;
+        @include mobile{
+            font-size: 3.6rem;
+        }
+    }
+    p{
+        @include mobile{
+            font-size: 1.3rem;
+        }
+    }
+    &-content{
+        &--location{
+            font-size: 2.4rem;
+            color: $primary-color;
+            padding: 1rem 0;
+        }
+        &--tagline{
+            font-size: 1.8rem;
+            @include font-color(33%);
+            padding: 1rem 0;
+        }
+    }
     img{
         background-color: #c4c4c4;
         width: 20rem;
         height: 20rem;
         object-fit: cover;
-        clip-path: circle(90px at 100px);
         border-radius: 50%;
+        @include box-shadow;
+        @include mobile{
+            position: absolute;
+            right: 0;
+            top : 0;
+            width: 10rem;
+            height: 10rem;
+        }
     }
     ul{
         display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .contact-button{
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include mobile{
+            position: fixed;
+            top: 90%;
+            right: 50%;
+            transform: translateX(50%);
+        }
     }
 }
 
@@ -25,19 +86,16 @@
     div{
         flex-basis: 30%;
     }
-    img{
+    img, video{
         background-color: #c4c4c4;
         width: 35rem;
         height: 30rem;
         object-fit: cover;
         @include main-border-radius;
-    }
-    video{
-        background-color: #c4c4c4;
-        width: 35rem;
-        height: 30rem;
-        object-fit: cover;
-        @include main-border-radius;
+        @include mobile {
+            width: 33.5rem;
+            height: 19rem;
+        }
     }
 }
 
