@@ -1,7 +1,4 @@
-/* SECTION MODAL */
-/* Modal general */
-
-.bground, .thanks{
+.photographer-modal{
     display: none;
     position: fixed;
     z-index: 1;
@@ -10,122 +7,119 @@
     height: 100%;
     width: 100%;
     overflow: auto;
-    background-color: rgba(26, 39, 156, 0.4);
-  }
+    background-color: rgba(196, 196, 196, 0.4);
+}
   
-  @media screen and (max-width: 540px) {
-    .bground, .thanks {
-      bottom: 0;
-      padding: 20vh 0 0 0;
-      /* background-color: transparent; */
-    }
-  }
-  
-  .content {
-    margin: 5% auto;
+.photographer-modal__content {
+    margin: 10% auto;
     width: 100%;
-    max-width: 500px;
+    max-width: 50rem;
     animation-name: modalopen;
     animation-duration: var(--modal-duration);
-    background: #232323;
-    border-radius: 10px;
+    background: $secondary-background-color;
+    @include main-border-radius;
     overflow: hidden;
     position: relative;
-    color: #fff;
-    padding-top: 10px;
-  }
-  
-  @media screen and (max-width: 540px) {
-    .content {
-      margin: 0 auto;
+    // padding-top: 3rem;
+    @include mobile{
+        overflow: auto;
+        // padding: 0;
+        margin: 0;
+        height: 100%;
     }
-  }
+    &-title{
+      font-size: 6.4rem;
+      color: $tertiary-color;
+      padding: 1rem 0;
+      @include mobile{
+        font-size: 3.6rem;
+      }
+    }
+}
   
-  .modal-body {
-    padding: 15px 8%;
-    margin: 15px auto;
-  }
-  
-  /* Modal form */
-  
-  /* general inputs et labels */
-  label {
-    font-family: var(--font-default);
-    font-size: 17px;
-    font-weight: normal;
-    display: inline-block;
-    margin-bottom: 11px;
-  }
-  
-  input {
-    padding: 8px;
-    border: 0.8px solid #ccc;
-  }
-  
-  .text-control {
-    margin: 0;
-    padding: 8px;
-    width: 100%;
-    border-radius: 8px;
-    font-size: 20px;
-    height: 48px;
-  }
-  
-  /* checkboxes part */
-  
-  .text-label {
-    font-weight: normal;
-    font-size: 16px;
-  }
-  
-  /* cross closing button */
-  .close {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    width: 32px;
-    height: 32px;
-    opacity: 1;
-    cursor: pointer;
-    transform: scale(0.7);
-  }
-  
-  .close:before,
-  .close:after {
-    position: absolute;
-    left: 15px;
-    content: " ";
-    height: 33px;
-    width: 3px;
-    background-color: #fff;
-  }
-  
-  .close:before {
-    transform: rotate(45deg);
-  }
-  
-  .close:after {
-    transform: rotate(-45deg);
-  }
-  
-  /* validation part */
-  .span-error {
-    font-size: 0.4em;
-    color: #e54858;
-    display: block;
-    margin-top: 7px;
-    margin-bottom: 7px;
-    text-align: left;
-    line-height: 0.3;
-    transition: 0.3s;
-  }
-  
-  .invalid {
-    border: 2px solid #e54858;
-    color: red;
-  }
-  
-  .valid {
-    border: 2px solid green;
-    color: green;
-  }
+.photographer-modal__content-body {
+  padding: 1rem 2rem;
+  // margin: 1.5rem auto;
+}
+
+label {
+  font-size: 3.6rem;
+  font-weight: 200;
+  display: inline-block;
+  margin-bottom: 1.1rem;
+  @include font-color(19%);
+  // mix-blend-mode: normal;
+}
+
+.text-control, .area-control {
+  @include main-border-radius;
+  margin: 0;
+  padding: .8rem;
+  width: 100%;
+  font-size: 3.6rem;
+  height: 6.8rem;
+  @include font-color(70%);
+}
+
+.area-control{
+  height: 17rem;
+  resize: none;
+}
+
+.btn-submit{
+  width: 17rem;
+  margin: 2rem 0;
+}
+/* cross closing button */
+.close {
+  position: absolute;
+  right: 2.5rem;
+  top: 2.5rem;
+  width: 4.2rem;
+  height: 4.2rem;
+  opacity: 1;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close:before,
+.close:after {
+  position: absolute;
+  transform: translateX(-50%);
+  content: " ";
+  height: 4.2rem;
+  width: .5rem;
+  background-color: #fff;
+}
+
+.close:before {
+  transform: rotate(45deg);
+}
+
+.close:after {
+  transform: rotate(-45deg);
+}
+
+/* validation part */
+.span-error, #success-message {
+  font-size: 2rem;
+  color: #e54858;
+  display: block;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  text-align: left;
+  // line-height: 0.3;
+  transition: 0.3s;
+}
+
+.invalid {
+  border: .2rem solid #e54858;
+  color: red;
+}
+
+.valid {
+  border: .2rem solid green;
+  color: green;
+}

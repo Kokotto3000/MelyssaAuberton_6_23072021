@@ -17,12 +17,12 @@ export class Lightbox{
             LIGHTBOX.style.display= "none";
         });
         const LIGHTBOX_PREVIOUS= document.querySelector('.lightbox-content__previous-button').addEventListener('click', ()=> {
-            console.log('previous');
+            // console.log('previous');
             this.index <= 0 ? this.index= this.slider.length - 1 : this.index--;
             this.displayLightbox(this.index);
         });
         const LIGHTBOX_NEXT= document.querySelector('.lightbox-content__next-button').addEventListener('click', ()=> {
-            console.log('next');
+            // console.log('next');
             // this.index++;
             this.index >= this.slider.length - 1 ? this.index= 0 : this.index++;
             this.displayLightbox(this.index);

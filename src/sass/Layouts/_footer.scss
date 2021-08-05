@@ -3,6 +3,9 @@
     position: fixed;
     bottom: 0;
     right: 25%;
+    @include mobile{
+        display: none;
+    }
     @include main-border-radius;
     display: flex;
     justify-content: space-between;

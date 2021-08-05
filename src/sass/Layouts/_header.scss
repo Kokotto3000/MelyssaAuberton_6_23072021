@@ -1,18 +1,16 @@
 header{
     display: flex;
     flex-flow: row wrap;
-    // justify-content: space-between;
+    justify-content: space-between;
     align-items: center;
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    // flex-basis: 75%;
-    @include mobile{
-        position: static;
-    }
+    width: 90%;
+    margin: .6rem auto;
+    padding: .7rem 0;
 }
 
-.header-logo{
-    width: 30rem;
-    // padding: 1rem;
+.accueil-header__logo{
+    width: 20rem;
+    @include mobile{
+        width: 15rem;
+    }
 }
