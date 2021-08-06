@@ -8,9 +8,9 @@ export class Lightbox{
     displayLightbox(index){
         this.index= index;
         if(this.slider[this.index].image){
-            this.lightbox.innerHTML= `<div class='lightbox-content'><div class="lightbox-content__close-button"></div><figure><img src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].image}" alt="" /><figcaption>${this.slider[this.index].title}</figcaption></figure><div class="lightbox-content__previous-button"></div><div class="lightbox-content__next-button"></div></div>`;
+            this.lightbox.innerHTML= `<div class='lightbox-content'><button class="lightbox-content__close-button" aria-label="Close dialog"></button><figure><img src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].image}" alt="" /><figcaption>${this.slider[this.index].title}</figcaption></figure><div role="link" class="lightbox-content__previous-button" aria-label="Previous image"></div><div role="link" class="lightbox-content__next-button" aria-label="Next image"></div></div>`;
         }else if(this.slider[this.index].video){
-            this.lightbox.innerHTML= `<div class='lightbox-content'><div class="lightbox-content__close-button"></div><video controls><source src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].video}" alt="" /><figcaption>${this.slider[this.index].title}</figcaption></video><div class="lightbox-content__previous-button"></div><div class="lightbox-content__next-button"></div></div>`;
+            this.lightbox.innerHTML= `<div class='lightbox-content'><button class="lightbox-content__close-button" aria-label="Close dialog"></button><video controls><source src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].video}" alt="" /><figcaption>${this.slider[this.index].title}</figcaption></video><div role="link" class="lightbox-content__previous-button" aria-label="Previous image"></div><div role="link" class="lightbox-content__next-button" aria-label="Next image"></div></div>`;
         }
         
         const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button').addEventListener('click', ()=> {

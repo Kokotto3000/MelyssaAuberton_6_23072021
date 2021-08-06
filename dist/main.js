@@ -42,10 +42,10 @@ class Photographer{
         const photographerData= `<p class="accueil-photographers__card-content--location">${this.city}, ${this.country}</p><p class="accueil-photographers__card-content--tagline">${this.tagline}</p><p class="accueil-photographers__card-content--price">${this.price}€/jour</p>`;
         const photographerTags= document.createElement('ul');
         const photographerFooter= document.createElement('footer');
-        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="#${tag}">#${tag}</a></li>`).join('');
+        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="#" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
         PHOTOGRAPHERS_SECTION.appendChild(photographerCard);
         photographerCard.classList.add('accueil-photographers__card');
-        photographerCard.innerHTML= `<a class="accueil-photographers__card-link" href="photographer-page.html?id=${this.id}">${photographerImg} ${photographerName}</a><div>${photographerData}</div>`;
+        photographerCard.innerHTML= `<a class="accueil-photographers__card-link" href="photographer-page.html?id=${this.id}" role="link" alt="lien vers la page de ${this.name}">${photographerImg} ${photographerName}</a><div>${photographerData}</div>`;
         photographerCard.appendChild(photographerFooter);
         photographerFooter.appendChild(photographerTags);
     }
@@ -55,15 +55,15 @@ class Photographer{
         // création du template de la section présentation
         const presentationDatas= document.createElement('div');
         PHOTOGRAPHER_PRESENTATION.appendChild(presentationDatas);
-        presentationDatas.innerHTML= `<h2>${this.name}</h2><p class="photographer-page__presentation-content--location">${this.city}, ${this.country}</p><p class="photographer-page__presentation-content--tagline">${this.tagline}</p>`;
+        presentationDatas.innerHTML= `<h1>${this.name}</h1><p class="photographer-page__presentation-content--location">${this.city}, ${this.country}</p><p class="photographer-page__presentation-content--tagline">${this.tagline}</p>`;
         const photographerFooter= document.createElement('footer');
         presentationDatas.appendChild(photographerFooter);
         const photographerTags= document.createElement('ul');   
-        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="#${tag}">#${tag}</a></li>`).join('');
+        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="#" aria-label="tri des médias par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
         photographerFooter.appendChild(photographerTags);
         const contactButton= document.createElement('button');
         contactButton.setAttribute("class", "button contact-button");
-        // contactButton.setAttribute("type", "button");
+        contactButton.setAttribute("alt", "Contact me");
         contactButton.innerText= "Contactez-moi";
         presentationDatas.appendChild(contactButton);
         const photographerImg= document.createElement('img');
@@ -113,7 +113,7 @@ class Medias{
     displayPhoto(id){
         const mediaCard= document.createElement('figure');
         const photo= `<img class="photographer-media" id="${this.id}" src="../assets/images/${id}/${this.image}" alt="" />`;
-        const legend= `<figcaption><p>${this.title}</p><p class="like-button"><span>${this.likes}</span><svg aria-hidden="false" focusable="true" data-prefix="far" data-icon="heart" class="heart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
+        const legend= `<figcaption><p>${this.title}</p><p class="like-button"><span>${this.likes}</span><svg aria-label="likes" focusable="true" data-prefix="far" data-icon="heart" class="heart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
         <path d="M259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z"></path></svg></p></figcaption>`;
         mediaCard.innerHTML= photo + legend;
         PHOTOGRAPHER_MEDIAS.appendChild(mediaCard);
@@ -219,9 +219,9 @@ class Lightbox{
     displayLightbox(index){
         this.index= index;
         if(this.slider[this.index].image){
-            this.lightbox.innerHTML= `<div class='lightbox-content'><div class="lightbox-content__close-button"></div><figure><img src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].image}" alt="" /><figcaption>${this.slider[this.index].title}</figcaption></figure><div class="lightbox-content__previous-button"></div><div class="lightbox-content__next-button"></div></div>`;
+            this.lightbox.innerHTML= `<div class='lightbox-content'><button class="lightbox-content__close-button" aria-label="Close dialog"></button><figure><img src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].image}" alt="" /><figcaption>${this.slider[this.index].title}</figcaption></figure><div role="link" class="lightbox-content__previous-button" aria-label="Previous image"></div><div role="link" class="lightbox-content__next-button" aria-label="Next image"></div></div>`;
         }else if(this.slider[this.index].video){
-            this.lightbox.innerHTML= `<div class='lightbox-content'><div class="lightbox-content__close-button"></div><video controls><source src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].video}" alt="" /><figcaption>${this.slider[this.index].title}</figcaption></video><div class="lightbox-content__previous-button"></div><div class="lightbox-content__next-button"></div></div>`;
+            this.lightbox.innerHTML= `<div class='lightbox-content'><button class="lightbox-content__close-button" aria-label="Close dialog"></button><video controls><source src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].video}" alt="" /><figcaption>${this.slider[this.index].title}</figcaption></video><div role="link" class="lightbox-content__previous-button" aria-label="Previous image"></div><div role="link" class="lightbox-content__next-button" aria-label="Next image"></div></div>`;
         }
         
         const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button').addEventListener('click', ()=> {
@@ -278,7 +278,7 @@ if(NAV){
     NAV.appendChild(navList);
     tags.forEach(tag=> {
         const newTag= document.createElement('li');
-        newTag.innerHTML=`<a class="tag" target="${tag}" href="#${tag}">#${tag}</a>`;
+        newTag.innerHTML=`<a class="tag" target="${tag}" href="#" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
         navList.appendChild(newTag);
     });
 }
@@ -513,6 +513,18 @@ if(PHOTOGRAPHERS_SECTION){
         }        
     });
 }
+
+// Pour modifier le dropdown, exemple
+{/* <div role="listbox" tabindex="0" id="listbox1" onclick="return listItemClick(event);"
+  onkeydown="return listItemKeyEvent(event);" onkeypress="return listItemKeyEvent(event);"
+  onfocus="this.className='focus';" onblur="this.className='blur';" aria-activedescendant="listbox1-1">
+  <div role="option" id="listbox1-1" class="selected">Vert</div>
+  <div role="option" id="listbox1-2">Orange</div>
+  <div role="option" id="listbox1-3">Rouge</div>
+  <div role="option" id="listbox1-4">Bleu</div>
+  <div role="option" id="listbox1-5">Violet</div>
+  <div role="option" id="listbox1-6">Pervenche</div>
+</div> */}
 
 
 /***/ })

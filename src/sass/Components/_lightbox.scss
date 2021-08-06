@@ -24,6 +24,7 @@
         height: 42px;
         opacity: 1;
         cursor: pointer;
+        background: transparent;
         &::before, &::after{
             position: absolute;
             left: 15px;
