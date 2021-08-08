@@ -31,6 +31,8 @@ let isValidMail= false;
 
 let sliderArray= [];
 
+let likes= 0;
+
 if(NAV){
     NAV.appendChild(navList);
     tags.forEach(tag=> {
@@ -137,7 +139,7 @@ if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 function updatePhotographerMedias(id, filter){
     // console.log(sliderArray);
     sliderArray= [];
-    let likes= 0;    
+    likes= 0;    
     // console.log(id + " " + filter);
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
     // console.log(filteredMedias);  
