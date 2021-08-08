@@ -35,7 +35,7 @@ if(NAV){
     NAV.appendChild(navList);
     tags.forEach(tag=> {
         const newTag= document.createElement('li');
-        newTag.innerHTML=`<a class="tag" target="${tag}" href="#${tag}">#${tag}</a>`;
+        newTag.innerHTML=`<a class="tag" target="${tag}" href="#" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
         navList.appendChild(newTag);
     });
 }
@@ -135,7 +135,7 @@ function displayPhotographerPresentation(){
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
 
 function updatePhotographerMedias(id, filter){
-    console.log(sliderArray);
+    // console.log(sliderArray);
     sliderArray= [];
     let likes= 0;    
     // console.log(id + " " + filter);
@@ -190,11 +190,11 @@ function updatePhotographerMedias(id, filter){
     
     const MEDIAS= document.querySelectorAll('.photographer-media');
     // const LIGHTBOX= document.getElementById('lightbox');
-    console.log(sliderArray);
+    // console.log(sliderArray);
     MEDIAS.forEach(media => media.addEventListener('click', ()=> {
-        console.log(media);
+        // console.log(media);
         const sliderIndex= sliderArray.map(sliderId => sliderId.id).indexOf(Number(media.id));
-        console.log(sliderIndex);
+        // console.log(sliderIndex);
         LIGHTBOX.style.display= 'block';
         // console.log(sliderIds.indexOf(Number(media.id)));
         const lightbox= new Lightbox(sliderArray);
@@ -203,25 +203,27 @@ function updatePhotographerMedias(id, filter){
 }
 
 //DROPDOWN
-const DROPDOWN= document.querySelector('.filter-buttons');
-const BUTTON= document.querySelector('.filter-button__original');
+const DROPDOWN= document.querySelector('.photographer-medias__filter-dropdown');
+const BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
 
 const dropdownElements= ["popularité", "date", "titre"];
 
 if(BUTTON) BUTTON.addEventListener('click', openDropdown);
 
-function openDropdown(){
-    DROPDOWN.innerHTML= dropdownElements.map(element => `<button class="button filter-buttons__button">${element}</button>`).join('');
-    const DROPDOWN_BUTTONS= document.querySelectorAll('.filter-buttons__button');
+function openDropdown(e){
+    
+    DROPDOWN.innerHTML= `<ul id="exp_elem_list" tabindex= "-1" role="listbox" arialabelledby="exp_elem" aria-activedescendant="exp_elem_${e.target.textContent}" aria-expended="true">` + dropdownElements.map(element => `<li role="option" id="exp_elem_${element}" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + '</ul>';
+    const DROPDOWN_BUTTONS= document.querySelectorAll('.photographer-medias__filter-dropdown-button');
     DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));
 }
 
 function filterDropdown(e){
     // console.log(e.target.textContent);
     // console.log(params);
-    
+    console.log(e.target.textContent);
     switch(e.target.textContent) {
         case "popularité" :
+            const POPULARITE= document.getElementById('exp_elem_popularité').setAttribute("aria-selected", "true");
             mediasData.sort((a, b) => a.likes - b.likes);
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
@@ -249,8 +251,8 @@ function filterDropdown(e){
             console.log("error");
     }
 
-    DROPDOWN.innerHTML= `<button class="button filter-button__original">${e.target.textContent}</button>`;
-    const BUTTON= document.querySelector('.filter-button__original');
+    DROPDOWN.innerHTML= `<button class="button photographer-medias__filter-dropdown-button--original">${e.target.textContent}</button>`;
+    const BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
     BUTTON.addEventListener('click', openDropdown);
 
 }
@@ -270,3 +272,15 @@ if(PHOTOGRAPHERS_SECTION){
         }        
     });
 }
+
+// Pour modifier le dropdown, exemple
+{/* <div role="listbox" tabindex="0" id="listbox1" onclick="return listItemClick(event);"
+  onkeydown="return listItemKeyEvent(event);" onkeypress="return listItemKeyEvent(event);"
+  onfocus="this.className='focus';" onblur="this.className='blur';" aria-activedescendant="listbox1-1">
+  <div role="option" id="listbox1-1" class="selected">Vert</div>
+  <div role="option" id="listbox1-2">Orange</div>
+  <div role="option" id="listbox1-3">Rouge</div>
+  <div role="option" id="listbox1-4">Bleu</div>
+  <div role="option" id="listbox1-5">Violet</div>
+  <div role="option" id="listbox1-6">Pervenche</div>
+</div> */}

@@ -15,6 +15,17 @@
         background-color: $primary-color;
         color: white;
     }
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap; /* added line */
+        border: 0;
+    }
 }
 
 .button{
@@ -39,5 +50,68 @@
     margin: 1rem;
     @include mobile{
         display: none;
+    }
+}
+
+.contact-button{
+    font-size: 2rem;
+}
+
+.photographer-medias__filter-dropdown{
+    background-color: $primary-color;
+    @include main-border-radius;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;    
+    width: 17rem;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    font-weight: 700;
+    ul{
+        width: 100%;
+    }
+    &-button{
+        position: relative;
+        text-align: left;
+        width: 100%;
+        text-transform: capitalize;
+        padding: 2rem 10%;
+        &:first-child::after{
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f077";
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+        }
+        &:not(:first-child)::before{
+            content: "";
+            width: 90%;
+            height: .1rem;
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        &--original{
+            text-transform: capitalize;
+            position: relative;
+            width: 100%;
+            text-align: left;
+            padding: 2rem 10%;
+            &::after{
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                content: "\f078";
+                position: absolute;
+                top: 50%;
+                right: 10%;
+                transform: translateY(-50%);
+            }
+        }
     }
 }

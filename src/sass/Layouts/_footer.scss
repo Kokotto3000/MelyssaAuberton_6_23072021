@@ -1,8 +1,11 @@
 .photographer-footer{
-    background-color: $secondary-color;
+    background-color: $secondary-background-color;
     position: fixed;
-    bottom: 0;
-    right: 25%;
+    bottom: -1rem;
+    right: 5%;
+    // padding: 2rem 3rem;
+    font-size: 2.4rem;
+    font-weight: 500;
     @include mobile{
         display: none;
     }
@@ -10,9 +13,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .photographer-footer__likes{
+    .photographer-footer__likes, .photographer-footer__price{
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
+        padding: 2rem 3.5rem;
     }
 }
