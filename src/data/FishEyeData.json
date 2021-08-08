@@ -70,7 +70,8 @@
       "tags": ["fashion"],
       "likes": 62,
       "date": "2011-12-08",
-      "price": 55
+      "price": 55,
+      "alt": "photo de mode avec modèle femme brune en tenue de jogging jaune chic avec bottes à talons blanches et terrain de basket en arrière plan"
     },
     {
       "id": 8520927,
@@ -80,7 +81,8 @@
       "tags": ["fashion"],
       "likes": 11,
       "date": "2011-11-06",
-      "price": 55
+      "price": 55,
+      "alt": "photo de mode avec modèle femme blonde platine accroupie en combinaison motif végétal au milieu de la route sur un pont"
     },
     {
       "id": 9025895,
@@ -90,7 +92,8 @@
       "tags": ["fashion"],
       "likes": 72,
       "date": "2013-08-12",
-      "price": 55
+      "price": 55,
+      "alt": "photo de mode avec modèle femme brune en robe rayée et sac à main rouge devant un mur à carreaux"
     },
     {
       "id": 9275938,
@@ -100,7 +103,8 @@
       "tags": ["events"],
       "likes": 69,
       "date": "2018-02-22",
-      "price": 55
+      "price": 55,
+      "alt": "photo d'un belvédère décoré en autel pour un mariage en extérieur"
     },
     {
       "id": 2053494,
@@ -110,7 +114,8 @@
       "tags": ["events"],
       "likes": 2,
       "date": "2020-05-25",
-      "price": 55
+      "price": 55,
+      "alt": "photo de mariés de dos de nuit avec des invités qui tiennent des cierges magiques"
     },
     {
       "id": 7324238,
@@ -120,7 +125,8 @@
       "tags": ["events"],
       "likes": 33,
       "date": "2019-06-12",
-      "price": 55
+      "price": 55,
+      "alt": "photo d'une table d'anniversaire pour les 18 ans"
     },
     {
       "id": 8328953,
@@ -130,7 +136,8 @@
       "tags": ["art"],
       "likes": 24,
       "date": "2011-12-08",
-      "price": 100
+      "price": 100,
+      "alt": "video d'une sculpture en bois représentant un cheval"
     },
     {
       "id": 7502053,
@@ -140,7 +147,8 @@
       "tags": ["art"],
       "likes": 88,
       "date": "2007-05-07",
-      "price": 55
+      "price": 55,
+      "alt": "photo de street art avec un buste d'homme sur fond bleu et grand triangle blanc au premier plan"
     },
     {
       "id": 8523492,
@@ -150,7 +158,8 @@
       "tags": ["art"],
       "likes": 24,
       "date": "2018-05-05",
-      "price": 55
+      "price": 55,
+      "alt": "photo de street art avec des graffitis très colorés dans un tunnel sous une lumière violette"
     },
     {
       "id": 75902334,
@@ -160,7 +169,8 @@
       "tags": ["art"],
       "likes": 75,
       "date": "2019-11-25",
-      "price": 55
+      "price": 55,
+      "alt": "photo de street art avec des têtes d'oiseaux rouges et bleus"
     },
 
     {
@@ -171,7 +181,8 @@
       "tags": ["sport"],
       "likes": 52,
       "date": "2013-02-30",
-      "price": 70
+      "price": 70,
+      "alt": "photo vue en plongée d'une équipe d'aviron"
     },
     {
       "id": 92758372,
@@ -181,7 +192,8 @@
       "tags": ["fashion"],
       "likes": 58,
       "date": "2018-07-17",
-      "price": 70
+      "price": 70,
+      "alt": "photo de mode d'un couple dansant avec un bras en l'air formant des ailes"
     },
     {
       "id": 32958383,
@@ -191,7 +203,8 @@
       "tags": ["fashion"],
       "likes": 11,
       "date": "2019-08-12",
-      "price": 70
+      "price": 70,
+      "alt": "photo de mode avec femme en robe longue rouge descendant un escalier dans la rue"
     },
     {
       "id": 928587383,
@@ -201,7 +214,8 @@
       "tags": ["events"],
       "likes": 2,
       "date": "2019-01-02",
-      "price": 70
+      "price": 70,
+      "alt": "photo d'une femme présentant lors d'une réunion dans un bureau avec ses collègues"
     },
     {
       "id": 725639493,
@@ -211,7 +225,8 @@
       "tags": ["events"],
       "likes": 3,
       "date": "2019-05-20",
-      "price": 70
+      "price": 70,
+      "alt": "photo d'un homme et son audience lors d'une conférence dans des bureaux"
     },
     {
       "id": 23394384,
@@ -221,7 +236,8 @@
       "tags": ["events"],
       "likes": 52,
       "date": "2019-07-18",
-      "price": 70
+      "price": 70,
+      "alt": "photo noir et blanc d'une musicienne jouant du synthétiseur à un concert"
     },
     {
       "id": 87367293,
@@ -231,7 +247,8 @@
       "tags": ["events"],
       "likes": 23,
       "date": "2018-02-22",
-      "price": 70
+      "price": 70,
+      "alt": "photo d'une chanteuse avec coupe afro et tee-shirt à franges à un concert sur scène"
     },
     {
       "id": 593834784,
@@ -241,7 +258,8 @@
       "tags": ["animals"],
       "likes": 52,
       "date": "2017-03-13",
-      "price": 70
+      "price": 70,
+      "alt": "photo d'un cerf dans la nature"
     },
     {
       "id": 83958935,
@@ -251,9 +269,20 @@
       "tags": ["animals"],
       "likes": 52,
       "date": "2016-06-12",
-      "price": 70
+      "price": 70,
+      "alt": "video d'un chiot noir et blanc jouant sur une plage au coucher de soleil"
     },
-
+    {
+      "id": 83958946,
+      "photographerId": 925,
+      "title": "Butterfly on water",
+      "image": "Sport_Butterfly.jpg",
+      "tags": ["sport"],
+      "likes": 13,
+      "date": "2017-03-13",
+      "price": 32,
+      "alt": "photo d'un nageur entrain de nager le papillon dans une piscine"
+    },
     {
       "id": 394583434,
       "photographerId": 527,
@@ -262,7 +291,8 @@
       "tags": ["travel"],
       "likes": 23,
       "date": "2017-03-18",
-      "price": 45
+      "price": 45,
+      "alt": "video d'une vue aérienne d'une crète de massif montagneux"
     },
     {
       "id": 343423425,
@@ -272,7 +302,8 @@
       "tags": ["travel"],
       "likes": 101,
       "date": "2017-04-03",
-      "price": 45
+      "price": 45,
+      "alt": "photo de personnes se baignant au loin dans un lac aux couleurs lactés alimenté en eau chaude naturelle en islande"
     },
     {
       "id": 73434243,
@@ -282,7 +313,8 @@
       "tags": ["travel"],
       "likes": 99,
       "date": "2018-04-30",
-      "price": 45
+      "price": 45,
+      "alt": "photo d'une route sinuant dans les collines en Ecosse"
     },
     {
       "id": 23425523,
@@ -292,7 +324,8 @@
       "tags": ["travel"],
       "likes": 34,
       "date": "2016-04-05",
-      "price": 45
+      "price": 45,
+      "alt": "photo d'un long et fin pont en bois qui mène vers une forêt"
     },
     {
       "id": 23134513,
@@ -302,7 +335,8 @@
       "tags": ["travel"],
       "likes": 23,
       "date": "2017-03-18",
-      "price": 45
+      "price": 45,
+      "alt": "photo de l'avant d'une barque en bois sur une rivière de montagne"
     },
     {
       "id": 92352352,
@@ -312,7 +346,8 @@
       "tags": ["portrait"],
       "likes": 66,
       "date": "2018-05-24",
-      "price": 45
+      "price": 45,
+      "alt": "photo portrait d'une jeune femme rousse qui sourit avec rouge à lèvres rouge et beaucoup de tâches de rousseur"
     },
     {
       "id": 34513453,
@@ -322,7 +357,8 @@
       "tags": ["portrait"],
       "likes": 52,
       "date": "2017-04-21",
-      "price": 45
+      "price": 45,
+      "alt": "photo portrait en noir et blanc très contrastée d'un homme métisse sur fond noir"
     },
     {
       "id": 23523533,
@@ -332,7 +368,8 @@
       "tags": ["portrait"],
       "likes": 95,
       "date": "2018-11-02",
-      "price": 45
+      "price": 45,
+      "alt": "photo portrait en noir et blanc d'une femme nommée Alexandra, black aux cheveux très courts blond platine"
     },
     {
       "id": 525834234,
@@ -342,9 +379,20 @@
       "tags": ["portrait"],
       "likes": 25,
       "date": "2019-01-02",
-      "price": 45
+      "price": 45,
+      "alt": "photo portrait en noir et blanc d'un homme âgé avec une cigarette"
     },
-
+    {
+      "id": 525834243,
+      "photographerId": 527,
+      "title": "Into the Grand Canyon",
+      "image": "Travel_On_the_Road.jpg",
+      "tags": ["travel"],
+      "likes": 32,
+      "date": "2019-01-12",
+      "price": 41,
+      "alt": "photo d'un van sur la route dans des canyons"
+    },
     {
       "id": 623534343,
       "photographerId": 243,
