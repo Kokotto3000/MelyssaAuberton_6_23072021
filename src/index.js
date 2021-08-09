@@ -24,6 +24,11 @@ const navList= document.createElement('ul');
 const urlParams= window.location.search;
 const params= new URLSearchParams(urlParams);
 
+// DROPDOWN
+const DROPDOWN= document.querySelector('.photographer-medias__filter-dropdown');
+let BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
+const dropdownElements= ["popularité", "date", "titre"];
+
 let disabledLikes= false;
 let isValidFirst= false;
 let isValidLast= false;
@@ -205,18 +210,15 @@ function updatePhotographerMedias(id, filter){
 }
 
 //DROPDOWN
-const DROPDOWN= document.querySelector('.photographer-medias__filter-dropdown');
-const BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
 
-const dropdownElements= ["popularité", "date", "titre"];
 
 if(BUTTON) BUTTON.addEventListener('click', openDropdown);
 
 function openDropdown(e){
-    
-    DROPDOWN.innerHTML= `<ul id="exp_elem_list" tabindex= "-1" role="listbox" arialabelledby="exp_elem" aria-activedescendant="exp_elem_${e.target.textContent}" aria-expended="true">` + dropdownElements.map(element => `<li role="option" id="exp_elem_${element}" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + '</ul>';
+    DROPDOWN.innerHTML= `<ul id="exp_elem_list" tabindex= "0" role="listbox" arialabelledby="exp_elem" aria-activedescendant="exp_elem_${e.target.textContent}" aria-expended="true" onfocus="this.className='focus';">` + dropdownElements.map(element => `<li role="option" id="exp_elem_${element}" tabindex= "-1" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + '</ul>';
     const DROPDOWN_BUTTONS= document.querySelectorAll('.photographer-medias__filter-dropdown-button');
     DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));
+    // navigation au clavier ?
 }
 
 function filterDropdown(e){
@@ -253,10 +255,9 @@ function filterDropdown(e){
             console.log("error");
     }
 
-    DROPDOWN.innerHTML= `<button class="button photographer-medias__filter-dropdown-button--original">${e.target.textContent}</button>`;
-    const BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
+    DROPDOWN.innerHTML= `<button id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${e.target.textContent}</button>`;
+    BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
     BUTTON.addEventListener('click', openDropdown);
-
 }
 
 let isScrolling= false;
@@ -274,15 +275,3 @@ if(PHOTOGRAPHERS_SECTION){
         }        
     });
 }
-
-// Pour modifier le dropdown, exemple
-{/* <div role="listbox" tabindex="0" id="listbox1" onclick="return listItemClick(event);"
-  onkeydown="return listItemKeyEvent(event);" onkeypress="return listItemKeyEvent(event);"
-  onfocus="this.className='focus';" onblur="this.className='blur';" aria-activedescendant="listbox1-1">
-  <div role="option" id="listbox1-1" class="selected">Vert</div>
-  <div role="option" id="listbox1-2">Orange</div>
-  <div role="option" id="listbox1-3">Rouge</div>
-  <div role="option" id="listbox1-4">Bleu</div>
-  <div role="option" id="listbox1-5">Violet</div>
-  <div role="option" id="listbox1-6">Pervenche</div>
-</div> */}

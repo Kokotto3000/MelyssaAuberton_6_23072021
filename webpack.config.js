@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     plugins: [new MiniCssExtractPlugin()],
@@ -32,8 +33,10 @@ module.exports = {
     optimization: {
         minimizer: [
             // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
-            // `...`,
+            `...`,
             new CssMinimizerPlugin(),
+            new UglifyJsPlugin()
+
         ],
     },
 };
