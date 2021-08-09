@@ -5,6 +5,7 @@ export class Lightbox{
         this.lightbox= LIGHTBOX;
         this.slider= array;
     }
+
     displayLightbox(index){
         this.index= index;
         if(this.slider[this.index].image){
@@ -27,5 +28,20 @@ export class Lightbox{
             this.index >= this.slider.length - 1 ? this.index= 0 : this.index++;
             this.displayLightbox(this.index);
         });
+
+        document.addEventListener('keydown', e => {
+            if(e.code === "ArrowRight"){
+                this.index >= this.slider.length - 1 ? this.index= 0 : this.index++;
+                this.displayLightbox(this.index);
+            }else if(e.code === "ArrowLeft"){
+                this.index <= 0 ? this.index= this.slider.length - 1 : this.index--;
+                this.displayLightbox(this.index);
+            }else if(e.code === "Escape"){
+                LIGHTBOX.style.display= "none";
+            }
+        });
+
     }
+
+    
 }
