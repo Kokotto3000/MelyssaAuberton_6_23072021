@@ -15,7 +15,7 @@
     width: 100%;
     max-width: 70rem;
     animation-name: modalopen;
-    animation-duration: var(--modal-duration);
+    animation-duration: $modal-duration;
     background: $secondary-background-color;
     @include main-border-radius;
     overflow: hidden;
