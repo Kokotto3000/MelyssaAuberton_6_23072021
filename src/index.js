@@ -108,17 +108,25 @@ function displayPhotographerPresentation(){
                     const modalCloseBtn = document.querySelector(".close");                    
                     const SUCCESS= document.getElementById("success-message");
                     const modalTitle= document.querySelector(".photographer-modal__content-title span");
-
+                    const MAIN_WRAPPER= document.getElementById('photographer-page');
                     modalTitle.innerText= photographer.name;
                     
                     // modal events
                     modalBtn.addEventListener("click", ()=> {
                         modalbg.style.display = "block";
+                        MAIN_WRAPPER.setAttribute("aria-hidden", "true");
+                        MAIN_WRAPPER.style.overflow= "hidden";
+                        modalbg.setAttribute("aria-hidden", "false");
+                        modalCloseBtn.focus();
                     });
                     modalCloseBtn.addEventListener("click", ()=> {
                         modalbg.style.display = "none";
+                        MAIN_WRAPPER.setAttribute("aria-hidden", "false");
+                        MAIN_WRAPPER.style.overflow= "scroll";
+                        modalbg.setAttribute("aria-hidden", "true");
                         contact.resetForm();
                         isValidFirst= isValidLast= isValidMail= false;
+                        modalBtn.focus();
                     });
                     FORM.addEventListener("submit", e => {
                         e.preventDefault();
@@ -268,7 +276,7 @@ if(PHOTOGRAPHERS_SECTION){
         if(!isScrolling){
             const scrollButton= document.createElement('a');
             scrollButton.classList.add('accueil__scroll-button');
-            scrollButton.setAttribute('href', '#');
+            scrollButton.setAttribute('href', '#accueil-main');
             scrollButton.innerText= "Passer au contenu";
             PHOTOGRAPHERS_SECTION.appendChild(scrollButton);
             isScrolling= true;

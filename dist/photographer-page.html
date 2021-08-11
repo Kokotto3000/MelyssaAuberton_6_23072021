@@ -29,7 +29,7 @@
         </a>
     </header>
 
-    <main id="photographer-page">
+    <main id="photographer-page" aria-hidden="false">
         <section class="photographer-page__presentation"></section>
 
         <div class="photographer-medias__filter">
@@ -44,46 +44,46 @@
 
         <section id="photographer-medias"></section>
 
-        <div class="photographer-modal">
-            <div class="photographer-modal__content">
-                <span class="close"></span>
-                <div class="photographer-modal__content-body">
-                    <h2 class="photographer-modal__content-title">Contactez-moi<br /><span></span></h2>                    
-                    <form name="reserve" action="photographer-page.html" method="GET" novalidate >
-                        <div class="formData">
-                            <label for="first">Prénom</label><br>
-                            <input class="text-control" type="text" id="first" name="first" /><br>
-                            <span id="error-first" class="message"></span>               
-                        </div>
-          
-                        <div class="formData">
-                            <label for="last">Nom</label><br>
-                            <input class="text-control" type="text" id="last" name="last" /><br>
-                            <span id="error-last" class="message"></span>
-                        </div>
-          
-                        <div class="formData">
-                            <label for="email">E-mail</label><br>
-                            <input class="text-control" type="email" id="email" name="email" /><br>
-                            <span id="error-email" class="message"></span>
-                        </div>
-
-                        <div class="formData">
-                            <label for="message">Votre message</label>
-                            <textarea id="message" name="message" rows="5" cols="33" class="area-control" ></textarea>
-                            <span id="error-message" class="message"></span>
-                        </div>
-
-                            <input class="btn-submit button" type="submit" value="C'est parti" />
-                            <span id="success-message" class="message"></span>
-                    </form>
-                </div>  
-            </div>
-        </div>
-
-        <div id="lightbox" role="dialog" aria-label="image or video closeup view"></div>
-
     </main>
+
+    <div class="photographer-modal" role="dialog" aria-hidden="true" aria-describedby="photographer-modal">
+        <div class="photographer-modal__content">
+            <span class="close"></span>
+            <div class="photographer-modal__content-body">
+                <h2 id="photographer-modal" class="photographer-modal__content-title">Contactez-moi<br /><span></span></h2>                    
+                <form name="reserve" action="photographer-page.html" method="GET" novalidate >
+                    <div class="formData">
+                        <label for="first">Prénom</label><br>
+                        <input class="text-control" type="text" id="first" name="first" /><br>
+                        <span id="error-first" class="message"></span>               
+                    </div>
+      
+                    <div class="formData">
+                        <label for="last">Nom</label><br>
+                        <input class="text-control" type="text" id="last" name="last" /><br>
+                        <span id="error-last" class="message"></span>
+                    </div>
+      
+                    <div class="formData">
+                        <label for="email">E-mail</label><br>
+                        <input class="text-control" type="email" id="email" name="email" /><br>
+                        <span id="error-email" class="message"></span>
+                    </div>
+
+                    <div class="formData">
+                        <label for="message">Votre message</label>
+                        <textarea id="message" name="message" rows="5" cols="33" class="area-control" ></textarea>
+                        <span id="error-message" class="message"></span>
+                    </div>
+
+                        <input class="btn-submit button" type="submit" value="C'est parti" />
+                        <span id="success-message" class="message"></span>
+                </form>
+            </div>  
+        </div>
+    </div>
+
+    <div id="lightbox" role="dialog" aria-hidden="true" aria-label="image or video closeup view"></div>
 
     <footer class="photographer-footer">
         <div class="photographer-footer__likes">

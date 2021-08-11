@@ -21,6 +21,8 @@ export class Photographer{
         const photographerName= `<h2>${this.name}</h2>`;
         const photographerData= `<p class="accueil-photographers__card-content--location">${this.city}, ${this.country}</p><p class="accueil-photographers__card-content--tagline">${this.tagline}</p><p class="accueil-photographers__card-content--price">${this.price}€/jour</p>`;
         const photographerTags= document.createElement('ul');
+        photographerTags.setAttribute("aria-label", "Navigation secondaire");
+        photographerTags.setAttribute("role", "navigation");
         const photographerFooter= document.createElement('footer');
         photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="#" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
         PHOTOGRAPHERS_SECTION.appendChild(photographerCard);

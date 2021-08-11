@@ -34,6 +34,10 @@
     color: white;
     padding: 2rem .5rem;
     font-size: 1.8rem;
+    &:hover, &:focus, &:active{
+        background-color: $secondary-background-color;
+        color: black;
+    }
 }
 
 .accueil__scroll-button{

@@ -97,6 +97,10 @@ a {
   padding: 2rem 0.5rem;
   font-size: 1.8rem;
 }
+.button:hover, .button:focus, .button:active {
+  background-color: #DB8876;
+  color: black;
+}
 
 .accueil__scroll-button {
   background-color: #DB8876;
