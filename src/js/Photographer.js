@@ -24,7 +24,7 @@ export class Photographer{
         photographerTags.setAttribute("aria-label", "Navigation secondaire");
         photographerTags.setAttribute("role", "navigation");
         const photographerFooter= document.createElement('footer');
-        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="#" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
+        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="?id=${tag}" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
         PHOTOGRAPHERS_SECTION.appendChild(photographerCard);
         photographerCard.classList.add('accueil-photographers__card');
         photographerCard.innerHTML= `<a class="accueil-photographers__card-link" href="photographer-page.html?id=${this.id}" role="link" alt="${this.name}">${photographerImg} ${photographerName}</a><div>${photographerData}</div>`;
@@ -41,7 +41,7 @@ export class Photographer{
         const photographerFooter= document.createElement('footer');
         presentationDatas.appendChild(photographerFooter);
         const photographerTags= document.createElement('ul');   
-        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
+        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="index.html?id=${tag}" aria-label="tri des médias par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
         photographerFooter.appendChild(photographerTags);
         const contactButton= document.createElement('button');
         contactButton.setAttribute("class", "button contact-button");

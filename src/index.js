@@ -42,30 +42,44 @@ if(NAV){
     NAV.appendChild(navList);
     tags.forEach(tag=> {
         const newTag= document.createElement('li');
-        newTag.innerHTML=`<a class="tag" target="${tag}" href="#" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
+        newTag.innerHTML=`<a class="tag" target="${tag}" href="?id=${tag}" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
         navList.appendChild(newTag);
     });
 }
 
 // fonction de filtre des boutons tags
 // génère les cartes des photographes
-function init(filter){
-    
-    if(!filter){
-        // console.log(photographersData);
-        photographersData.forEach(photographer =>{
-            const photographerCard = new Photographer(photographer);
-            photographerCard.updatePhotographerCards();
-        });
-    }else{        
+function init(){
+    let filter;
+    for(let p of params){
+        if(p){
+            filter= p[1];
+            console.log(filter);
+        }
+    }
+    console.log(filter);
+    if(filter){
         const filteredPhotographers= photographersData.filter(photographer => photographer.tags.includes(filter));
         // console.log(filteredPhotographers);        
         filteredPhotographers.forEach(photographer =>{            
             const photographerCard = new Photographer(photographer);
             photographerCard.updatePhotographerCards();
         });
+    }else{
+        // console.log(photographersData);
+        photographersData.forEach(photographer =>{
+            const photographerCard = new Photographer(photographer);
+            photographerCard.updatePhotographerCards();
+        });
+        
+
+
+
+
+
+        
     } 
-    // création de l'évènement sur les boutons tag
+    /*// création de l'évènement sur les boutons tag
     const TAG_FILTERS= document.querySelectorAll('.tag');
     // console.log(TAG_FILTERS);
     TAG_FILTERS.forEach(tagFilter => {    
@@ -75,7 +89,7 @@ function init(filter){
             PHOTOGRAPHERS_SECTION.innerHTML="";
             init(tagFilter.target);
         });
-    });
+    });*/
 }
 
 if(PHOTOGRAPHERS_SECTION) init();
@@ -173,37 +187,19 @@ function updatePhotographerMedias(id, filter){
         
     });
 
+    /*
     // création de l'évènement sur les boutons tag pour les medias
     const TAG_FILTERS= document.querySelectorAll('.tag');
     // console.log(TAG_FILTERS);
     TAG_FILTERS.forEach(tagFilter => {    
         tagFilter.addEventListener("click", (e)=> {
-            e.preventDefault();
-            document.location.href= "index.html";
-            //document.location.reload();
-            
-                init(tagFilter.target);
-                
-            
-
-            //
-            
-            //setTimeout(()=> {
-                //const PHOTOGRAPHERS_SECTION= document.querySelector('.accueil-photographers');
-                //console.log(tagFilter.target);
-                //PHOTOGRAPHER_MEDIAS.innerHTML="";
-                //updatePhotographerMedias(id, tagFilter.target);
-
-                //e.preventDefault();
-                //window.open("index.html");
-                // console.log(tagFilter.target);
-                
-                //PHOTOGRAPHERS_SECTION.innerHTML="";
-                //init(tagFilter.target);
-            //}, 0);
-            
+            //e.preventDefault();
+            // console.log(tagFilter.target);
+            //PHOTOGRAPHER_MEDIAS.innerHTML="";
+            //updatePhotographerMedias(id, tagFilter.target);
         });
     });
+    */
 
     // LIKES event
     const LIKE_BUTTONS= document.querySelectorAll('.like-button');
@@ -243,7 +239,7 @@ function updatePhotographerMedias(id, filter){
 if(BUTTON) BUTTON.addEventListener('click', openDropdown);
 
 function openDropdown(e){
-    DROPDOWN.innerHTML= `<ul id="exp_elem_list" role="listbox" arialabelledby="exp_elem" aria-activedescendant="exp_elem_${e.target.textContent}" aria-expended="true" onfocus="this.className='focus';">` + dropdownElements.map(element => `<li tabindex= "0" role="option" id="exp_elem_${element}" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + '</ul>';
+    DROPDOWN.innerHTML= `<ul id="exp_elem_list" tabindex= "-1" role="listbox" arialabelledby="exp_elem" aria-activedescendant="exp_elem_${e.target.textContent}" aria-expended="true" onfocus="this.className='focus';">` + dropdownElements.map(element => `<li role="option" id="exp_elem_${element}" tabindex= "0" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + '</ul>';
     const DROPDOWN_BUTTONS= document.querySelectorAll('.photographer-medias__filter-dropdown-button');
     DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));
     // navigation au clavier ?
