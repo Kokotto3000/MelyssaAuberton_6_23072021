@@ -41,7 +41,7 @@ export class Photographer{
         const photographerFooter= document.createElement('footer');
         presentationDatas.appendChild(photographerFooter);
         const photographerTags= document.createElement('ul');   
-        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="#" aria-label="tri des médias par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
+        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" target="${tag}" href="" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
         photographerFooter.appendChild(photographerTags);
         const contactButton= document.createElement('button');
         contactButton.setAttribute("class", "button contact-button");

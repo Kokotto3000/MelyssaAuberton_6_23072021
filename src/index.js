@@ -50,7 +50,7 @@ if(NAV){
 // fonction de filtre des boutons tags
 // génère les cartes des photographes
 function init(filter){
-    // console.log(filter);
+    
     if(!filter){
         // console.log(photographersData);
         photographersData.forEach(photographer =>{
@@ -179,9 +179,29 @@ function updatePhotographerMedias(id, filter){
     TAG_FILTERS.forEach(tagFilter => {    
         tagFilter.addEventListener("click", (e)=> {
             e.preventDefault();
-            // console.log(tagFilter.target);
-            PHOTOGRAPHER_MEDIAS.innerHTML="";
-            updatePhotographerMedias(id, tagFilter.target);
+            document.location.href= "index.html";
+            //document.location.reload();
+            
+                init(tagFilter.target);
+                
+            
+
+            //
+            
+            //setTimeout(()=> {
+                //const PHOTOGRAPHERS_SECTION= document.querySelector('.accueil-photographers');
+                //console.log(tagFilter.target);
+                //PHOTOGRAPHER_MEDIAS.innerHTML="";
+                //updatePhotographerMedias(id, tagFilter.target);
+
+                //e.preventDefault();
+                //window.open("index.html");
+                // console.log(tagFilter.target);
+                
+                //PHOTOGRAPHERS_SECTION.innerHTML="";
+                //init(tagFilter.target);
+            //}, 0);
+            
         });
     });
 
@@ -223,7 +243,7 @@ function updatePhotographerMedias(id, filter){
 if(BUTTON) BUTTON.addEventListener('click', openDropdown);
 
 function openDropdown(e){
-    DROPDOWN.innerHTML= `<ul id="exp_elem_list" tabindex= "0" role="listbox" arialabelledby="exp_elem" aria-activedescendant="exp_elem_${e.target.textContent}" aria-expended="true" onfocus="this.className='focus';">` + dropdownElements.map(element => `<li role="option" id="exp_elem_${element}" tabindex= "-1" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + '</ul>';
+    DROPDOWN.innerHTML= `<ul id="exp_elem_list" role="listbox" arialabelledby="exp_elem" aria-activedescendant="exp_elem_${e.target.textContent}" aria-expended="true" onfocus="this.className='focus';">` + dropdownElements.map(element => `<li tabindex= "0" role="option" id="exp_elem_${element}" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + '</ul>';
     const DROPDOWN_BUTTONS= document.querySelectorAll('.photographer-medias__filter-dropdown-button');
     DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));
     // navigation au clavier ?
