@@ -42,7 +42,7 @@ if(NAV){
     NAV.appendChild(navList);
     tags.forEach(tag=> {
         const newTag= document.createElement('li');
-        newTag.innerHTML=`<a class="tag" target="${tag}" href="?id=${tag}" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
+        newTag.innerHTML=`<a class="tag" href="?id=${tag}" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
         navList.appendChild(newTag);
     });
 }
@@ -174,7 +174,6 @@ function updatePhotographerMedias(id, filter){
         const mediaCard = new Medias(media);
         mediaCard.displayPhotographerMedias(id, filter);
 
-        // création du tableau pour la lightbox
         if(filter){
             if(media.tags[0] === filter) sliderArray.push(mediaCard);   
         }else sliderArray.push(mediaCard);
@@ -239,19 +238,23 @@ function updatePhotographerMedias(id, filter){
 if(BUTTON) BUTTON.addEventListener('click', openDropdown);
 
 function openDropdown(e){
-    DROPDOWN.innerHTML= `<ul id="exp_elem_list" tabindex= "-1" role="listbox" arialabelledby="exp_elem" aria-activedescendant="exp_elem_${e.target.textContent}" aria-expended="true" onfocus="this.className='focus';">` + dropdownElements.map(element => `<li role="option" id="exp_elem_${element}" tabindex= "0" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + '</ul>';
+    DROPDOWN.innerHTML= `<ul id="exp_elem_list" arialabelledby="exp_elem" aria-activedescendant= "exp_elem_${e.target.textContent}" role="listbox" aria-expended="true">` + dropdownElements.map(element => `<li role="option" id="exp_elem_${element}" tabindex= "0" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + `</ul>`;
     const DROPDOWN_BUTTONS= document.querySelectorAll('.photographer-medias__filter-dropdown-button');
-    DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));
-    // navigation au clavier ?
+    DROPDOWN_BUTTONS.forEach(button=> {
+        button.addEventListener('click', filterDropdown);
+        button.addEventListener('keydown', e => {
+            if(e.code === "Enter") filterDropdown(e);
+        });
+    })
+    document.addEventListener("keydown", e=> {
+        if(e.code === "Escape") closeDropdown(BUTTON.textContent);
+    });
 }
 
 function filterDropdown(e){
-    // console.log(e.target.textContent);
-    // console.log(params);
-    console.log(e.target.textContent);
     switch(e.target.textContent) {
         case "popularité" :
-            const POPULARITE= document.getElementById('exp_elem_popularité').setAttribute("aria-selected", "true");
+            // const POPULARITE= document.getElementById('exp_elem_popularité').setAttribute("aria-selected", "true");
             mediasData.sort((a, b) => a.likes - b.likes);
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
@@ -276,19 +279,24 @@ function filterDropdown(e){
             }
             break;
         default :
-            console.log("error");
+            console.log('error dropdown');
     }
+    DROPDOWN.innerHTML= `<button role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${e.target.textContent}</button>`;
+    BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
+    BUTTON.addEventListener('click', openDropdown);   
+}
 
-    DROPDOWN.innerHTML= `<button id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${e.target.textContent}</button>`;
+function closeDropdown(content){
+    DROPDOWN.innerHTML= `<button role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${content}</button>`;
     BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
     BUTTON.addEventListener('click', openDropdown);
-}
+} 
 
 let isScrolling= false;
 
 if(PHOTOGRAPHERS_SECTION){
     window.addEventListener('scroll', ()=> {
-        // console.log('scroll');
+
         if(!isScrolling){
             const scrollButton= document.createElement('a');
             scrollButton.classList.add('accueil__scroll-button');
