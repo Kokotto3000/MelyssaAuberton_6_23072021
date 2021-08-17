@@ -31,13 +31,16 @@ export class Contact {
             //style modification, error message
             this.input.classList.remove('valid');
             this.input.classList.add('invalid');
-            this.error.innerText= "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+            this.input.setAttribute("aria-invalid", "true");
+            if(this.error.id === "error-first") this.error.innerText= "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+            else if(this.error.id === "error-last") this.error.innerText= "Veuillez entrer 2 caractères ou plus pour le champ du nom."
             this.error.classList.add('span-error');
             return false;
         }else{
             // console.log(this.input.value);
             this.input.classList.remove('invalid');
             this.input.classList.add('valid');
+            this.input.setAttribute("aria-invalid", "false");
             this.error.classList.remove('span-error');
             this.error.innerText= "";
             return true;
@@ -51,12 +54,14 @@ export class Contact {
             this.error.innerText= "Vous devez entrer une adresse email valide.";
             this.input.classList.remove('valid');
             this.input.classList.add('invalid');
+            this.input.setAttribute("aria-invalid", "true");
             this.error.classList.add('span-error');
             return false;
         }
         else{
             this.input.classList.remove('invalid');
             this.input.classList.add('valid');
+            this.input.setAttribute("aria-invalid", "false");
             this.error.classList.remove('span-error');
             this.error.innerText= "";
             return true;

@@ -1,4 +1,4 @@
-import { LIGHTBOX } from "./globals";
+import { LIGHTBOX, PHOTOGRAPHER_MEDIAS } from "./globals";
 
 export class Lightbox{
     constructor(array){
@@ -17,6 +17,8 @@ export class Lightbox{
         const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button').addEventListener('click', ()=> {
             this.lightbox.style.display= "none";
             this.lightbox.setAttribute("aria-modal", "false");
+            PHOTOGRAPHER_MEDIAS.firstChild.children[0].focus();
+
         });
         const LIGHTBOX_PREVIOUS= document.querySelector('.lightbox-content__previous-button').addEventListener('click', ()=> {
             // console.log('previous');
@@ -40,6 +42,8 @@ export class Lightbox{
             }else if(e.code === "Escape"){
                 this.lightbox.style.display= "none";
                 this.lightbox.setAttribute("aria-modal", "false");
+                // console.log(PHOTOGRAPHER_MEDIAS.firstChild);
+                PHOTOGRAPHER_MEDIAS.firstChild.children[0].focus();
             }
         });
 

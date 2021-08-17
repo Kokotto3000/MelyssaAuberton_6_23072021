@@ -168,7 +168,7 @@ function displayPhotographerPresentation(){
                             isValidFirst= isValidLast= isValidMail= false; 
                             SUCCESS.innerText= "Message bien envoyé !";                           
                         }
-                        else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
+                        // else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
                     });
                 }
             }
@@ -242,7 +242,7 @@ function updatePhotographerMedias(id, filter){
         // console.log(sliderIndex);
         LIGHTBOX.style.display= 'block';
         LIGHTBOX.setAttribute("aria-modal", "true");
-        LIGHTBOX.focus();
+        // LIGHTBOX.focus();
         // Call the function when the part of the page gets focus
         // var modal = document.querySelector('.modal');
         
