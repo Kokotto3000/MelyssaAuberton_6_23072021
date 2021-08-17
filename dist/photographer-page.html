@@ -29,7 +29,7 @@
         </a>
     </header>
 
-    <main id="photographer-page" aria-hidden="false">
+    <main id="photographer-page">
         <section class="photographer-page__presentation"></section>
 
         <div class="photographer-medias__filter">
@@ -46,9 +46,9 @@
 
     </main>
 
-    <div class="photographer-modal" role="dialog" aria-hidden="true" aria-describedby="photographer-modal">
+    <div class="photographer-modal" role="dialog" aria-describedby="photographer-modal" aria-modal="false">
         <div class="photographer-modal__content">
-            <span class="close"></span>
+            <button class="close"></button>
             <div class="photographer-modal__content-body">
                 <h2 id="photographer-modal" class="photographer-modal__content-title">Contactez-moi<br /><span></span></h2>                    
                 <form name="reserve" action="photographer-page.html" method="GET" novalidate >
@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    <div id="lightbox" role="dialog" aria-hidden="true" aria-label="image or video closeup view"></div>
+    <div id="lightbox" role="dialog" aria-modal="false" aria-label="image or video closeup view"></div>
 
     <footer class="photographer-footer">
         <div class="photographer-footer__likes">

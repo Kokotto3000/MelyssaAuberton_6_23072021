@@ -7,7 +7,6 @@
   border: none;
   margin: 0;
   padding: 0;
-  outline: none;
 }
 
 html {
@@ -23,6 +22,11 @@ body {
   font-weight: 400;
   width: 90%;
   margin: 3rem auto;
+}
+
+main {
+  width: 100%;
+  margin: 0 auto;
 }
 
 h1 {
@@ -401,6 +405,7 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
 }
 
 .close:before,
@@ -470,7 +475,6 @@ label {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
   margin: 0 auto;
 }
@@ -638,6 +642,9 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#photographer-medias figcaption button {
+  background: transparent;
 }
 #photographer-medias figcaption svg {
   fill: #901C1C;
