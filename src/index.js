@@ -4,7 +4,7 @@ import './sass/main.scss';
 //import des données du fichier .json
 import FishEyeData from './data/FishEyeData.json';
 // importe les globals
-import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES, FORM, LIGHTBOX } from './js/globals';
+import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES, FORM, LIGHTBOX, tabbableElements } from './js/globals';
 // importe les classes
 import { Photographer } from './js/Photographer';
 import { Medias } from './js/Medias';
@@ -37,12 +37,6 @@ let isValidMail= false;
 let sliderArray= [];
 
 let likes= 0;
-
-// focus piégé dans la modal
-let tabbableElements = 'a[href], area[href], input:not([disabled]),' +
-	'select:not([disabled]), textarea:not([disabled]),' +
-	'button:not([disabled]), iframe, object, embed, *[tabindex],' +
-	'*[contenteditable]';
 
 if(NAV){
     NAV.appendChild(navList);
@@ -250,9 +244,9 @@ function updatePhotographerMedias(id, filter){
         // console.log(sliderIds.indexOf(Number(media.id)));
         const lightbox= new Lightbox(sliderArray);
         lightbox.displayLightbox(sliderIndex);
-        console.log(lightbox.lightbox.children[0].firstChild);
-        keepFocus(lightbox.lightbox);
-        lightbox.lightbox.children[0].firstChild.focus();
+        // console.log(lightbox.lightbox.children[0].firstChild);
+        // keepFocus(lightbox.lightbox);
+        // lightbox.lightbox.children[0].firstChild.focus();
     }));
 }
 
@@ -340,8 +334,9 @@ if(PHOTOGRAPHERS_SECTION){
 // 	'button:not([disabled]), iframe, object, embed, *[tabindex],' +
 // 	'*[contenteditable]';
 
-function keepFocus(context) {
+export function keepFocus(context) {
 	const allTabbableElements = context.querySelectorAll(tabbableElements);
+    // console.log(allTabbableElements);
 	const firstTabbableElement = allTabbableElements[0];
 	const lastTabbableElement = allTabbableElements[allTabbableElements.length - 1];
 
