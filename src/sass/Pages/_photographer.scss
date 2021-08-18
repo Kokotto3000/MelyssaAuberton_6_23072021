@@ -94,12 +94,20 @@
         width: 100%;
         height: 30rem;
         object-fit: cover;
+        transition: transform 100ms ease-out;
         @include main-border-radius;
         @include mobile {
             width: 33.5rem;
             height: 19rem;
         }
     }
+    a{
+        outline: none; 
+        &:focus img, &:hover img, &:hover video, &:focus video{
+        @include focus-scale;
+        }
+    }
+    
     figcaption{
         display: flex;
         justify-content: space-between;
@@ -112,6 +120,11 @@
         }
         button{
             background: transparent;
+            outline: none;
+            &:hover svg, &:focus svg{
+                @include focus-scale;
+                fill: $secondary-color;
+            }
         }
         svg{
             fill: $primary-color;

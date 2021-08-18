@@ -1,5 +1,4 @@
-import { LIGHTBOX, PHOTOGRAPHER_MEDIAS, tabbableElements } from "./globals";
-import { keepFocus } from "..";
+import { LIGHTBOX, PHOTOGRAPHER_MEDIAS, tabbableElements, keepFocus} from "./globals";
 
 export class Lightbox{
     constructor(array){
@@ -8,8 +7,7 @@ export class Lightbox{
     }
 
     displayLightbox(index){
-        this.index= index;
-        
+        this.index= index;        
         
         if(this.slider[this.index].image){
             this.lightbox.innerHTML= `<div class='lightbox-content'><button role="button" class="lightbox-content__close-button" aria-label="Close dialog"></button><figure><img tabindex="0" src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].image}" alt="${this.slider[this.index].alt}" /><figcaption>${this.slider[this.index].title}</figcaption></figure><button role="button" class="lightbox-content__previous-button" aria-label="Previous image"></button><button role="button" class="lightbox-content__next-button" aria-label="Next image"></button></div>`;
@@ -17,7 +15,7 @@ export class Lightbox{
             this.lightbox.innerHTML= `<div class='lightbox-content'><button role="button" class="lightbox-content__close-button" aria-label="Close dialog"></button><video tabindex= "0" controls><source src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].video}" alt="${this.slider[this.index].alt}" /><figcaption>${this.slider[this.index].title}</figcaption></video><button role="button" class="lightbox-content__previous-button" aria-label="Previous image"></button><button role="button" class="lightbox-content__next-button" aria-label="Next image"></button></div>`;            
         }
 
-        console.log(this.lightbox);
+        // console.log(this.lightbox);
         keepFocus(this.lightbox);
         this.lightbox.firstChild.children[1].firstChild.focus();
         const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button').addEventListener('click', ()=> {

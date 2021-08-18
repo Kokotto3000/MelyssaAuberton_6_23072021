@@ -16,6 +16,13 @@
     @include mobile{
         width: 100%;
     }
+    a:hover, a:focus{
+        @include focus-scale;
+        outline: none;
+        h2{
+            color: $primary-color;
+        }
+    }
     img{
         @include background-color(77%);
         width: 200px;
@@ -47,5 +54,4 @@
     footer ul{
         display: flex;
     }
-    
 }
