@@ -6,10 +6,18 @@ header{
     width: 90%;
     margin: .6rem auto;
     padding: .7rem 0;
+    a{
+        outline: none;
+        &:hover .header__logo, &:focus .header__logo{
+            fill: $secondary-color;
+            @include focus-scale;
+        }
+    }
 }
 
-.accueil-header__logo{
+.header__logo{
     width: 20rem;
+    fill: $primary-color;
     @include mobile{
         width: 15rem;
     }

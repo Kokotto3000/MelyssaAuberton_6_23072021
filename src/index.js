@@ -4,7 +4,8 @@ import './sass/main.scss';
 //import des données du fichier .json
 import FishEyeData from './data/FishEyeData.json';
 // importe les globals
-import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES, FORM, LIGHTBOX } from './js/globals';
+import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES, FORM, LIGHTBOX, tabbableElements, keepFocus } from './js/globals';
+
 // importe les classes
 import { Photographer } from './js/Photographer';
 import { Medias } from './js/Medias';
@@ -29,64 +30,68 @@ const DROPDOWN= document.querySelector('.photographer-medias__filter-dropdown');
 let BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
 const dropdownElements= ["popularité", "date", "titre"];
 
+//likes
 let disabledLikes= false;
+let likes= 0;
+
+//form
 let isValidFirst= false;
 let isValidLast= false;
 let isValidMail= false;
 
+//lightbox
 let sliderArray= [];
 
-let likes= 0;
-
-if(NAV){
-    NAV.appendChild(navList);
-    tags.forEach(tag=> {
-        const newTag= document.createElement('li');
-        newTag.innerHTML=`<a class="tag" target="${tag}" href="#" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
-        navList.appendChild(newTag);
-    });
-}
+// passer au contenu
+let isScrolling= false;
 
 // fonction de filtre des boutons tags
 // génère les cartes des photographes
-function init(filter){
-    // console.log(filter);
-    if(!filter){
-        // console.log(photographersData);
-        photographersData.forEach(photographer =>{
-            const photographerCard = new Photographer(photographer);
-            photographerCard.updatePhotographerCards();
-        });
-    }else{        
-        const filteredPhotographers= photographersData.filter(photographer => photographer.tags.includes(filter));
-        // console.log(filteredPhotographers);        
+function init(){
+    NAV.appendChild(navList);
+    tags.forEach(tag=> {
+        const newTag= document.createElement('li');
+        newTag.innerHTML=`<a class="tag" href="?id=${tag}" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
+        navList.appendChild(newTag);
+    });
+
+    let filter;
+    for(let p of params){
+        if(p){
+            filter= p[1];
+            console.log(filter);
+        }
+    }
+    
+    if(filter){
+        const filteredPhotographers= photographersData.filter(photographer => photographer.tags.includes(filter));       
         filteredPhotographers.forEach(photographer =>{            
             const photographerCard = new Photographer(photographer);
             photographerCard.updatePhotographerCards();
         });
-    } 
-    // création de l'évènement sur les boutons tag
-    const TAG_FILTERS= document.querySelectorAll('.tag');
-    // console.log(TAG_FILTERS);
-    TAG_FILTERS.forEach(tagFilter => {    
-        tagFilter.addEventListener("click", (e)=> {
-            e.preventDefault();
-            // console.log(tagFilter.target);
-            PHOTOGRAPHERS_SECTION.innerHTML="";
-            init(tagFilter.target);
+    }else{
+        photographersData.forEach(photographer =>{
+            const photographerCard = new Photographer(photographer);
+            photographerCard.updatePhotographerCards();
         });
+    }
+
+    //  bouton passer au contenu
+    window.addEventListener('scroll', ()=> {
+        if(!isScrolling){
+            const scrollButton= document.createElement('a');
+            scrollButton.classList.add('accueil__scroll-button');
+            scrollButton.setAttribute('href', '#accueil-main');
+            scrollButton.innerText= "Passer au contenu";
+            PHOTOGRAPHERS_SECTION.appendChild(scrollButton);
+            isScrolling= true;
+            scrollButton.focus();
+        }        
     });
 }
 
-if(PHOTOGRAPHERS_SECTION) init();
-
 // fonction pour l'affichage de la présentation sur la page photographe
 function displayPhotographerPresentation(){
-    // console.log(window.location);
-    // console.log(window.location.search);
-    // const urlParams= window.location.search;
-    // const params= new URLSearchParams(urlParams);
-
     for (let p of params) {
         // console.log(p[1]);
         photographersData.forEach(photographer => {
@@ -94,7 +99,6 @@ function displayPhotographerPresentation(){
             if(photographer.id == p[1]){
                 const photographerPresentation = new Photographer(photographer);
                 photographerPresentation.updatePhotographerPresentation();
-                
 
                 if(PHOTOGRAPHER_MEDIAS){
                     updatePhotographerMedias(photographer.id);
@@ -102,24 +106,43 @@ function displayPhotographerPresentation(){
 
                 if(FORM){
                     const contact= new Contact();
-                    // DOM Elements, toutes les recherches qui ne concerne que la page photographer à ne mettre que quand la page photographer est ouverte !!!
                     const modalbg = document.querySelector(".photographer-modal");
                     const modalBtn = document.querySelector(".contact-button");
                     const modalCloseBtn = document.querySelector(".close");                    
                     const SUCCESS= document.getElementById("success-message");
                     const modalTitle= document.querySelector(".photographer-modal__content-title span");
-
                     modalTitle.innerText= photographer.name;
                     
                     // modal events
                     modalBtn.addEventListener("click", ()=> {
                         modalbg.style.display = "block";
+                        modalbg.setAttribute("aria-modal", "true");
+                        keepFocus(modalbg);
+                        modalCloseBtn.focus();
                     });
-                    modalCloseBtn.addEventListener("click", ()=> {
+
+                    function closeFormModal(){
                         modalbg.style.display = "none";
+                        modalbg.setAttribute("aria-modal", "false");
                         contact.resetForm();
                         isValidFirst= isValidLast= isValidMail= false;
+                        modalBtn.focus();
+                    }
+                    modalCloseBtn.addEventListener("click", closeFormModal);
+                    document.addEventListener('keydown', e => {
+                        if(e.code === "Escape") closeFormModal();
                     });
+
+                    contact.inputs.first.addEventListener("change", ()=>{
+                        contact.stringValidation("first");
+                    });
+                    contact.inputs.last.addEventListener("change", ()=>{
+                        contact.stringValidation("last");
+                    });
+                    contact.inputs.email.addEventListener("change", ()=>{
+                        contact.emailValidation();
+                    });
+
                     FORM.addEventListener("submit", e => {
                         e.preventDefault();
                         contact.stringValidation("first") ? isValidFirst= true : false;
@@ -129,9 +152,9 @@ function displayPhotographerPresentation(){
                             console.log("Message pour : " + photographer.name + "\nPrénom : " + contact.getInputs('first').value + "\nNom : " + contact.getInputs('last').value + "\nEmail : " + contact.getInputs('email').value + "\nMessage : " + contact.getInputs('message').value);                            
                             contact.resetForm();
                             isValidFirst= isValidLast= isValidMail= false; 
-                            SUCCESS.innerText= "Message bien envoyé !";                           
+                            SUCCESS.innerText= "Le message a bien été envoyé !";                           
                         }
-                        else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
+                        // else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
                     });
                 }
             }
@@ -139,42 +162,25 @@ function displayPhotographerPresentation(){
     }
 }
 
-if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
-
+// fonction pour l'affichage de medias de la page photographe
 function updatePhotographerMedias(id, filter){
-    // console.log(sliderArray);
     sliderArray= [];
     likes= 0;    
-    // console.log(id + " " + filter);
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
-    // console.log(filteredMedias);  
     filteredMedias.forEach(media =>{            
         const mediaCard = new Medias(media);
         mediaCard.displayPhotographerMedias(id, filter);
 
-        // création du tableau pour la lightbox
         if(filter){
             if(media.tags[0] === filter) sliderArray.push(mediaCard);   
         }else sliderArray.push(mediaCard);
 
         // FOOTER
+        //ne charge les likes du .json qu'au chargement de la page
         if(!disabledLikes){
             likes += mediaCard.likes;
             PHOTOGRAPHER_LIKES.innerText= likes;
-        }
-        
-    });
-
-    // création de l'évènement sur les boutons tag pour les medias
-    const TAG_FILTERS= document.querySelectorAll('.tag');
-    // console.log(TAG_FILTERS);
-    TAG_FILTERS.forEach(tagFilter => {    
-        tagFilter.addEventListener("click", (e)=> {
-            e.preventDefault();
-            // console.log(tagFilter.target);
-            PHOTOGRAPHER_MEDIAS.innerHTML="";
-            updatePhotographerMedias(id, tagFilter.target);
-        });
+        }        
     });
 
     // LIKES event
@@ -182,6 +188,7 @@ function updatePhotographerMedias(id, filter){
     LIKE_BUTTONS.forEach(button=> {
         let isCliquable= true;
         button.addEventListener('click', ()=> {
+            // on ne peut cliquer qu'une fois sur les coeurs des medias, par page...
             if(isCliquable){
                 const LIKES= button.querySelector('span');
                 LIKES.innerText++;
@@ -195,39 +202,41 @@ function updatePhotographerMedias(id, filter){
 
     //LIGHTBOX
     
-    const MEDIAS= document.querySelectorAll('.photographer-media');
-    // const LIGHTBOX= document.getElementById('lightbox');
-    // console.log(sliderArray);
+    const MEDIAS= document.querySelectorAll('.photographer-media__link');
+    
     MEDIAS.forEach(media => media.addEventListener('click', ()=> {
-        // console.log(media);
         const sliderIndex= sliderArray.map(sliderId => sliderId.id).indexOf(Number(media.id));
-        // console.log(sliderIndex);
         LIGHTBOX.style.display= 'block';
-        // console.log(sliderIds.indexOf(Number(media.id)));
+        LIGHTBOX.setAttribute("aria-modal", "true");
+        
         const lightbox= new Lightbox(sliderArray);
-        lightbox.displayLightbox(sliderIndex);
+        lightbox.displayLightbox(sliderIndex);        
     }));
 }
 
 //DROPDOWN
-
-
-if(BUTTON) BUTTON.addEventListener('click', openDropdown);
-
 function openDropdown(e){
-    DROPDOWN.innerHTML= `<ul id="exp_elem_list" tabindex= "0" role="listbox" arialabelledby="exp_elem" aria-activedescendant="exp_elem_${e.target.textContent}" aria-expended="true" onfocus="this.className='focus';">` + dropdownElements.map(element => `<li role="option" id="exp_elem_${element}" tabindex= "-1" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + '</ul>';
+    DROPDOWN.innerHTML = `<ul id="exp_elem_list" arialabelledby="exp_elem" aria-activedescendant= "exp_elem_${e.target.textContent}" role="listbox" aria-expended="true">` + dropdownElements.map(element => `<li role="option" id="exp_elem_${element}" tabindex= "0" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + `</ul>`;
+    
+    keepFocus(DROPDOWN);
+    const FIRST_BUTTON= DROPDOWN.querySelector('li');
+    FIRST_BUTTON.focus();
+    
     const DROPDOWN_BUTTONS= document.querySelectorAll('.photographer-medias__filter-dropdown-button');
-    DROPDOWN_BUTTONS.forEach(button=> button.addEventListener('click', filterDropdown));
-    // navigation au clavier ?
+    DROPDOWN_BUTTONS.forEach(button=> {
+        button.addEventListener('click', filterDropdown);
+        button.addEventListener('keydown', e => {
+            if(e.code === "Enter") filterDropdown(e);
+        });
+    })
+    document.addEventListener("keydown", e=> {
+        if(e.code === "Escape") closeDropdown(BUTTON.textContent);
+    });
 }
 
 function filterDropdown(e){
-    // console.log(e.target.textContent);
-    // console.log(params);
-    console.log(e.target.textContent);
     switch(e.target.textContent) {
         case "popularité" :
-            const POPULARITE= document.getElementById('exp_elem_popularité').setAttribute("aria-selected", "true");
             mediasData.sort((a, b) => a.likes - b.likes);
             for (let p of params){
                 PHOTOGRAPHER_MEDIAS.innerHTML="";
@@ -252,26 +261,21 @@ function filterDropdown(e){
             }
             break;
         default :
-            console.log("error");
+            console.log('error dropdown');
     }
+    closeDropdown(e.target.textContent);   
+}
 
-    DROPDOWN.innerHTML= `<button id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${e.target.textContent}</button>`;
+function closeDropdown(content){
+    DROPDOWN.innerHTML= `<button role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${content}</button>`;
     BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
+    console.log(PHOTOGRAPHER_MEDIAS);
+    // BUTTON.focus();
     BUTTON.addEventListener('click', openDropdown);
 }
 
-let isScrolling= false;
+if(PHOTOGRAPHERS_SECTION) init();
 
-if(PHOTOGRAPHERS_SECTION){
-    window.addEventListener('scroll', ()=> {
-        // console.log('scroll');
-        if(!isScrolling){
-            const scrollButton= document.createElement('a');
-            scrollButton.classList.add('accueil__scroll-button');
-            scrollButton.setAttribute('href', '#');
-            scrollButton.innerText= "Passer au contenu";
-            PHOTOGRAPHERS_SECTION.appendChild(scrollButton);
-            isScrolling= true;
-        }        
-    });
-}
+if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
+
+if(BUTTON) BUTTON.addEventListener('click', openDropdown);

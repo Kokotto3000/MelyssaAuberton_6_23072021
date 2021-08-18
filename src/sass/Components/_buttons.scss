@@ -10,10 +10,12 @@
     text-align: center;
     margin: .4rem .4rem .4rem 0;
     text-transform: capitalize;
-    transition: background-color 300ms ease-in;
+    transition: background-color, transform 100ms ease-out;
+    // transition: transform 100ms ease-in-out;
     &:hover, &:focus, &:active{
         background-color: $primary-color;
         color: white;
+        @include focus-scale;
     }
     .sr-only {
         position: absolute;
@@ -34,22 +36,34 @@
     color: white;
     padding: 2rem .5rem;
     font-size: 1.8rem;
+    outline: none;
+    transition: background-color, transform 100ms ease-out;
+    &:hover, &:focus, &:active{
+        background-color: $secondary-background-color;
+        color: black;
+        @include focus-scale;
+    }
 }
 
 .accueil__scroll-button{
-    background-color: $secondary-background-color;
+    background-color: $primary-color;
     position: fixed;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    transition: background-color 100ms ease-out;
     @include main-border-radius;
     font-weight: bold;
     font-size: 1.8rem;
     padding: .5rem 1.5rem;
-    color: $tertiary-color;
+    color: white;
     margin: 1rem;
     @include mobile{
         display: none;
+    }
+    &:focus, &:hover{
+        background-color: $secondary-background-color;
+        color: $tertiary-color;
     }
 }
 

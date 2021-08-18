@@ -15,7 +15,7 @@
     width: 100%;
     max-width: 70rem;
     animation-name: modalopen;
-    animation-duration: var(--modal-duration);
+    animation-duration: $modal-duration;
     background: $secondary-background-color;
     @include main-border-radius;
     overflow: hidden;
@@ -69,6 +69,11 @@ label {
 .btn-submit{
   width: 17rem;
   margin: 2rem 0;
+  &:hover, &:focus, &:active{
+    background-color: $primary-color;
+    color: white;
+    @include focus-scale;
+}
 }
 /* cross closing button */
 .close {
@@ -82,6 +87,7 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
 }
 
 .close:before,
@@ -105,17 +111,16 @@ label {
 /* validation part */
 .span-error, #success-message {
   font-size: 2rem;
-  color: #e54858;
+  color: $tertiary-color;
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
   text-align: left;
-  // line-height: 0.3;
   transition: 0.3s;
 }
 
 .invalid {
-  border: .2rem solid #e54858;
+  border: .2rem solid red;
   color: red;
 }
 
