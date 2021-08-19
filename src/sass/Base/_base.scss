@@ -36,3 +36,7 @@ a{
     text-decoration: none;
 
 }
+
+img, video{
+    @include background-color(77%);
+}

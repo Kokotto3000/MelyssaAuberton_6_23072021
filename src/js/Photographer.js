@@ -36,6 +36,7 @@ export class Photographer{
     updatePhotographerPresentation(){
         // création du template de la section présentation
         const presentationDatas= document.createElement('div');
+        presentationDatas.setAttribute("class", "photographer-page__presentation-content");
         PHOTOGRAPHER_PRESENTATION.appendChild(presentationDatas);
         presentationDatas.innerHTML= `<h1>${this.name}</h1><p class="photographer-page__presentation-content--location">${this.city}, ${this.country}</p><p class="photographer-page__presentation-content--tagline">${this.tagline}</p>`;
         const photographerFooter= document.createElement('footer');

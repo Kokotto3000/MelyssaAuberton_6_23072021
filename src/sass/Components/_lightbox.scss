@@ -88,16 +88,13 @@
     }
     figure{
         color: $primary-color;
-        width: 50%;
         font-size: 2.4rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
         img, source{
-            @include background-color(77%);
-            width: auto;
             max-height: 90vh;
-            object-fit: cover;
+            object-fit: contain;
             overflow: hidden;
         }
     }
