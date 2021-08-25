@@ -4,7 +4,7 @@ import './sass/main.scss';
 //import des données du fichier .json
 import FishEyeData from './data/FishEyeData.json';
 // importe les globals
-import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, PHOTOGRAPHER_LIKES, FORM, LIGHTBOX, tabbableElements, keepFocus } from './js/globals';
+import { PHOTOGRAPHERS_SECTION, PHOTOGRAPHER_PRESENTATION, PHOTOGRAPHER_MEDIAS, FORM, LIGHTBOX, tabbableElements, keepFocus } from './js/globals';
 
 // importe les classes
 import { Photographer } from './js/Photographer';
@@ -38,6 +38,7 @@ let likes= 0;
 let isValidFirst= false;
 let isValidLast= false;
 let isValidMail= false;
+let isValidMessage= false;
 
 //lightbox
 let sliderArray= [];
@@ -78,15 +79,10 @@ function init(){
 
     //  bouton passer au contenu
     window.addEventListener('scroll', ()=> {
+        const SCROLL_BUTTON= document.getElementById("scroll-button");
         if(!isScrolling){
-            const scrollButton= document.createElement('a');
-            scrollButton.classList.add('accueil__scroll-button');
-            scrollButton.setAttribute('href', '#accueil-main');
-            scrollButton.innerText= "Passer au contenu";
-            PHOTOGRAPHERS_SECTION.appendChild(scrollButton);
-            isScrolling= true;
-            scrollButton.focus();
-        }        
+            SCROLL_BUTTON.className= "accueil__scroll-button";
+        }      
     });
 }
 
@@ -118,7 +114,7 @@ function displayPhotographerPresentation(){
                         modalbg.style.display = "block";
                         modalbg.setAttribute("aria-modal", "true");
                         keepFocus(modalbg);
-                        modalCloseBtn.focus();
+                        modalbg.focus();
                     });
 
                     function closeFormModal(){
@@ -142,13 +138,17 @@ function displayPhotographerPresentation(){
                     contact.inputs.email.addEventListener("change", ()=>{
                         contact.emailValidation();
                     });
+                    contact.inputs.message.addEventListener("change", ()=>{
+                        contact.messageValidation();
+                    });
 
                     FORM.addEventListener("submit", e => {
                         e.preventDefault();
                         contact.stringValidation("first") ? isValidFirst= true : false;
                         contact.stringValidation("last") ? isValidLast= true : false;
                         contact.emailValidation() ? isValidMail= true : false;
-                        if(isValidFirst && isValidLast && isValidMail) {
+                        contact.messageValidation() ? isValidMessage= true : false;
+                        if(isValidFirst && isValidLast && isValidMail && isValidMessage) {
                             console.log("Message pour : " + photographer.name + "\nPrénom : " + contact.getInputs('first').value + "\nNom : " + contact.getInputs('last').value + "\nEmail : " + contact.getInputs('email').value + "\nMessage : " + contact.getInputs('message').value);                            
                             contact.resetForm();
                             isValidFirst= isValidLast= isValidMail= false; 
@@ -165,7 +165,8 @@ function displayPhotographerPresentation(){
 // fonction pour l'affichage de medias de la page photographe
 function updatePhotographerMedias(id, filter){
     sliderArray= [];
-    likes= 0;    
+    likes= 0;
+    const PHOTOGRAPHER_LIKES= document.getElementById('likes'); 
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
     filteredMedias.forEach(media =>{            
         const mediaCard = new Medias(media);
@@ -188,6 +189,7 @@ function updatePhotographerMedias(id, filter){
     LIKE_BUTTONS.forEach(button=> {
         let isCliquable= true;
         button.addEventListener('click', ()=> {
+            //const PHOTOGRAPHER_LIKES= document.getElementById('likes');
             // on ne peut cliquer qu'une fois sur les coeurs des medias, par page...
             if(isCliquable){
                 const LIKES= button.querySelector('span');

@@ -13,6 +13,11 @@ header{
             @include focus-scale;
         }
     }
+    h1:hover, h1:focus{
+        outline: none;
+        @include focus-scale;
+        color: $secondary-color;
+    }
 }
 
 .header__logo{

@@ -7,6 +7,9 @@
     background-color: white;
     display: none;
     z-index: 10;
+    &:hover, &:focus{
+        @include background-color(95%);
+    }
     .lightbox-content{
         position: relative;
         width: 100%;
@@ -28,6 +31,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        &:hover, &:focus{
+            outline: none;
+            transform: scale(1.25);
+            &::before, &::after{
+                background-color: $secondary-color;
+            }
+        }
         &::before, &::after{
             position: absolute;
             content: " ";
@@ -55,6 +65,13 @@
         justify-content: center;
         align-items: center;
         background-color: transparent;
+        &:hover, &:focus{
+            outline: none;
+            &::before, &::after{
+                font-size: 4rem;
+                color: $secondary-color;
+            }
+        }
         &::before, &::after{
             color: $primary-color;
             font-size: 3rem;
@@ -77,6 +94,13 @@
         justify-content: center;
         align-items: center;
         background-color: transparent;
+        &:hover, &:focus{
+            outline: none;
+            &::before, &::after{
+                font-size: 4rem;
+                color: $secondary-color;
+            }
+        }
         &::before, &::after{
             position: absolute;
             color: $primary-color;
@@ -92,14 +116,28 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
+        figcaption:hover, figcaption:focus{
+            @include focus-scale;
+            outline: none;
+            color: $secondary-color;
+        }
         img, source{
             max-height: 90vh;
             object-fit: contain;
             overflow: hidden;
+            &:hover, &:focus{
+                @include focus-scale;
+                outline: none;
+            }
         }
     }
     video{
         max-width: 80%;
+        &:hover, &:focus{
+            @include focus-scale;
+            outline: none;
+        }
     }
     
 }
