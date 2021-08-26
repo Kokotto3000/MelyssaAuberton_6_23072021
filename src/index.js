@@ -46,8 +46,10 @@ let sliderArray= [];
 // passer au contenu
 let isScrolling= false;
 
-// fonction de filtre des boutons tags
-// génère les cartes des photographes
+
+//FONCTIONS
+
+// fonction de filtre des boutons tags, génère les cartes des photographes
 function init(){
     NAV.appendChild(navList);
     tags.forEach(tag=> {
@@ -58,10 +60,7 @@ function init(){
 
     let filter;
     for(let p of params){
-        if(p){
-            filter= p[1];
-            console.log(filter);
-        }
+        if(p) filter= p[1];
     }
     
     if(filter){
@@ -69,6 +68,7 @@ function init(){
         filteredPhotographers.forEach(photographer =>{            
             const photographerCard = new Photographer(photographer);
             photographerCard.updatePhotographerCards();
+            document.title= `FishEye | Accueil, tri des photographes par ${filter}`;
         });
     }else{
         photographersData.forEach(photographer =>{
@@ -89,9 +89,7 @@ function init(){
 // fonction pour l'affichage de la présentation sur la page photographe
 function displayPhotographerPresentation(){
     for (let p of params) {
-        // console.log(p[1]);
         photographersData.forEach(photographer => {
-            // console.log(photographer.id)
             if(photographer.id == p[1]){
                 const photographerPresentation = new Photographer(photographer);
                 photographerPresentation.updatePhotographerPresentation();
@@ -154,7 +152,6 @@ function displayPhotographerPresentation(){
                             isValidFirst= isValidLast= isValidMail= false; 
                             SUCCESS.innerText= "Le message a bien été envoyé !";                           
                         }
-                        // else SUCCESS.innerText= "Vérifiez les champs du formulaire.";
                     });
                 }
             }
@@ -189,7 +186,6 @@ function updatePhotographerMedias(id, filter){
     LIKE_BUTTONS.forEach(button=> {
         let isCliquable= true;
         button.addEventListener('click', ()=> {
-            //const PHOTOGRAPHER_LIKES= document.getElementById('likes');
             // on ne peut cliquer qu'une fois sur les coeurs des medias, par page...
             if(isCliquable){
                 const LIKES= button.querySelector('span');
@@ -199,7 +195,6 @@ function updatePhotographerMedias(id, filter){
             }
         });
     });
-
     disabledLikes= true;
 
     //LIGHTBOX
@@ -237,6 +232,13 @@ function openDropdown(e){
 }
 
 function filterDropdown(e){
+    for(let p of params){
+        if(p){
+            photographersData.forEach(photographer => {
+                if(photographer.id == p[1]) document.title= `FishEye | Page Photographe de ${photographer.name}, tri des images par ${e.target.textContent}`;
+            });
+        }
+    }
     switch(e.target.textContent) {
         case "popularité" :
             mediasData.sort((a, b) => a.likes - b.likes);
@@ -271,11 +273,11 @@ function filterDropdown(e){
 function closeDropdown(content){
     DROPDOWN.innerHTML= `<button role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${content}</button>`;
     BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
-    console.log(PHOTOGRAPHER_MEDIAS);
-    // BUTTON.focus();
     BUTTON.addEventListener('click', openDropdown);
 }
 
+
+//CODE PRINCIPAL
 if(PHOTOGRAPHERS_SECTION) init();
 
 if(PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
