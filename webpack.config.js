@@ -4,7 +4,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     plugins: [new MiniCssExtractPlugin()],
-    // watch: true,
+    //watch: true,
+    devtool: false,
     module: {
         rules: [
             {
