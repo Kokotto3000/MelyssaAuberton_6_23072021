@@ -14,8 +14,9 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    <a id="scroll-button" href="#accueil-main" class="sr-only" role="link" aria-label="Passer au contenu principal">Passer au contenu</a>
     <header role="banner">
-        <a href="index.html" role="link" alt="Fisheye logo - Home page">
+        <a href="index.html" role="link" alt="Fisheye logo - Home page" aria-label="retour à l'accueil Fisheye">
             <svg class="header__logo" role="img" aria-labelledby="logo" width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
                 <title id="logo">Logo FishEye</title>
                 <path d="M24.7206 0.911621V6.51058H6.31164V17.5783H21.4333V22.9168H6.31164V39.1929H0V0.911621H24.7206Z" />
@@ -30,19 +31,17 @@
 
         <nav class="accueil-header__nav" aria-label="photographer categories" role="navigation" aria-label="main navigation"></nav>
         
-        <h1>Nos photographes</h1>
+        <h1 tabindex="0">Nos photographes</h1>
     </header>
 
     <main id="accueil-main">        
 
-        <section class="accueil-photographers"></section>
+        <section class="accueil-photographers" aria-label="Nos photographes"></section>
 
     </main>
     
-    <footer>
-
-    </footer>
-
+    <footer></footer>
+    
     <script src="main.js"></script>
 
 </body>

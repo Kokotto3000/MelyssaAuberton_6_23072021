@@ -1,7 +1,7 @@
 .photographer-modal{
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     left: 0;
     top: 0;
     height: 100%;
@@ -28,103 +28,129 @@
         height: 100%;
     }
     &-title{
-      font-size: 6.4rem;
-      color: $tertiary-color;
-      padding: 1rem 0;
-      @include mobile{
-        font-size: 3.6rem;
-      }
+        font-size: 6.4rem;
+        color: $tertiary-color;
+        padding: 1rem 0;
+        @include mobile{
+          font-size: 3.6rem;
+        }
+        &:hover, &:focus{
+            @include focus-scale;
+            outline: none;
+            color: $primary-color;
+        }
     }
 }
   
 .photographer-modal__content-body {
-  padding: 1rem 2rem;
-  // margin: 1.5rem auto;
+    padding: 1rem 2rem;
+    // margin: 1.5rem auto;
+    form :last-child{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @include mobile{
+            flex-direction: column;
+        }
+    }
 }
 
 label {
-  font-size: 3.6rem;
-  font-weight: 200;
-  display: inline-block;
-  margin-bottom: 1.1rem;
-  @include font-color(19%);
-  // mix-blend-mode: normal;
+    font-size: 3.6rem;
+    font-weight: 200;
+    display: inline-block;
+    margin-bottom: 1.1rem;
+    @include font-color(19%);
+    // mix-blend-mode: normal;
+    &:hover, &:focus{
+        @include focus-scale;
+        outline: none;
+        color: $primary-color;
+    }
 }
 
 .text-control, .area-control {
-  @include main-border-radius;
-  margin: 0;
-  padding: .8rem;
-  width: 100%;
-  font-size: 3.6rem;
-  height: 6.8rem;
-  @include font-color(70%);
+    @include main-border-radius;
+    margin: 0;
+    padding: .8rem;
+    width: 100%;
+    font-size: 3.6rem;
+    height: 6.8rem;
+    @include font-color(70%);
+    caret-color: $primary-color;
+    &:hover, &:focus{
+        outline: none;
+        box-shadow: 0 0 0 .3rem $primary-color;
+    }
 }
 
 .area-control{
-  height: 17rem;
-  resize: none;
+    height: 17rem;
+    resize: none;
 }
 
 .btn-submit{
-  width: 17rem;
-  margin: 2rem 0;
-  &:hover, &:focus, &:active{
-    background-color: $primary-color;
-    color: white;
-    @include focus-scale;
+    width: 17rem;
+    margin: 2rem 0;
+    &:hover, &:focus{
+        background-color: $primary-color;
+        color: white;
+        @include focus-scale;
 }
 }
 /* cross closing button */
 .close {
-  position: absolute;
-  right: 2.5rem;
-  top: 2.5rem;
-  width: 4.2rem;
-  height: 4.2rem;
-  opacity: 1;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-}
-
-.close:before,
-.close:after {
-  position: absolute;
-  transform: translateX(-50%);
-  content: " ";
-  height: 4.2rem;
-  width: .5rem;
-  background-color: #fff;
-}
-
-.close:before {
-  transform: rotate(45deg);
-}
-
-.close:after {
-  transform: rotate(-45deg);
+    position: absolute;
+    right: 2.5rem;
+    top: 2.5rem;
+    width: 4.2rem;
+    height: 4.2rem;
+    opacity: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    &:hover, &:focus{
+        outline: none;
+        transform: scale(1.25);
+        &::before, &::after{
+            background-color: $primary-color;
+        }
+    }
+    &::before, &::after{
+        position: absolute;
+        transform: translateX(-50%);
+        content: " ";
+        height: 4.2rem;
+        width: .5rem;
+        background-color: #fff;
+    }
+    &::before{
+        transform: rotate(45deg);
+    }
+    &::after{
+        transform: rotate(-45deg);
+    }
 }
 
 /* validation part */
 .span-error, #success-message {
-  font-size: 2rem;
-  color: $tertiary-color;
-  display: block;
-  margin-top: 7px;
-  margin-bottom: 7px;
-  text-align: left;
-  transition: 0.3s;
+    font-size: 2rem;
+    color: $tertiary-color;
+    display: block;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    text-align: left;
+    transition: 0.3s;
 }
 
 .invalid {
-  border: .2rem solid red;
-  color: red;
+    border: .2rem solid red;
+    color: red;
 }
 
 .valid {
-  border: .2rem solid green;
-  color: green;
+    border: .2rem solid green;
+    color: green;
 }

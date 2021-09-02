@@ -1,8 +1,8 @@
 export const PHOTOGRAPHERS_SECTION= document.querySelector('.accueil-photographers');
 export const PHOTOGRAPHER_PRESENTATION= document.querySelector('.photographer-page__presentation');
 export const PHOTOGRAPHER_MEDIAS= document.getElementById('photographer-medias');
-export const PHOTOGRAPHER_LIKES= document.getElementById('likes');
-export const PHOTOGRAPHER_PRICE= document.getElementById('price');
+//export const PHOTOGRAPHER_LIKES= document.getElementById('likes');
+//export const PHOTOGRAPHER_PRICE= document.getElementById('price');
 export const FORM= document.querySelector("form");
 export const LIGHTBOX= document.getElementById('lightbox');
 
@@ -13,7 +13,7 @@ export const tabbableElements = 'a[href], area[href], input:not([disabled]),' +
 
 export function keepFocus(context) {
 	const allTabbableElements = context.querySelectorAll(tabbableElements);
-    // console.log(allTabbableElements);
+    //console.log(allTabbableElements);
 	const firstTabbableElement = allTabbableElements[0];
 	const lastTabbableElement = allTabbableElements[allTabbableElements.length - 1];
 

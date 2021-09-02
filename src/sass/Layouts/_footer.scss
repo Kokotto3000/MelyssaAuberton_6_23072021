@@ -13,10 +13,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 10;
     .photographer-footer__likes, .photographer-footer__price{
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 2rem 3.5rem;
+    }
+    &:hover, &:focus{
+        @include focus-scale;
+        outline: none;
+        box-shadow: 0 0 0 .2rem $primary-color;
     }
 }

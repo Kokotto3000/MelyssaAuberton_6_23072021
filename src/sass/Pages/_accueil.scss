@@ -24,7 +24,6 @@
         }
     }
     img{
-        @include background-color(77%);
         width: 200px;
         height: 200px;
         object-fit: cover;
@@ -39,6 +38,12 @@
         padding: .2rem;
     }
     &-content{
+        @include main-border-radius;
+        &:hover, &:focus{
+            @include focus-scale;
+            outline: none;
+            box-shadow: 0 0 0 .2rem $primary-color;
+        }
         &--location{
             font-size: 1.3rem;
             color: $primary-color;

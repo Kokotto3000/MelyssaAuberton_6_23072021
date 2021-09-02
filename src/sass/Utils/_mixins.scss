@@ -4,6 +4,12 @@
     }
 }
 
+@mixin tablet{
+    @media screen and (max-width: map-get($breakpoints, tablet)){
+        @content;
+    }
+}
+
 @mixin font-color ($shade: 0%, $color: $tertiary-color) {
     color: lighten($color, $shade);
 }
