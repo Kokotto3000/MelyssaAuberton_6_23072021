@@ -62,6 +62,19 @@ img, video {
   background-color: #c4c4c4;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  /* added line */
+  border: 0;
+}
+
 @keyframes modalopen {
   from {
     opacity: 0;
@@ -196,17 +209,22 @@ img, video {
   transform: translateY(-50%);
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  /* added line */
-  border: 0;
+.like-button {
+  background: transparent;
+  outline: none;
+  color: #901C1C;
+  font-size: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "DM Sans", sans-serif;
+}
+.like-button:hover svg, .like-button:focus svg {
+  transform: scale(1.05);
+  fill: #D3573C;
+}
+.like-button svg {
+  fill: #901C1C;
 }
 
 #lightbox {
@@ -797,27 +815,16 @@ label:hover, label:focus {
   justify-content: space-between;
   align-items: center;
   color: #901C1C;
+  /*p{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }*/
 }
-#photographer-medias figcaption p {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#photographer-medias figcaption :first-child:hover, #photographer-medias figcaption :first-child:focus {
+#photographer-medias figcaption > *:hover, #photographer-medias figcaption > *:focus {
   outline: none;
   transform: scale(1.05);
   color: #D3573C;
-}
-#photographer-medias figcaption button {
-  background: transparent;
-  outline: none;
-}
-#photographer-medias figcaption button:hover svg, #photographer-medias figcaption button:focus svg {
-  transform: scale(1.05);
-  fill: #D3573C;
-}
-#photographer-medias figcaption svg {
-  fill: #901C1C;
 }
 
 .photographer-medias__filter {

@@ -129,27 +129,17 @@
         justify-content: space-between;
         align-items: center;
         color: $primary-color;
-        p{
+        /*p{
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        & :first-child:hover, & :first-child:focus{
+        }*/
+        & >*:hover, & >*:focus{
             outline: none;
             @include focus-scale;
             color: $secondary-color;
         }
-        button{
-            background: transparent;
-            outline: none;
-            &:hover svg, &:focus svg{
-                @include focus-scale;
-                fill: $secondary-color;
-            }
-        }
-        svg{
-            fill: $primary-color;
-        }
+        
     }
 }
 

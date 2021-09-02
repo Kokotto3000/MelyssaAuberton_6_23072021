@@ -83,6 +83,7 @@
         width: 100%;
         text-transform: capitalize;
         padding: 2rem 10%;
+        // font-family: "DM Sans", sans-serif;
         &:first-child::after{
             font-family: "Font Awesome 5 Free";
             font-weight: 900;
@@ -121,14 +122,20 @@
     }
 }
 
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap; /* added line */
-    border: 0;
+.like-button{
+    background: transparent;
+    outline: none;
+    color: $primary-color;
+    font-size: 2.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "DM Sans", sans-serif;
+    &:hover svg, &:focus svg{
+        @include focus-scale;
+        fill: $secondary-color;
+    }
+    svg{
+        fill: $primary-color;
+    }
 }

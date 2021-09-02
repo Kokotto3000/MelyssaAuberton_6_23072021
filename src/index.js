@@ -163,7 +163,7 @@ function displayPhotographerPresentation(){
 function updatePhotographerMedias(id, filter){
     sliderArray= [];
     likes= 0;
-    const PHOTOGRAPHER_LIKES= document.getElementById('likes'); 
+    const PHOTOGRAPHER_LIKES= document.getElementById('likes');
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
     filteredMedias.forEach(media =>{            
         const mediaCard = new Medias(media);
