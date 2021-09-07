@@ -11,10 +11,7 @@ export class Contact {
         this.messages= document.querySelectorAll('.message');
     }
 
-    getInputs(input){        
-        return this.inputs[input];
-    }
-
+    //les methodes pour la vérification des champs et l'affichage des erreurs
     stringValidation(type){
         switch (type) {
             case "first" :
@@ -32,13 +29,13 @@ export class Contact {
             //style modification, error message
             this.input.classList.remove('valid');
             this.input.classList.add('invalid');
+            //permet d'alerter de façon sonore qqn qui navigue avec le lecteur d'écran, couplé avec role="alert"
             this.input.setAttribute("aria-invalid", "true");
             if(this.error.id === "error-first") this.error.innerText= "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
             else if(this.error.id === "error-last") this.error.innerText= "Veuillez entrer 2 caractères ou plus pour le champ du nom."
             this.error.classList.add('span-error');
             return false;
         }else{
-            // console.log(this.input.value);
             this.input.classList.remove('invalid');
             this.input.classList.add('valid');
             this.input.setAttribute("aria-invalid", "false");
@@ -90,6 +87,12 @@ export class Contact {
         }
     }
 
+    //sert pour l'envoi du message dans la console
+    getInputs(input){        
+        return this.inputs[input];
+    }
+
+    //efface le formulaire si on quitte le formulaire ou s'il est bien envoyé
     resetForm(){
         FORM.reset();
         for(let input of this.inputs){
@@ -101,5 +104,4 @@ export class Contact {
             message.classList.remove('span-error');
         });
     }
-
 }

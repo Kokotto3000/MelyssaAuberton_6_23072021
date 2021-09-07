@@ -15,22 +15,13 @@ export class Medias{
     }
 
     // methode pour l'affichage des medias
-    displayPhotographerMedias(id, filter){
-        if(!filter){
-            if(this.image){
-                this.displayPhoto(id);
-            } 
-            else if(this.video){
-                this.displayVideo(id);
-            }
-        }else{
-            if(this.image && this.tags[0] === filter){
-                this.displayPhoto(id);
-            }
-            else if(this.video && this.tags[0] === filter){
-                this.displayVideo(id);
-            }
-        }   
+    displayPhotographerMedias(id){
+        if(this.image){
+            this.displayPhoto(id);
+        } 
+        else if(this.video){
+            this.displayVideo(id);
+        }
     }
 
     displayPhoto(id){
