@@ -48,10 +48,7 @@ class Contact {
         this.messages= document.querySelectorAll('.message');
     }
 
-    getInputs(input){        
-        return this.inputs[input];
-    }
-
+    //les methodes pour la vérification des champs et l'affichage des erreurs
     stringValidation(type){
         switch (type) {
             case "first" :
@@ -69,13 +66,13 @@ class Contact {
             //style modification, error message
             this.input.classList.remove('valid');
             this.input.classList.add('invalid');
+            //permet d'alerter de façon sonore qqn qui navigue avec le lecteur d'écran, couplé avec role="alert"
             this.input.setAttribute("aria-invalid", "true");
             if(this.error.id === "error-first") this.error.innerText= "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
             else if(this.error.id === "error-last") this.error.innerText= "Veuillez entrer 2 caractères ou plus pour le champ du nom."
             this.error.classList.add('span-error');
             return false;
         }else{
-            // console.log(this.input.value);
             this.input.classList.remove('invalid');
             this.input.classList.add('valid');
             this.input.setAttribute("aria-invalid", "false");
@@ -127,6 +124,12 @@ class Contact {
         }
     }
 
+    //sert pour l'envoi du message dans la console
+    getInputs(input){        
+        return this.inputs[input];
+    }
+
+    //efface le formulaire si on quitte le formulaire ou s'il est bien envoyé
     resetForm(){
         _globals__WEBPACK_IMPORTED_MODULE_0__.FORM.reset();
         for(let input of this.inputs){
@@ -138,7 +141,6 @@ class Contact {
             message.classList.remove('span-error');
         });
     }
-
 }
 
 
@@ -172,9 +174,12 @@ class Lightbox{
             this.lightbox.innerHTML= `<div class='lightbox-content'><figure><video aria-label="${this.slider[this.index].alt}" tabindex= "0" controls><source src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].video}"  type="video/mp4" /><track default kind="captions" srclang="fr" src="../assets/track.vtt" /><p>Votre navigateur ne peut pas lire les videos...</p></video><figcaption tabindex="0">${this.slider[this.index].title}</figcaption></figure><button role="button" class="lightbox-content__previous-button" aria-label="Previous image"></button><button role="button" class="lightbox-content__next-button" aria-label="Next image"></button><button role="button" class="lightbox-content__close-button" aria-label="Close dialog"></button></div>`;            
         }
 
-        // console.log(this.lightbox);
+        //pour piéger le focus dans la lightbox
         (0,_globals__WEBPACK_IMPORTED_MODULE_0__.keepFocus)(this.lightbox);
+        //mettre le focus sur la lightbox
         this.lightbox.focus();
+
+        //déclaration des events au click sur les boutons
         const LIGHTBOX_CLOSE= document.querySelector('.lightbox-content__close-button').addEventListener('click', ()=> {
             this.lightbox.style.display= "none";
             this.lightbox.setAttribute("aria-modal", "false");
@@ -182,17 +187,17 @@ class Lightbox{
 
         });
         const LIGHTBOX_PREVIOUS= document.querySelector('.lightbox-content__previous-button').addEventListener('click', ()=> {
-            // console.log('previous');
+            // on va chercher l'index précedent dans notre tableau et on réaffiche le nouveau
             this.index <= 0 ? this.index= this.slider.length - 1 : this.index--;
             this.displayLightbox(this.index);
         });
         const LIGHTBOX_NEXT= document.querySelector('.lightbox-content__next-button').addEventListener('click', ()=> {
-            // console.log('next');
-            // this.index++;
+            // on va chercher l'index suivant dans notre tableau et on affiche le nouveau media
             this.index >= this.slider.length - 1 ? this.index= 0 : this.index++;
             this.displayLightbox(this.index);
         });
 
+        // déclaration des events pour la navigation au clavier
         document.addEventListener('keydown', e => {
             if(e.code === "ArrowRight"){
                 this.index >= this.slider.length - 1 ? this.index= 0 : this.index++;
@@ -203,14 +208,11 @@ class Lightbox{
             }else if(e.code === "Escape"){
                 this.lightbox.style.display= "none";
                 this.lightbox.setAttribute("aria-modal", "false");
-                // console.log(PHOTOGRAPHER_MEDIAS.firstChild);
+                //remet le focus sur le premier media de la page photographe à la fermeture
                 _globals__WEBPACK_IMPORTED_MODULE_0__.PHOTOGRAPHER_MEDIAS.firstChild.children[0].focus();
             }
         });
-
-    }
-
-    
+    }    
 }
 
 /***/ }),
@@ -243,22 +245,13 @@ class Medias{
     }
 
     // methode pour l'affichage des medias
-    displayPhotographerMedias(id, filter){
-        if(!filter){
-            if(this.image){
-                this.displayPhoto(id);
-            } 
-            else if(this.video){
-                this.displayVideo(id);
-            }
-        }else{
-            if(this.image && this.tags[0] === filter){
-                this.displayPhoto(id);
-            }
-            else if(this.video && this.tags[0] === filter){
-                this.displayVideo(id);
-            }
-        }   
+    displayPhotographerMedias(id){
+        if(this.image){
+            this.displayPhoto(id);
+        } 
+        else if(this.video){
+            this.displayVideo(id);
+        }
     }
 
     displayPhoto(id){
@@ -377,42 +370,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "tabbableElements": () => (/* binding */ tabbableElements),
 /* harmony export */   "keepFocus": () => (/* binding */ keepFocus)
 /* harmony export */ });
+/********************VARIABLES GLOBALES AU PROJET********************/
+
 const PHOTOGRAPHERS_SECTION= document.querySelector('.accueil-photographers');
 const PHOTOGRAPHER_PRESENTATION= document.querySelector('.photographer-page__presentation');
 const PHOTOGRAPHER_MEDIAS= document.getElementById('photographer-medias');
-//export const PHOTOGRAPHER_LIKES= document.getElementById('likes');
-//export const PHOTOGRAPHER_PRICE= document.getElementById('price');
 const FORM= document.querySelector("form");
 const LIGHTBOX= document.getElementById('lightbox');
 
+// considère tous les éléments focusable
 const tabbableElements = 'a[href], area[href], input:not([disabled]),' +
 	'select:not([disabled]), textarea:not([disabled]),' +
 	'button:not([disabled]), iframe, object, embed, *[tabindex],' +
 	'*[contenteditable]';
 
+//fonction qui piège le focus
 function keepFocus(context) {
 	const allTabbableElements = context.querySelectorAll(tabbableElements);
-    //console.log(allTabbableElements);
 	const firstTabbableElement = allTabbableElements[0];
 	const lastTabbableElement = allTabbableElements[allTabbableElements.length - 1];
 
 	function keyListener(e) {
-		// let keyCode = e.which || e.keyCode; // Get the current keycode
-
-		// Polyfill to prevent the default behavior of events
 		e.preventDefault = e.preventDefault || function () {
 			e.returnValue = false;
 		};
 
-		// If it is TAB
+		//si on appuie sur la touche tab
 		if (e.code === "Tab") {
 
-			// Move focus to first element that can be tabbed if Shift isn't used
+			//si on appuie sur la touche tab sans appuyer sur shift
 			if (e.target === lastTabbableElement && !e.shiftKey) {
 				e.preventDefault();
 				firstTabbableElement.focus();
 
-			// Move focus to last element that can be tabbed if Shift is used
+			//si on appuie sur tab et shift on revient en arrière
 			} else if (e.target === firstTabbableElement && e.shiftKey) {
 				e.preventDefault();
 				lastTabbableElement.focus();
@@ -420,6 +411,7 @@ function keepFocus(context) {
 		}
 	};
 
+	//l'event pour détecter les touches dans l'élément "piégé"
 	context.addEventListener('keydown', keyListener, false);
 };
 
@@ -496,10 +488,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_Medias__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/Medias */ "./src/js/Medias.js");
 /* harmony import */ var _js_Contact__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/Contact */ "./src/js/Contact.js");
 /* harmony import */ var _js_Lightbox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/Lightbox */ "./src/js/Lightbox.js");
+/********************IMPORTS*********************/
+
 //import du main.scss
 
 
 //import des données du fichier .json
+
+//dans la version 5 de webpack, le fetch se fait automatiquement sur les fichiers .json
 
 // importe les globals
 
@@ -510,9 +506,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//CONSTANTES ET VARIABLES
+/********************CONSTANTES ET VARIABLES********************/
+
 const photographersData= _data_FishEyeData_json__WEBPACK_IMPORTED_MODULE_1__.photographers;
 const mediasData= _data_FishEyeData_json__WEBPACK_IMPORTED_MODULE_1__.media;
+
+//console.log(photographersData);
 
 //création d'un tableau pour la création de la barre de nav
 const tags= ["portrait", "art", "fashion", "architecture", "travel", "sport", "animals", "events"];
@@ -523,32 +522,33 @@ const navList= document.createElement('ul');
 const urlParams= window.location.search;
 const params= new URLSearchParams(urlParams);
 
-// DROPDOWN
+// variables pour le DROPDOWN, récupération des éléments nécessaire du DOM et création d'un tableau avec les tags
 const DROPDOWN= document.querySelector('.photographer-medias__filter-dropdown');
 let BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
 const dropdownElements= ["popularité", "date", "titre"];
 
-//likes
+//variables utiles pour les likes
 let disabledLikes= false;
 let likes= 0;
 
-//form
+// variables pour la validation du formulaire
 let isValidFirst= false;
 let isValidLast= false;
 let isValidMail= false;
 let isValidMessage= false;
 
-//lightbox
+// création d'un tableau pour la lightbox
 let sliderArray= [];
 
 // passer au contenu
 let isScrolling= false;
 
 
-//FONCTIONS
+/********************FONCTIONS********************/
 
-// fonction de filtre des boutons tags, génère les cartes des photographes
+// fonction qui initialise l'affichage de l'index du site en fonction ou non des filtres sur les boutons tags(utile aussi pour le retour sur la page index grâce aux tags de la page photographe), génère les cartes des photographes
 function init(){
+    //création de la barre de nav
     NAV.appendChild(navList);
     tags.forEach(tag=> {
         const newTag= document.createElement('li');
@@ -556,12 +556,15 @@ function init(){
         navList.appendChild(newTag);
     });
 
+    //vérifie si un filtre à été rentré dans l'url
     let filter;
+    //on récupère les infos dans l'url
     for(let p of params){
         if(p) filter= p[1];
     }
     
     if(filter){
+        // affiche toutes les cartes photographes en fonction du filtre en instanciant la classe Photographer et en appelant la méthode updatePhotographerCards, et change le title du head
         const filteredPhotographers= photographersData.filter(photographer => photographer.tags.includes(filter));       
         filteredPhotographers.forEach(photographer =>{            
             const photographerCard = new _js_Photographer__WEBPACK_IMPORTED_MODULE_3__.Photographer(photographer);
@@ -569,13 +572,14 @@ function init(){
             document.title= `FishEye | Accueil, tri des photographes par ${filter}`;
         });
     }else{
+        // s'il n'y a pas de filtre, on affiche tout
         photographersData.forEach(photographer =>{
             const photographerCard = new _js_Photographer__WEBPACK_IMPORTED_MODULE_3__.Photographer(photographer);
             photographerCard.updatePhotographerCards();
         });
     }
 
-    //  bouton passer au contenu
+    //  event sur le scroll de cette page pour afficher le bouton "passer au contenu"
     window.addEventListener('scroll', ()=> {
         const SCROLL_BUTTON= document.getElementById("scroll-button");
         if(!isScrolling){
@@ -584,92 +588,109 @@ function init(){
     });
 }
 
-// fonction pour l'affichage de la présentation sur la page photographe
+// fonction pour l'affichage de la présentation du photographe sélectionné sur la page photographe
 function displayPhotographerPresentation(){
+    //on récupère les infos dans l'url pour afficher le photographe qui correspond à l'id
     for (let p of params) {
         photographersData.forEach(photographer => {
             if(photographer.id == p[1]){
                 const photographerPresentation = new _js_Photographer__WEBPACK_IMPORTED_MODULE_3__.Photographer(photographer);
                 photographerPresentation.updatePhotographerPresentation();
 
-                if(_js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHER_MEDIAS){
-                    updatePhotographerMedias(photographer.id);
-                } 
+                //on appelle la fonction qui va affiche les medias du photographe en lui passant son id en argument
+                updatePhotographerMedias(photographer.id);
 
-                if(_js_globals__WEBPACK_IMPORTED_MODULE_2__.FORM){
-                    const contact= new _js_Contact__WEBPACK_IMPORTED_MODULE_5__.Contact();
-                    const modalbg = document.querySelector(".photographer-modal");
-                    const modalBtn = document.querySelector(".contact-button");
-                    const modalCloseBtn = document.querySelector(".close");                    
-                    const SUCCESS= document.getElementById("success-message");
-                    const modalTitle= document.querySelector(".photographer-modal__content-title span");
-                    modalTitle.innerText= photographer.name;
-                    
-                    // modal events
-                    modalBtn.addEventListener("click", ()=> {
-                        modalbg.style.display = "block";
-                        modalbg.setAttribute("aria-modal", "true");
-                        (0,_js_globals__WEBPACK_IMPORTED_MODULE_2__.keepFocus)(modalbg);
-                        modalbg.focus();
-                    });
+                //on va maintenant s'occuper du formulaire de contact, lié au bouton contacter-moi
+                //on instancie la classe contact pour les vérifications
+                const contact= new _js_Contact__WEBPACK_IMPORTED_MODULE_5__.Contact();
+                //on récupère les éléments nécessaire du DOM
+                const modalbg = document.querySelector(".photographer-modal");
+                const modalBtn = document.querySelector(".contact-button");
+                const modalCloseBtn = document.querySelector(".close");                    
+                const SUCCESS= document.getElementById("success-message");
+                const modalTitle= document.querySelector(".photographer-modal__content-title span");
+                //on affiche le nom du photographe dans le titre
+                modalTitle.innerText= photographer.name;
+                
+                // event sur le bouton contact qui marche avec le click de la souris ou entrée quand on est focus dessus
+                modalBtn.addEventListener("click", ()=> {
+                    modalbg.style.display = "block";
+                    modalbg.setAttribute("aria-modal", "true");
+                    (0,_js_globals__WEBPACK_IMPORTED_MODULE_2__.keepFocus)(modalbg);
+                    modalbg.focus();
+                });
 
-                    function closeFormModal(){
-                        modalbg.style.display = "none";
-                        modalbg.setAttribute("aria-modal", "false");
-                        contact.resetForm();
-                        isValidFirst= isValidLast= isValidMail= false;
-                        modalBtn.focus();
-                    }
-                    modalCloseBtn.addEventListener("click", closeFormModal);
-                    document.addEventListener('keydown', e => {
-                        if(e.code === "Escape") closeFormModal();
-                    });
-
-                    contact.inputs.first.addEventListener("change", ()=>{
-                        contact.stringValidation("first");
-                    });
-                    contact.inputs.last.addEventListener("change", ()=>{
-                        contact.stringValidation("last");
-                    });
-                    contact.inputs.email.addEventListener("change", ()=>{
-                        contact.emailValidation();
-                    });
-                    contact.inputs.message.addEventListener("change", ()=>{
-                        contact.messageValidation();
-                    });
-
-                    _js_globals__WEBPACK_IMPORTED_MODULE_2__.FORM.addEventListener("submit", e => {
-                        e.preventDefault();
-                        contact.stringValidation("first") ? isValidFirst= true : false;
-                        contact.stringValidation("last") ? isValidLast= true : false;
-                        contact.emailValidation() ? isValidMail= true : false;
-                        contact.messageValidation() ? isValidMessage= true : false;
-                        if(isValidFirst && isValidLast && isValidMail && isValidMessage) {
-                            console.log("Message pour : " + photographer.name + "\nPrénom : " + contact.getInputs('first').value + "\nNom : " + contact.getInputs('last').value + "\nEmail : " + contact.getInputs('email').value + "\nMessage : " + contact.getInputs('message').value);                            
-                            contact.resetForm();
-                            isValidFirst= isValidLast= isValidMail= false; 
-                            SUCCESS.innerText= "Le message a bien été envoyé !";                           
-                        }
-                    });
+                //fonction pour la fermeture de la modal de contact qui sera appelée ou au click ou en appuyant sur escape
+                function closeFormModal(){
+                    modalbg.style.display = "none";
+                    modalbg.setAttribute("aria-modal", "false");
+                    contact.resetForm();
+                    isValidFirst= isValidLast= isValidMail= false;
+                    modalBtn.focus();
                 }
+
+                //les events pour la fermeture de la modal
+                modalCloseBtn.addEventListener("click", closeFormModal);
+                document.addEventListener('keydown', e => {
+                    if(e.code === "Escape") closeFormModal();
+                });
+
+                //les events pour la vérification des entrées dans le formulaire, vérifie dès qu'on change le focus ou qu'on clique ailleurs sur le formulaire et appelle la methode de vérification de Contact, POUR UNE MEILLEURE EXPERIENCE UTILISATEUR plutôt que d'attendre le submit
+                contact.inputs.first.addEventListener("change", ()=>{
+                    contact.stringValidation("first");
+                });
+                contact.inputs.last.addEventListener("change", ()=>{
+                    contact.stringValidation("last");
+                });
+                contact.inputs.email.addEventListener("change", ()=>{
+                    contact.emailValidation();
+                });
+                contact.inputs.message.addEventListener("change", ()=>{
+                    contact.messageValidation();
+                });
+
+                //event pour le bouton submit du formulaire
+                _js_globals__WEBPACK_IMPORTED_MODULE_2__.FORM.addEventListener("submit", e => {
+                    //on annule le comportement par défaut
+                    e.preventDefault();
+                    //on vérifie les champs
+                    contact.stringValidation("first") ? isValidFirst= true : false;
+                    contact.stringValidation("last") ? isValidLast= true : false;
+                    contact.emailValidation() ? isValidMail= true : false;
+                    contact.messageValidation() ? isValidMessage= true : false;
+                    // si les champs sont tous bons, on enevoie le message de l'utilisateur dans la console et on affiche un message de succès
+                    if(isValidFirst && isValidLast && isValidMail && isValidMessage) {
+                        console.log("Message pour : " + photographer.name + "\nPrénom : " + contact.getInputs('first').value + "\nNom : " + contact.getInputs('last').value + "\nEmail : " + contact.getInputs('email').value + "\nMessage : " + contact.getInputs('message').value);                            
+                        contact.resetForm();
+                        isValidFirst= isValidLast= isValidMail= false; 
+                        SUCCESS.innerText= "Le message a bien été envoyé !";                           
+                    }
+                });
             }
         });
     }
 }
 
-// fonction pour l'affichage de medias de la page photographe
-function updatePhotographerMedias(id, filter){
+// fonction pour l'affichage des medias de la page photographe
+function updatePhotographerMedias(id){
+    //on vide le tableau des infos pour la lightbox à chaque fois qu'on appelle la fonction
     sliderArray= [];
+    //on remets les likes à zero à chaque fois qu'on appelle cette fonction
     likes= 0;
+
+    // pour les likes dans le footer
     const PHOTOGRAPHER_LIKES= document.getElementById('likes');
+
+    // création d'un tableau avec les medias en fonction de l'id du photographe
     const filteredMedias= mediasData.filter(media => media.photographerId == id);
+
+    // affichage des medias grâce à la méthode displayPhotographerMedias à chaque media filtré
     filteredMedias.forEach(media =>{            
         const mediaCard = new _js_Medias__WEBPACK_IMPORTED_MODULE_4__.Medias(media);
-        mediaCard.displayPhotographerMedias(id, filter);
+        mediaCard.displayPhotographerMedias(id);
 
-        if(filter){
-            if(media.tags[0] === filter) sliderArray.push(mediaCard);   
-        }else sliderArray.push(mediaCard);
+        //on ajoute nos mediaCard à notre array pour la lightbox
+        sliderArray.push(mediaCard);
 
         // FOOTER
         //ne charge les likes du .json qu'au chargement de la page
@@ -679,56 +700,63 @@ function updatePhotographerMedias(id, filter){
         }        
     });
 
-    // LIKES event
+    // LIKES event quand on appuie sur les likes du photographe, ajoute 1 like sous la photo et dans le footer (une seule fois par media grâce à isCliquable)
     const LIKE_BUTTONS= document.querySelectorAll('.like-button');
     LIKE_BUTTONS.forEach(button=> {
+        //on repasse isCliquable à true à chaque fois qu'on recharge la page (tant qu'on ne modifie pas la BDD)
         let isCliquable= true;
         button.addEventListener('click', ()=> {
-            // on ne peut cliquer qu'une fois sur les coeurs des medias, par page...
             if(isCliquable){
                 const LIKES= button.querySelector('span');
                 LIKES.innerText++;
                 PHOTOGRAPHER_LIKES.innerText++;
+                //passe à false si cliqué, ne peut donc plus être cliqué
                 isCliquable= false;
             }
         });
     });
+    //si on reste sur cette page, les likes ne seront pas ajoutés à chaque différentes recherches
     disabledLikes= true;
 
-    //LIGHTBOX
-    
+    //LIGHTBOX    
+    //on récupère tous les liens cliquable qui envoient vers la lighbox
     const MEDIAS= document.querySelectorAll('.photographer-media__link');
-    
+    //evenement qui affiche la lightbox et instancie la classe Lightbox avec le tableau de medias en arguments    
     MEDIAS.forEach(media => media.addEventListener('click', ()=> {
         const sliderIndex= sliderArray.map(sliderId => sliderId.id).indexOf(Number(media.id));
         _js_globals__WEBPACK_IMPORTED_MODULE_2__.LIGHTBOX.style.display= 'block';
-        _js_globals__WEBPACK_IMPORTED_MODULE_2__.LIGHTBOX.setAttribute("aria-modal", "true");
-        
+        _js_globals__WEBPACK_IMPORTED_MODULE_2__.LIGHTBOX.setAttribute("aria-modal", "true");        
         const lightbox= new _js_Lightbox__WEBPACK_IMPORTED_MODULE_6__.Lightbox(sliderArray);
         lightbox.displayLightbox(sliderIndex);        
     }));
 }
 
-//DROPDOWN
+//fonction pour le bouton dropdown
 function openDropdown(e){
     DROPDOWN.innerHTML = `<ul id="exp_elem_list" arialabelledby="exp_elem" aria-activedescendant= "exp_elem_${e.target.textContent}" role="listbox" aria-expended="true">` + dropdownElements.map(element => `<li role="option" id="exp_elem_${element}" tabindex= "0" class="button photographer-medias__filter-dropdown-button">${element}</li>`).join('') + `</ul>`;
     
+    //piège le focus dans le dropdown pour la navigation au clavier
     (0,_js_globals__WEBPACK_IMPORTED_MODULE_2__.keepFocus)(DROPDOWN);
     const FIRST_BUTTON= DROPDOWN.querySelector('li');
+    //mets le focus le prmier bouton à l'ouverture du dropdown
     FIRST_BUTTON.focus();
     
+    //on récupère les nouveaux boutons à l'ouverture
     const DROPDOWN_BUTTONS= document.querySelectorAll('.photographer-medias__filter-dropdown-button');
     DROPDOWN_BUTTONS.forEach(button=> {
+        //et on filtre l'affichage en fonction du click
         button.addEventListener('click', filterDropdown);
         button.addEventListener('keydown', e => {
             if(e.code === "Enter") filterDropdown(e);
         });
     })
+    //on peut aussi appuyer sur escape pour fermer le dropdown
     document.addEventListener("keydown", e=> {
         if(e.code === "Escape") closeDropdown(BUTTON.textContent);
     });
 }
 
+//fonction pour filtrer l'affichage en focntion du click sur le dropdown
 function filterDropdown(e){
     for(let p of params){
         if(p){
@@ -737,6 +765,7 @@ function filterDropdown(e){
             });
         }
     }
+    //switch sur les différentes options et trie des medias grâce à element.sort()
     switch(e.target.textContent) {
         case "popularité" :
             mediasData.sort((a, b) => a.likes - b.likes);
@@ -765,9 +794,11 @@ function filterDropdown(e){
         default :
             console.log('error dropdown');
     }
+    //une fois le click-tri effectué on ferme le dropdown
     closeDropdown(e.target.textContent);   
 }
 
+//fonction pour fermer le dropdown
 function closeDropdown(content){
     DROPDOWN.innerHTML= `<button role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${content}</button>`;
     BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
@@ -775,7 +806,9 @@ function closeDropdown(content){
 }
 
 
-//CODE PRINCIPAL
+/**********************CODE PRINCIPAL********************/
+
+//ceux sont ces lignes qui vont lancer les fonctions principales du site
 if(_js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHERS_SECTION) init();
 
 if(_js_globals__WEBPACK_IMPORTED_MODULE_2__.PHOTOGRAPHER_PRESENTATION) displayPhotographerPresentation();
