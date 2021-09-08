@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="main.css" />
 </head>
 <body>
-    <header class="header" role="banner">
-        <a href="index.html" role="link" aria-label="Fisheye logo - Home page">
+    <header class="header">
+        <a href="index.html" aria-label="Fisheye logo - Home page">
             <svg class="header__logo" role="img" aria-labelledby="logo" width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
                 <title id="logo">Logo FishEye</title>
                 <path d="M24.7206 0.911621V6.51058H6.31164V17.5783H21.4333V22.9168H6.31164V39.1929H0V0.911621H24.7206Z" />
@@ -37,7 +37,7 @@
                 <p tabindex="0" id="exp_elem" aria-label="Menu de tri par catégories">Trier par</p>
 
                 <div id="exp_wrapper" class="photographer-medias__filter-dropdown">
-                    <button role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">Popularité</button>
+                    <button id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">Popularité</button>
                 </div>
             </div>          
         </div>
@@ -75,12 +75,14 @@
                         </div>
     
                         <div>
-                            <button class="btn-submit button" type="submit" role="button">C'est parti</button>
+                            <button class="btn-submit button" type="submit">C'est parti</button>
+                            <!-- role="alerte" permet d'indiquer verbalement à un lecteur d'écran qu'il y a une erreur et lui lit le message -->
                             <span id="success-message" role="alert" class="message"></span>
                         </div>                        
                     </form>
-                </div>  
-                <button class="close" aria-label="Close dialog" role="button"></button>
+                </div>
+                <!-- role="button" -->
+                <button class="close" aria-label="Close dialog"></button>
             </div>
         </div>
     
