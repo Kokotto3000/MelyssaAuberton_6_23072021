@@ -815,11 +815,6 @@ label:hover, label:focus {
   justify-content: space-between;
   align-items: center;
   color: #901C1C;
-  /*p{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }*/
 }
 #photographer-medias figcaption > *:hover, #photographer-medias figcaption > *:focus {
   outline: none;

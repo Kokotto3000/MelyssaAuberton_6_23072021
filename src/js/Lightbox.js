@@ -7,7 +7,7 @@ export class Lightbox{
     }
 
     displayLightbox(index){
-        this.index= index;       
+        this.index= index;      
         
         if(this.slider[this.index].image){
             this.lightbox.innerHTML= `<div class='lightbox-content'><figure><img tabindex="0" src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].image}" alt="${this.slider[this.index].alt}" /><figcaption tabindex="0">${this.slider[this.index].title}</figcaption></figure><button class="lightbox-content__previous-button" aria-label="Previous image"></button><button class="lightbox-content__next-button" aria-label="Next image"></button><button class="lightbox-content__close-button" aria-label="Close dialog"></button></div>`;
