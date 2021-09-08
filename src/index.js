@@ -62,7 +62,7 @@ function init(){
     NAV.appendChild(navList);
     tags.forEach(tag=> {
         const newTag= document.createElement('li');
-        newTag.innerHTML=`<a class="tag" href="?id=${tag}" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
+        newTag.innerHTML=`<a class="tag" href="?id=${tag}" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
         navList.appendChild(newTag);
     });
 
@@ -310,7 +310,7 @@ function filterDropdown(e){
 
 //fonction pour fermer le dropdown
 function closeDropdown(content){
-    DROPDOWN.innerHTML= `<button role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${content}</button>`;
+    DROPDOWN.innerHTML= `<button id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${content}</button>`;
     BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
     BUTTON.addEventListener('click', openDropdown);
 }

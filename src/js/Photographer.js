@@ -23,10 +23,10 @@ export class Photographer{
         photographerTags.setAttribute("aria-label", "Navigation secondaire");
         photographerTags.setAttribute("role", "navigation");
         const photographerFooter= document.createElement('footer');
-        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" href="?id=${tag}" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
+        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" href="?id=${tag}" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
         PHOTOGRAPHERS_SECTION.appendChild(photographerCard);
         photographerCard.classList.add('accueil-photographers__card');
-        photographerCard.innerHTML= `<a class="accueil-photographers__card-link" href="photographer-page.html?id=${this.id}" role="link" alt="${this.name}">${photographerImg} ${photographerName}</a><div class="accueil-photographers__card-content" aria-label="informations sur le photographe" tabindex="0">${photographerData}</div>`;
+        photographerCard.innerHTML= `<a class="accueil-photographers__card-link" href="photographer-page.html?id=${this.id}" alt="${this.name}">${photographerImg} ${photographerName}</a><div class="accueil-photographers__card-content" aria-label="informations sur le photographe" tabindex="0">${photographerData}</div>`;
         photographerCard.appendChild(photographerFooter);
         photographerFooter.appendChild(photographerTags);
     }
@@ -41,7 +41,9 @@ export class Photographer{
         presentationDatas.innerHTML= `<h1 tabindex="0">${this.name}</h1><div class="photographer-page__presentation-content--informations" tabindex="0" aria-label="informations sur le photographe ${this.name}><p class="photographer-page__presentation-content--location">${this.city}, ${this.country}</p><p class="photographer-page__presentation-content--tagline">${this.tagline}</p></div>`;
         const photographerFooter= document.createElement('footer');
         presentationDatas.appendChild(photographerFooter);
-        const photographerTags= document.createElement('ul');   
+        const photographerTags= document.createElement('ul');
+        photographerTags.setAttribute("aria-label", "Navigation secondaire");
+        photographerTags.setAttribute("role", "navigation");   
         photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" href="index.html?id=${tag}" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
         photographerFooter.appendChild(photographerTags);
         const contactButton= document.createElement('button');

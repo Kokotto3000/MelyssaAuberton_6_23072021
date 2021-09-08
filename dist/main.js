@@ -166,12 +166,12 @@ class Lightbox{
     }
 
     displayLightbox(index){
-        this.index= index;        
+        this.index= index;       
         
         if(this.slider[this.index].image){
-            this.lightbox.innerHTML= `<div class='lightbox-content'><figure><img tabindex="0" src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].image}" alt="${this.slider[this.index].alt}" /><figcaption tabindex="0">${this.slider[this.index].title}</figcaption></figure><button role="button" class="lightbox-content__previous-button" aria-label="Previous image"></button><button role="button" class="lightbox-content__next-button" aria-label="Next image"></button><button role="button" class="lightbox-content__close-button" aria-label="Close dialog"></button></div>`;
+            this.lightbox.innerHTML= `<div class='lightbox-content'><figure><img tabindex="0" src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].image}" alt="${this.slider[this.index].alt}" /><figcaption tabindex="0">${this.slider[this.index].title}</figcaption></figure><button class="lightbox-content__previous-button" aria-label="Previous image"></button><button class="lightbox-content__next-button" aria-label="Next image"></button><button class="lightbox-content__close-button" aria-label="Close dialog"></button></div>`;
         }else if(this.slider[this.index].video){
-            this.lightbox.innerHTML= `<div class='lightbox-content'><figure><video aria-label="${this.slider[this.index].alt}" tabindex= "0" controls><source src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].video}"  type="video/mp4" /><track default kind="captions" srclang="fr" src="../assets/track.vtt" /><p>Votre navigateur ne peut pas lire les videos...</p></video><figcaption tabindex="0">${this.slider[this.index].title}</figcaption></figure><button role="button" class="lightbox-content__previous-button" aria-label="Previous image"></button><button role="button" class="lightbox-content__next-button" aria-label="Next image"></button><button role="button" class="lightbox-content__close-button" aria-label="Close dialog"></button></div>`;            
+            this.lightbox.innerHTML= `<div class='lightbox-content'><figure><video aria-label="${this.slider[this.index].alt}" tabindex= "0" controls><source src="../assets/images/${this.slider[this.index].photographerId}/${this.slider[this.index].video}"  type="video/mp4" /><track default kind="captions" srclang="fr" src="../assets/track.vtt" /><p>Votre navigateur ne peut pas lire les videos...</p></video><figcaption tabindex="0">${this.slider[this.index].title}</figcaption></figure><button class="lightbox-content__previous-button" aria-label="Previous image"></button><button class="lightbox-content__next-button" aria-label="Next image"></button><button class="lightbox-content__close-button" aria-label="Close dialog"></button></div>`;            
         }
 
         //pour piéger le focus dans la lightbox
@@ -256,8 +256,8 @@ class Medias{
 
     displayPhoto(id){
         const mediaCard= document.createElement('figure');
-        const photo= `<a role="link" class="photographer-media__link" id="${this.id}" href="#"><img class="photographer-media" src="../assets/images/${id}/${this.image}" alt="${this.alt}" /></a>`;
-        const legend= `<figcaption><p tabindex="0">${this.title}</p><button role="button" class="like-button" aria-label="Like button, pour ajouter un like à l'image. Nombre de likes sur cette image ${this.likes}"><span>${this.likes}</span><svg focusable="true" data-prefix="far" data-icon="heart" class="heart" role="img" alt="like" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
+        const photo= `<a class="photographer-media__link" id="${this.id}" href="#"><img class="photographer-media" src="../assets/images/${id}/${this.image}" alt="${this.alt}" /></a>`;
+        const legend= `<figcaption><h2 tabindex="0">${this.title}</h2><button class="like-button" aria-label="Like button, pour ajouter un like à l'image. Nombre de likes sur cette image ${this.likes}"><span>${this.likes}</span><svg focusable="true" data-prefix="far" data-icon="heart" class="heart" role="img" alt="like" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
         <path d="M259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z"></path></svg></button></figcaption>`;
         mediaCard.innerHTML= photo + legend;
         _globals__WEBPACK_IMPORTED_MODULE_0__.PHOTOGRAPHER_MEDIAS.appendChild(mediaCard);
@@ -265,8 +265,8 @@ class Medias{
 
     displayVideo(id){
         const mediaCard= document.createElement('div');
-        const video= `<a role="link" class="photographer-media__link" id="${this.id}" href="#" aria-label="${this.alt}"><video tabindex="-1" class="photographer-media"><source src="../assets/images/${id}/${this.video}" type="video/mp4" /><track default kind="captions" srclang="fr" src="../assets/track.vtt" /><p>Votre navigateur ne peut pas lire les videos...</p></video></a>`;
-        const legend= `<figcaption><p tabindex="0">${this.title}</p><button role="button" class="like-button" aria-label="Like button, pour ajouter un like à l'image. Nombre de likes sur cette image ${this.likes}"><span>${this.likes}</span><svg focusable="true" data-prefix="far" data-icon="heart" class="heart" role="img" alt="like" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
+        const video= `<a class="photographer-media__link" id="${this.id}" href="#" aria-label="${this.alt}"><video tabindex="-1" class="photographer-media"><source src="../assets/images/${id}/${this.video}" type="video/mp4" /><track default kind="captions" srclang="fr" src="../assets/track.vtt" /><p>Votre navigateur ne peut pas lire les videos...</p></video></a>`;
+        const legend= `<figcaption><h2 tabindex="0">${this.title}</h2><button class="like-button" aria-label="Like button, pour ajouter un like à l'image. Nombre de likes sur cette image ${this.likes}"><span>${this.likes}</span><svg focusable="true" data-prefix="far" data-icon="heart" class="heart" role="img" alt="like" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30">
         <path d="M259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z"></path></svg></button></figcaption>`;
         mediaCard.innerHTML= video + legend;
         _globals__WEBPACK_IMPORTED_MODULE_0__.PHOTOGRAPHER_MEDIAS.appendChild(mediaCard);
@@ -311,10 +311,10 @@ class Photographer{
         photographerTags.setAttribute("aria-label", "Navigation secondaire");
         photographerTags.setAttribute("role", "navigation");
         const photographerFooter= document.createElement('footer');
-        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" href="?id=${tag}" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
+        photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" href="?id=${tag}" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
         _globals__WEBPACK_IMPORTED_MODULE_0__.PHOTOGRAPHERS_SECTION.appendChild(photographerCard);
         photographerCard.classList.add('accueil-photographers__card');
-        photographerCard.innerHTML= `<a class="accueil-photographers__card-link" href="photographer-page.html?id=${this.id}" role="link" alt="${this.name}">${photographerImg} ${photographerName}</a><div class="accueil-photographers__card-content" aria-label="informations sur le photographe" tabindex="0">${photographerData}</div>`;
+        photographerCard.innerHTML= `<a class="accueil-photographers__card-link" href="photographer-page.html?id=${this.id}" alt="${this.name}">${photographerImg} ${photographerName}</a><div class="accueil-photographers__card-content" aria-label="informations sur le photographe" tabindex="0">${photographerData}</div>`;
         photographerCard.appendChild(photographerFooter);
         photographerFooter.appendChild(photographerTags);
     }
@@ -329,7 +329,9 @@ class Photographer{
         presentationDatas.innerHTML= `<h1 tabindex="0">${this.name}</h1><div class="photographer-page__presentation-content--informations" tabindex="0" aria-label="informations sur le photographe ${this.name}><p class="photographer-page__presentation-content--location">${this.city}, ${this.country}</p><p class="photographer-page__presentation-content--tagline">${this.tagline}</p></div>`;
         const photographerFooter= document.createElement('footer');
         presentationDatas.appendChild(photographerFooter);
-        const photographerTags= document.createElement('ul');   
+        const photographerTags= document.createElement('ul');
+        photographerTags.setAttribute("aria-label", "Navigation secondaire");
+        photographerTags.setAttribute("role", "navigation");   
         photographerTags.innerHTML= this.tags.map(tag => `<li><a class="tag" href="index.html?id=${tag}" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a></li>`).join('');
         photographerFooter.appendChild(photographerTags);
         const contactButton= document.createElement('button');
@@ -552,7 +554,7 @@ function init(){
     NAV.appendChild(navList);
     tags.forEach(tag=> {
         const newTag= document.createElement('li');
-        newTag.innerHTML=`<a class="tag" href="?id=${tag}" role="link" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
+        newTag.innerHTML=`<a class="tag" href="?id=${tag}" aria-label="tri des photographes par Tag ${tag}">#<span class="sr-only">Tag</span>${tag}</a>`;
         navList.appendChild(newTag);
     });
 
@@ -800,7 +802,7 @@ function filterDropdown(e){
 
 //fonction pour fermer le dropdown
 function closeDropdown(content){
-    DROPDOWN.innerHTML= `<button role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" role="button" id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${content}</button>`;
+    DROPDOWN.innerHTML= `<button id="exp_button" class="button photographer-medias__filter-dropdown-button--original" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">${content}</button>`;
     BUTTON= document.querySelector('.photographer-medias__filter-dropdown-button--original');
     BUTTON.addEventListener('click', openDropdown);
 }
